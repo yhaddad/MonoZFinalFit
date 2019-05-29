@@ -30,8 +30,8 @@ McStat_MM_bin300to350_ggZZ2l2nu lnN                        -                   -
 McStat_MM_bin300to350_qqZZ2l2nu lnN                        -                   -               1.029                   -                   -                   -                   -
 Theo_factRenormScale_DMY1000Xd200 lnN                  1.050                   -                   -                   -                   -                   -                   -
 Theo_pdfAlphaS_DMY1000Xd200 lnN                        1.010                   -                   -                   -                   -                   -                   -
-ZZWZNorm_allBins rateParam MM_bin300to350 ggZZ2l2nu 1. [0.01,10]
-DrellYanNorm rateParam MM_bin300to350 DrellYan 1. [0.01,10]
 ZZWZNorm_allBins rateParam MM_bin300to350 qqZZ2l2nu 1. [0.01,10]
-ZZWZNorm_allBins rateParam MM_bin300to350 WZ3lnu 1. [0.01,10]
 NRBnorm_RmSquared rateParam mm* Nonresonant 1 [0.01,10]
+ZZWZNorm_allBins rateParam MM_bin300to350 ggZZ2l2nu 1. [0.01,10]
+ZZWZNorm_allBins rateParam MM_bin300to350 WZ3lnu 1. [0.01,10]
+DrellYanNorm rateParam MM_bin300to350 DrellYan 1. [0.01,10]

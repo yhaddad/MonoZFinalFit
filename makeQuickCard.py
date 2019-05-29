@@ -76,6 +76,8 @@ def main():
         print("data_obs -->", data_obs, ch)
         for ibin in range(data_obs.GetNbinsX()):
             channel = "%s_%s" % (ch, bin_name(data_obs, ibin))
+            if ch in ['3L', '4L']:
+                channel = "cat" + channel
             ws.addChannel(channel)
             card = ws.cards[channel]
             card["observation"].append("bin          %s" % channel)
@@ -87,6 +89,8 @@ def main():
             ftool.checkShape(nominalHist, shapeName)
             for ibin in range(nominalHist.GetNbinsX()):
                 channel = "%s_%s" % (ch, bin_name(nominalHist, ibin))
+                if ch in ['3L', '4L']:
+                    channel = "cat" + channel
                 card = ws.cards[channel]
                 b = nominalHist.GetBinContent(ibin + 1)
                 card["rates"].append((process, b))
@@ -120,6 +124,8 @@ def main():
             ftool.checkShape(histDown, shapeName)
             for iBin in range(histUp.GetNbinsX()):
                 channel = "%s_%s" % (ch, bin_name(nominalHist, iBin))
+                if ch in ['3L', '4L']:
+                    channel = "cat" + channel
                 card = ws.cards[channel]
                 upR = hupratio.GetBinContent(iBin + 1)
                 if upR <= 0.:
@@ -144,6 +150,8 @@ def main():
             for iBin in range(data_obs.GetNbinsX()):
                 bn = bin_name(data_obs, iBin)
                 channel = "%s_%s" % (ch, bn)
+                if ch in ['3L', '4L']:
+                    channel = "cat" + channel
                 card = ws.cards[channel]
                 addNuisance(card, "CMS_lumi_2017 lnN", p, 1.026)
 
@@ -165,6 +173,8 @@ def main():
                 for iBin in range(data_obs.GetNbinsX()):
                     bn = bin_name(data_obs, iBin)
                     channel = "%s_%s" % (ch, bn)
+                    if ch in ['3L', '4L']:
+                        channel = "cat" + channel
                     card = ws.cards[channel]
                     addNuisance(card, "Theo_pdfAlphaS_%s lnN" % process, process, 1.01)
                     addNuisance(card, "Theo_factRenormScale_%s lnN" % process, process, 1.05)
@@ -173,10 +183,12 @@ def main():
             #    addShapeNuisance(process, "factRenormScale", "Theo_factRenormScale_VV")
             #else:
             #    addShapeNuisance(process, "factRenormScale", "Theo_factRenormScale_%s" % process)
-
+        print("")
         for iBin in range(data_obs.GetNbinsX()):
             bn = bin_name(data_obs, iBin)
             channel = "%s_%s" % (ch, bn)
+            if ch in ['3L', '4L']:
+                channel = "cat" + channel
             card = ws.cards[channel]
 
             if ch == 'EE':

@@ -22,9 +22,9 @@ CMS_Scale_pileup lnN                             0.100/0.100         0.100/0.100
 CMS_UES lnN                                      0.100/0.100         0.100/0.100         0.100/0.100         0.100/0.100         0.100/0.100
 CMS_lumi_2017 lnN                                      1.026               1.026               1.026               1.026               1.026
 NRBnorm_Inflate lnN                                    1.200                   -                   -                   -                   -
-ZZWZNorm_allBins rateParam NRB_bin45to50 qqZZ2l2nu 1. [0.01,10]
 DrellYanNorm rateParam NRB_bin45to50 DrellYan 1. [0.01,10]
-NRBnorm_ReSquared rateParam ll* Nonresonant @0 NRBnorm_RmSquared
-NRBnorm_RmSquared rateParam ll* Nonresonant 1 [0.01,10]
-ZZWZNorm_allBins rateParam NRB_bin45to50 ggZZ2l2nu 1. [0.01,10]
 ZZWZNorm_allBins rateParam NRB_bin45to50 WZ3lnu 1. [0.01,10]
+NRBnorm_ReSquared rateParam ll* Nonresonant @0 NRBnorm_RmSquared
+ZZWZNorm_allBins rateParam NRB_bin45to50 qqZZ2l2nu 1. [0.01,10]
+ZZWZNorm_allBins rateParam NRB_bin45to50 ggZZ2l2nu 1. [0.01,10]
+NRBnorm_RmSquared rateParam ll* Nonresonant 1 [0.01,10]

@@ -1,13 +1,13 @@
-# Card for channel 3L_bin80to120
+# Card for channel cat3L_bin80to120
 imax 1 # process in this card
 jmax 1 # process in this card - 1
 kmax 11 # nuisances in this card
 ------------------------------
 ------------------------------
-bin          3L_bin80to120
+bin          cat3L_bin80to120
 observation  186.000
 ------------------------------
-bin                                            3L_bin80to120       3L_bin80to120
+bin                                         cat3L_bin80to120    cat3L_bin80to120
 process                                               WZ3lnu             Other3l
 process                                                    1                   2
 rate                                                   5.103               8.516
@@ -21,6 +21,6 @@ CMS_Scale_mu lnN                                 0.948/0.948         0.997/0.821
 CMS_Scale_pileup lnN                             0.898/0.995         0.923/0.879
 CMS_UES lnN                                      0.947/0.947         0.901/0.901
 CMS_lumi_2017 lnN                                      1.026               1.026
-McStat_3L_bin80to120_Other3l lnN                           -               1.302
-McStat_3L_bin80to120_WZ3lnu lnN                        1.020                   -
+McStat_cat3L_bin80to120_Other3l lnN                        -               1.302
+McStat_cat3L_bin80to120_WZ3lnu lnN                     1.020                   -
 ZZWZNorm_allBins rateParam 3L_bin80to120 WZ3lnu 1. [0.01,10]

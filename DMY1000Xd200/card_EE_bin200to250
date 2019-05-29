@@ -30,8 +30,8 @@ McStat_EE_bin200to250_ggZZ2l2nu lnN                        -                   -
 McStat_EE_bin200to250_qqZZ2l2nu lnN                        -                   -               1.015                   -                   -                   -                   -
 Theo_factRenormScale_DMY1000Xd200 lnN                  1.050                   -                   -                   -                   -                   -                   -
 Theo_pdfAlphaS_DMY1000Xd200 lnN                        1.010                   -                   -                   -                   -                   -                   -
-DrellYanNorm rateParam EE_bin200to250 DrellYan 1. [0.01,10]
-ZZWZNorm_allBins rateParam EE_bin200to250 WZ3lnu 1. [0.01,10]
+ZZWZNorm_allBins rateParam EE_bin200to250 ggZZ2l2nu 1. [0.01,10]
 NRBnorm_ReSquared rateParam ee* Nonresonant 1 [0.01,10]
 ZZWZNorm_allBins rateParam EE_bin200to250 qqZZ2l2nu 1. [0.01,10]
-ZZWZNorm_allBins rateParam EE_bin200to250 ggZZ2l2nu 1. [0.01,10]
+DrellYanNorm rateParam EE_bin200to250 DrellYan 1. [0.01,10]
+ZZWZNorm_allBins rateParam EE_bin200to250 WZ3lnu 1. [0.01,10]

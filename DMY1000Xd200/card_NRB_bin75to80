@@ -26,9 +26,9 @@ McStat_NRB_bin75to80_Other lnN                             -                   -
 McStat_NRB_bin75to80_WZ3lnu lnN                            -                   -                   -               1.025                   -
 McStat_NRB_bin75to80_qqZZ2l2nu lnN                         -               1.429                   -                   -                   -
 NRBnorm_Inflate lnN                                    1.200                   -                   -                   -                   -
-ZZWZNorm_allBins rateParam NRB_bin75to80 WZ3lnu 1. [0.01,10]
-ZZWZNorm_allBins rateParam NRB_bin75to80 qqZZ2l2nu 1. [0.01,10]
 NRBnorm_ReSquared rateParam ll* Nonresonant @0 NRBnorm_RmSquared
-NRBnorm_RmSquared rateParam ll* Nonresonant 1 [0.01,10]
 ZZWZNorm_allBins rateParam NRB_bin75to80 ggZZ2l2nu 1. [0.01,10]
+ZZWZNorm_allBins rateParam NRB_bin75to80 WZ3lnu 1. [0.01,10]
+NRBnorm_RmSquared rateParam ll* Nonresonant 1 [0.01,10]
 DrellYanNorm rateParam NRB_bin75to80 DrellYan 1. [0.01,10]
+ZZWZNorm_allBins rateParam NRB_bin75to80 qqZZ2l2nu 1. [0.01,10]

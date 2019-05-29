@@ -1,13 +1,13 @@
-# Card for channel 3L_bin160to200
+# Card for channel cat3L_bin160to200
 imax 1 # process in this card
 jmax 1 # process in this card - 1
 kmax 11 # nuisances in this card
 ------------------------------
 ------------------------------
-bin          3L_bin160to200
+bin          cat3L_bin160to200
 observation  37.000
 ------------------------------
-bin                                           3L_bin160to200      3L_bin160to200
+bin                                        cat3L_bin160to200   cat3L_bin160to200
 process                                               WZ3lnu             Other3l
 process                                                    1                   2
 rate                                                   1.446               0.831
@@ -21,6 +21,6 @@ CMS_Scale_mu lnN                                 0.974/0.960         1.045/0.979
 CMS_Scale_pileup lnN                             0.928/1.023         0.955/1.055
 CMS_UES lnN                                      0.975/0.975         0.999/0.999
 CMS_lumi_2017 lnN                                      1.026               1.026
-McStat_3L_bin160to200_Other3l lnN                          -               1.162
-McStat_3L_bin160to200_WZ3lnu lnN                       1.039                   -
+McStat_cat3L_bin160to200_Other3l lnN                       -               1.162
+McStat_cat3L_bin160to200_WZ3lnu lnN                    1.039                   -
 ZZWZNorm_allBins rateParam 3L_bin160to200 WZ3lnu 1. [0.01,10]
