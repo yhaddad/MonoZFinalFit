@@ -1,0 +1,26 @@
+# Card for channel 3L_bin0to40
+imax 1 # process in this card
+jmax 1 # process in this card - 1
+kmax 11 # nuisances in this card
+------------------------------
+------------------------------
+bin          3L_bin0to40
+observation  1.000
+------------------------------
+bin                                              3L_bin0to40         3L_bin0to40
+process                                               WZ3lnu             Other3l
+process                                                    1                   2
+rate                                                   0.028               0.001
+------------------------------
+CMS_Eff_mu lnN                                   0.993/0.894         1.000/1.000
+CMS_JER lnN                                      0.869/0.869         1.000/1.000
+CMS_JES lnN                                      0.869/0.869         1.000/1.000
+CMS_NonPromptLepDYinWZ lnN                                 -                   -
+CMS_Scale_el lnN                                 3.371/3.225    1319.281/258.464
+CMS_Scale_mu lnN                                 1.500/1.457       1.000/470.249
+CMS_Scale_pileup lnN                             0.837/0.899         0.896/1.104
+CMS_UES lnN                                      0.869/0.869         1.000/1.000
+CMS_lumi_2017 lnN                                      1.026               1.026
+McStat_3L_bin0to40_Other3l lnN                             -               2.000
+McStat_3L_bin0to40_WZ3lnu lnN                          1.260                   -
+ZZWZNorm_allBins rateParam 3L_bin0to40 WZ3lnu 1. [0.01,10]

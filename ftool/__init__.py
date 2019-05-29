@@ -21,7 +21,7 @@ def checkShape(shapeHist, name):
         shapeHist.SetBinContent(shapeHist.GetNbinsX()+1, 0.)
 
 class DataGroup:
-    def __init__(self, files, variable="measMET", proc="DY",
+    def __init__(self, files, variable="measMET", proc="DY", rebin=1,
                  ptype="background", luminosity=1.0, normalise=True):
         self._names = files
         self.proc = proc
@@ -56,6 +56,8 @@ class DataGroup:
                     roothist.SetName(name)
                     roothist.SetDirectory(0)
                     ROOT.SetOwnership(roothist, 0)
+                    if rebin > 1:
+                        roothist.Rebin(rebin)
                     if name in self.hists.keys():
                         self.hists[name].Add(roothist)
                     else:

@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import yaml
 import ROOT
 import uproot
@@ -21,6 +19,8 @@ def main():
     parser.add_argument("-c", "--channel" , action="append")
     parser.add_argument("-s", "--signal"  , action="append")
     parser.add_argument("-t", "--stack"   , type=str)
+    parser.add_argument("-tag", "--tag"   , type=str, default="DMSim")
+
 
     options = parser.parse_args()
     # create a working directory where to store the datacards
@@ -49,6 +49,8 @@ def main():
         p = ftool.DataGroup(
             inputs[dg]["files"],
             ptype=inputs[dg]["type"],
+            variable= options.variable,
+            rebin=4 if (options.channel[0]=="3L" or options.channel[0] =="4L") else 1,
             proc=dg, luminosity=0.1
         )
         datasets[dg] = p
@@ -56,7 +58,7 @@ def main():
     if options.stack is None:
         options.stack = ["WW", "ZZ", "WZ", "DY", "TOP", "Data"]
 
-    ws = ftool.Workspace("ws.root")
+    ws = ftool.Workspace("ws.root", working_dir=options.outdir)
 
     for ch in options.channel:
         def bin_name(hist, ibin):
@@ -71,7 +73,7 @@ def main():
 
         shapeHistName = "%s_%s" % (ch, options.variable)
         data_obs = datasets.get("Data").shape(ch, "nom")
-
+        print("data_obs -->", data_obs, ch)
         for ibin in range(data_obs.GetNbinsX()):
             channel = "%s_%s" % (ch, bin_name(data_obs, ibin))
             ws.addChannel(channel)
@@ -129,8 +131,9 @@ def main():
 
         for p, pg in  datasets.items():
             if 'data'   in pg.ptype: continue
-            if 'signal' in pg.ptype: continue
+            #if 'signal' in pg.ptype: continue
             addNominal(p)
+            # we need to add more systematics here
             addShapeNuisance(p, "ElectronEn", "CMS_Scale_el")
             addShapeNuisance(p, "MuonEn"    , "CMS_Scale_mu")
             addShapeNuisance(p, "MuonSF"    , "CMS_Eff_mu")
@@ -154,6 +157,7 @@ def main():
         if ch in ['4L']:
             theory_bkgs.append(datasets.get("qqZZ4l"))
 
+        print("signals : ", signalGroup)
         for pg in theory_bkgs + signalGroup:
             process = pg.proc
             print("-----:: ", process)
@@ -164,7 +168,7 @@ def main():
                     card = ws.cards[channel]
                     addNuisance(card, "Theo_pdfAlphaS_%s lnN" % process, process, 1.01)
                     addNuisance(card, "Theo_factRenormScale_%s lnN" % process, process, 1.05)
-                continue
+            # this now commented as it is not yet implemented in our code
             #if process in ['WZ3lnu', 'qqZZ2l2nu', 'qqZZ4l']:
             #    addShapeNuisance(process, "factRenormScale", "Theo_factRenormScale_VV")
             #else:
