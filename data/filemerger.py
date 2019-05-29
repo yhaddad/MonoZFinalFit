@@ -20,7 +20,7 @@ data_samples = ['SingleElectron', 'SingleMuon', 'DoubleEG', 'DoubleMuon', 'MuonE
 
 def MergeFiles(file_list, name):
    str_files = " ".join(file_list)
-   os.system("../scripts/haddnano.py {}.root ".format(name) + str_files)
+   os.system("haddnano.py {}.root ".format(name) + str_files)
 
 def GetGenCorrection(file_list):
    chain = TChain("Runs")
