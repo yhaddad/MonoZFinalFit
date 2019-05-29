@@ -1,0 +1,30 @@
+# Card for channel NRB_bin65to70
+imax 1 # process in this card
+jmax 4 # process in this card - 1
+kmax 14 # nuisances in this card
+------------------------------
+------------------------------
+bin          NRB_bin65to70
+observation  91.000
+------------------------------
+bin                                            NRB_bin65to70       NRB_bin65to70       NRB_bin65to70       NRB_bin65to70       NRB_bin65to70
+process                                          Nonresonant           qqZZ2l2nu           ggZZ2l2nu              WZ3lnu               Other
+process                                                    1                   2                   3                   4                   5
+rate                                                  12.501               0.000               0.000               0.051               4.477
+------------------------------
+CMS_Eff_mu lnN                                   0.999/0.999         0.430/0.430         0.100/0.100         0.772/0.772         0.924/0.924
+CMS_JER lnN                                      0.952/0.984         1.697/1.860         0.100/0.100         0.910/1.118         0.869/0.917
+CMS_JES lnN                                      1.197/0.899         0.594/1.430         0.100/0.100         0.973/1.188         0.792/0.905
+CMS_NonPromptLepWZinSR lnN                                 -                   -                   -               1.030                   -
+CMS_Scale_el lnN                                 1.186/1.000         0.430/0.430         0.100/0.100         0.891/0.772         0.983/0.924
+CMS_Scale_mu lnN                                 1.000/0.999         0.430/0.430         0.100/0.100         0.772/0.772         0.924/0.924
+CMS_Scale_pileup lnN                             0.950/1.014         1.000/0.999         0.100/0.100         0.837/1.001         0.884/1.031
+CMS_UES lnN                                      0.908/1.234         2.293/1.755         0.100/0.100         0.850/0.889         0.925/0.912
+CMS_lumi_2017 lnN                                      1.026               1.026               1.026               1.026               1.026
+McStat_NRB_bin65to70_Nonresonant lnN                   1.422                   -                   -                   -                   -
+McStat_NRB_bin65to70_Other lnN                             -                   -                   -                   -               1.079
+McStat_NRB_bin65to70_WZ3lnu lnN                            -                   -                   -               1.217                   -
+McStat_NRB_bin65to70_qqZZ2l2nu lnN                         -               1.584                   -                   -                   -
+NRBnorm_Inflate lnN                                    1.200                   -                   -                   -                   -
+NRBnorm_RmSquared rateParam ll* Nonresonant 1 [0.01,10]
+NRBnorm_ReSquared rateParam ll* Nonresonant @0 NRBnorm_RmSquared

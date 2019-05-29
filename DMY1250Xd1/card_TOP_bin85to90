@@ -1,0 +1,25 @@
+# Card for channel TOP_bin85to90
+imax 1 # process in this card
+jmax 4 # process in this card - 1
+kmax 11 # nuisances in this card
+------------------------------
+------------------------------
+bin          TOP_bin85to90
+observation  770.000
+------------------------------
+bin                                            TOP_bin85to90       TOP_bin85to90       TOP_bin85to90       TOP_bin85to90       TOP_bin85to90
+process                                          Nonresonant           qqZZ2l2nu           ggZZ2l2nu              WZ3lnu               Other
+process                                                    1                   2                   3                   4                   5
+rate                                                  10.079               0.000               0.000               0.006              34.872
+------------------------------
+CMS_Eff_mu lnN                                   0.765/0.765         0.100/0.100         0.100/0.100         1.366/1.366         0.985/0.985
+CMS_JER lnN                                      0.669/0.784         0.100/0.100         0.100/0.100         1.549/1.476         0.997/0.999
+CMS_JES lnN                                      0.598/0.573         0.100/0.100         0.100/0.100         1.526/0.383         0.973/0.950
+CMS_Scale_el lnN                                 0.797/0.770         0.100/0.100         0.100/0.100         1.399/1.366         1.020/0.992
+CMS_Scale_mu lnN                                 0.770/0.765         0.100/0.100         0.100/0.100         1.366/1.366         0.992/0.985
+CMS_Scale_pileup lnN                             0.984/0.905         0.100/0.100         0.100/0.100         1.059/0.831         0.974/0.938
+CMS_UES lnN                                      0.756/0.603         0.100/0.100         0.100/0.100         0.901/0.522         0.974/0.955
+CMS_lumi_2017 lnN                                      1.026               1.026               1.026               1.026               1.026
+McStat_TOP_bin85to90_Nonresonant lnN                   1.047                   -                   -                   -                   -
+McStat_TOP_bin85to90_Other lnN                             -                   -                   -                   -               1.021
+McStat_TOP_bin85to90_WZ3lnu lnN                            -                   -                   -               1.328                   -

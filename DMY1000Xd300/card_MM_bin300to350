@@ -1,0 +1,37 @@
+# Card for channel MM_bin300to350
+imax 1 # process in this card
+jmax 6 # process in this card - 1
+kmax 18 # nuisances in this card
+------------------------------
+------------------------------
+bin          MM_bin300to350
+observation  1.000
+------------------------------
+bin                                           MM_bin300to350      MM_bin300to350      MM_bin300to350      MM_bin300to350      MM_bin300to350      MM_bin300to350      MM_bin300to350
+process                                         DMY1000Xd300         Nonresonant           qqZZ2l2nu           ggZZ2l2nu              WZ3lnu               Other      DrellYanBinned
+process                                                    0                   1                   2                   3                   4                   5                   6
+rate                                                   0.003               0.000               0.057               0.000               0.038               0.003               0.008
+------------------------------
+CMS_Eff_mu lnN                                   0.982/0.982         0.001/0.001         0.944/0.943         0.100/0.100         0.745/0.745         1.087/1.087         0.100/0.100
+CMS_InflateDY2lNorm lnN                                    -                   -                   -                   -                   -                   -               2.000
+CMS_JER lnN                                      1.022/1.017         0.001/0.001         0.993/0.975         0.100/0.100         1.014/0.925         1.012/1.134         1.203/1.000
+CMS_JES lnN                                      1.036/1.002         0.001/0.001         1.032/0.927         0.100/0.100         1.079/0.739         1.247/1.083         0.386/1.203
+CMS_Scale_el lnN                                 0.982/0.982         1.000/1.000         0.946/0.946         0.100/0.100         0.745/0.745         1.095/1.095         0.100/0.100
+CMS_Scale_mu lnN                                 0.982/0.982         0.001/0.001         0.946/0.944         0.100/0.100         0.745/0.745         1.087/1.087         0.100/0.100
+CMS_Scale_pileup lnN                             0.971/1.027         0.001/0.001         0.944/1.048         0.100/0.100         0.875/1.146         0.933/1.049         0.971/0.990
+CMS_UES lnN                                      0.997/1.060         0.001/0.001         0.999/0.976         0.100/0.100         1.020/0.944         1.091/1.072         1.000/1.950
+CMS_lumi_2017 lnN                                      1.026               1.026               1.026               1.026               1.026               1.026               1.026
+McStat_MM_bin300to350_DMY1000Xd300 lnN                 1.080                   -                   -                   -                   -                   -                   -
+McStat_MM_bin300to350_DrellYanBinned lnN                   -                   -                   -                   -                   -                   -               1.004
+McStat_MM_bin300to350_Nonresonant lnN                      -               1.137                   -                   -                   -                   -                   -
+McStat_MM_bin300to350_Other lnN                            -                   -                   -                   -                   -               1.206                   -
+McStat_MM_bin300to350_WZ3lnu lnN                           -                   -                   -                   -               1.282                   -                   -
+McStat_MM_bin300to350_ggZZ2l2nu lnN                        -                   -                   -               1.068                   -                   -                   -
+McStat_MM_bin300to350_qqZZ2l2nu lnN                        -                   -               1.029                   -                   -                   -                   -
+Theo_factRenormScale_DMY1000Xd300 lnN                  1.050                   -                   -                   -                   -                   -                   -
+Theo_pdfAlphaS_DMY1000Xd300 lnN                        1.010                   -                   -                   -                   -                   -                   -
+ZZWZNorm_allBins rateParam MM_bin300to350 ggZZ2l2nu 1. [0.01,10]
+ZZWZNorm_allBins rateParam MM_bin300to350 qqZZ2l2nu 1. [0.01,10]
+ZZWZNorm_allBins rateParam MM_bin300to350 WZ3lnu 1. [0.01,10]
+NRBnorm_RmSquared rateParam mm* Nonresonant 1 [0.01,10]
+DrellYanNorm rateParam MM_bin300to350 DrellYanBinned 1. [0.01,10]

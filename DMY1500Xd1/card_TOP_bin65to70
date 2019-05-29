@@ -1,0 +1,25 @@
+# Card for channel TOP_bin65to70
+imax 1 # process in this card
+jmax 4 # process in this card - 1
+kmax 11 # nuisances in this card
+------------------------------
+------------------------------
+bin          TOP_bin65to70
+observation  771.000
+------------------------------
+bin                                            TOP_bin65to70       TOP_bin65to70       TOP_bin65to70       TOP_bin65to70       TOP_bin65to70
+process                                          Nonresonant           qqZZ2l2nu           ggZZ2l2nu              WZ3lnu               Other
+process                                                    1                   2                   3                   4                   5
+rate                                                   8.005               0.000               0.000               0.009              42.169
+------------------------------
+CMS_Eff_mu lnN                                   0.800/0.800         0.100/0.100         0.100/0.100         0.836/0.836         0.956/0.956
+CMS_JER lnN                                      1.077/1.086         0.100/0.100         0.100/0.100         1.184/0.819         0.916/0.912
+CMS_JES lnN                                      0.604/1.203         0.100/0.100         0.100/0.100         0.421/1.422         0.921/0.985
+CMS_Scale_el lnN                                 0.827/0.800         0.100/0.100         0.100/0.100         0.864/0.836         0.988/0.960
+CMS_Scale_mu lnN                                 0.800/0.800         0.100/0.100         0.100/0.100         0.836/0.836         0.960/0.956
+CMS_Scale_pileup lnN                             0.944/0.951         0.100/0.100         0.100/0.100         1.006/0.868         0.977/0.947
+CMS_UES lnN                                      0.790/1.151         0.100/0.100         0.100/0.100         0.772/0.874         0.987/0.968
+CMS_lumi_2017 lnN                                      1.026               1.026               1.026               1.026               1.026
+McStat_TOP_bin65to70_Nonresonant lnN                   1.064                   -                   -                   -                   -
+McStat_TOP_bin65to70_Other lnN                             -                   -                   -                   -               1.019
+McStat_TOP_bin65to70_WZ3lnu lnN                            -                   -                   -               1.227                   -

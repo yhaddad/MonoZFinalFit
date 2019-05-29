@@ -44,6 +44,7 @@ def main():
     # Somboday can try to do it as it was done in MonoZ2016
     datasets = {}
     options.stack = options.stack.split(",")
+    nsignals = 0
     for dg in options.stack:
         print (" -- data group : ", inputs[dg]["type"], dg)
         p = ftool.DataGroup(
@@ -53,13 +54,15 @@ def main():
             rebin=4 if (options.channel[0]=="3L" or options.channel[0] =="4L") else 1,
             proc=dg, luminosity=0.1
         )
+        if inputs[dg]["type"]=='signal':
+            nsignals += 1
         datasets[dg] = p
 
     if options.stack is None:
         options.stack = ["WW", "ZZ", "WZ", "DY", "TOP", "Data"]
 
     ws = ftool.Workspace("ws.root", working_dir=options.outdir)
-
+    ws.nSignals = nsignals
     for ch in options.channel:
         def bin_name(hist, ibin):
             return "bin{}to{}".format(
@@ -128,10 +131,10 @@ def main():
                     channel = "cat" + channel
                 card = ws.cards[channel]
                 upR = hupratio.GetBinContent(iBin + 1)
-                if upR <= 0.:
+                if upR <= 0:
                   upR = 0.1
                 downR = hdownratio.GetBinContent(iBin + 1)
-                if downR <= 0.:
+                if downR <= 0:
                   downR = 0.1
                 addNuisance(card, "%s lnN" % cardName, process, (upR, downR))
 
@@ -208,24 +211,24 @@ def main():
 
             vvNormName = "allBins"
 
-            if ch in ['EE', 'MM', 'NRB']:
+            if ch in ['EE', 'MM']:
                 if bn != 'bin50to100':
                     card["extras"].add("ZZWZNorm_%s rateParam %s_%s qqZZ2l2nu 1. [0.01,10]" % (vvNormName, ch, bn))
                     card["extras"].add("ZZWZNorm_%s rateParam %s_%s ggZZ2l2nu 1. [0.01,10]" % (vvNormName, ch, bn))
                     card["extras"].add("ZZWZNorm_%s rateParam %s_%s WZ3lnu 1. [0.01,10]" % (vvNormName, ch, bn))
-                    addNuisance(card, "CMS_InflateDY2lNorm lnN", "DrellYan", 2.)
-                card["extras"].add("DrellYanNorm rateParam %s_%s DrellYan 1. [0.01,10]" % (ch, bn))
+                    addNuisance(card, "CMS_InflateDY2lNorm lnN", "DrellYanBinned", 2.)
+                card["extras"].add("DrellYanNorm rateParam %s_%s DrellYanBinned 1. [0.01,10]" % (ch, bn))
             elif ch in ['EE', 'MM', 'NRB']:
                 addNuisance(card, "CMS_NonPromptLepWZinSR lnN", "WZ3lnu", 1.03)
             elif ch == '3L':
-                card["extras"].add("ZZWZNorm_%s rateParam %s_%s WZ3lnu 1. [0.01,10]" % (vvNormName, ch, bn))
+                card["extras"].add("ZZWZNorm_%s rateParam cat%s_%s WZ3lnu 1. [0.01,10]" % (vvNormName, ch, bn))
                 addNuisance(card, "CMS_NonPromptLepDYinWZ lnN", "NonPromptDY", 1.3)
             elif ch == '4L':
-                card["extras"].add("ZZWZNorm_%s rateParam %s_%s qqZZ4l 1. [0.01,10]" % (vvNormName, ch, bn))
-                card["extras"].add("ZZWZNorm_%s rateParam %s_%s ggZZ4l 1. [0.01,10]" % (vvNormName, ch, bn))
+                card["extras"].add("ZZWZNorm_%s rateParam cat%s_%s qqZZ4l 1. [0.01,10]" % (vvNormName, ch, bn))
+                card["extras"].add("ZZWZNorm_%s rateParam cat%s_%s ggZZ4l 1. [0.01,10]" % (vvNormName, ch, bn))
                 addNuisance(card, "CMS_InflateOther4lNorm lnN", "Other4l", 1.4)
 
-
+    #pprint(ws.cards)
     ws.write(makeGroups=False)
 
 

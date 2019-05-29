@@ -9,14 +9,14 @@ observation  13.000
 ------------------------------
 bin                                           EE_bin175to200      EE_bin175to200      EE_bin175to200      EE_bin175to200      EE_bin175to200      EE_bin175to200      EE_bin175to200
 process                                         DMY1000Xd200         Nonresonant           qqZZ2l2nu           ggZZ2l2nu              WZ3lnu               Other      DrellYanBinned
-process                                                    1                   2                   3                   4                   5                   6                   7
+process                                                    0                   1                   2                   3                   4                   5                   6
 rate                                                   0.035               0.019               0.224               0.014               0.170               0.040               0.171
 ------------------------------
 CMS_Eff_mu lnN                                   0.994/0.994         1.000/1.000         0.941/0.941         0.100/0.100         0.981/0.981         0.777/0.777         0.100/0.100
-CMS_InflateDY2lNorm lnN                                    -                   -                   -                   -                   -                   -                   -
+CMS_InflateDY2lNorm lnN                                    -                   -                   -                   -                   -                   -               2.000
 CMS_JER lnN                                      0.964/0.997         1.139/0.803         0.985/0.973         0.100/0.100         0.958/0.900         0.827/0.812         1.179/0.585
 CMS_JES lnN                                      0.983/1.011         1.139/0.995         1.017/0.928         0.100/0.100         1.001/1.001         0.862/0.779         0.776/0.689
-CMS_Scale_el lnN                                 1.000/0.994         1.000/1.000         0.970/0.941         0.000/0.000         1.020/0.981         0.796/0.783         0.100/0.100
+CMS_Scale_el lnN                                 1.000/0.994         1.000/1.000         0.970/0.941         0.100/0.100         1.020/0.981         0.796/0.783         0.100/0.100
 CMS_Scale_mu lnN                                 0.994/0.994         1.000/1.000         0.941/0.941         0.100/0.100         0.981/0.981         0.777/0.777         0.100/0.100
 CMS_Scale_pileup lnN                             0.944/1.036         0.923/1.073         0.926/1.016         0.100/0.100         0.904/1.009         0.775/0.831         0.760/0.892
 CMS_UES lnN                                      0.988/1.006         0.995/1.135         0.974/0.972         0.100/0.100         0.927/1.008         0.813/0.817         0.718/0.773
@@ -30,8 +30,8 @@ McStat_EE_bin175to200_ggZZ2l2nu lnN                        -                   -
 McStat_EE_bin175to200_qqZZ2l2nu lnN                        -                   -               1.015                   -                   -                   -                   -
 Theo_factRenormScale_DMY1000Xd200 lnN                  1.050                   -                   -                   -                   -                   -                   -
 Theo_pdfAlphaS_DMY1000Xd200 lnN                        1.010                   -                   -                   -                   -                   -                   -
-ZZWZNorm_allBins rateParam EE_bin175to200 qqZZ2l2nu 1. [0.01,10]
-ZZWZNorm_allBins rateParam EE_bin175to200 ggZZ2l2nu 1. [0.01,10]
 NRBnorm_ReSquared rateParam ee* Nonresonant 1 [0.01,10]
+ZZWZNorm_allBins rateParam EE_bin175to200 ggZZ2l2nu 1. [0.01,10]
 ZZWZNorm_allBins rateParam EE_bin175to200 WZ3lnu 1. [0.01,10]
-DrellYanNorm rateParam EE_bin175to200 DrellYan 1. [0.01,10]
+ZZWZNorm_allBins rateParam EE_bin175to200 qqZZ2l2nu 1. [0.01,10]
+DrellYanNorm rateParam EE_bin175to200 DrellYanBinned 1. [0.01,10]

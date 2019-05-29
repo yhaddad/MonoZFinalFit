@@ -1,0 +1,28 @@
+# Card for channel cat4L_bin120to160
+imax 1 # process in this card
+jmax 2 # process in this card - 1
+kmax 12 # nuisances in this card
+------------------------------
+------------------------------
+bin          cat4L_bin120to160
+observation  21.000
+------------------------------
+bin                                        cat4L_bin120to160   cat4L_bin120to160   cat4L_bin120to160
+process                                               qqZZ4l              ggZZ4l             Other4l
+process                                                    1                   2                   3
+rate                                                   4.513               0.001               0.022
+------------------------------
+CMS_Eff_mu lnN                                   0.988/0.984         0.100/0.100         1.784/1.772
+CMS_InflateOther4lNorm lnN                                 -                   -               1.400
+CMS_JER lnN                                      0.987/0.987         0.100/0.100         1.776/1.776
+CMS_JES lnN                                      0.987/0.987         0.100/0.100         1.776/1.776
+CMS_Scale_el lnN                                 1.052/0.913         0.100/0.100         0.100/1.880
+CMS_Scale_mu lnN                                 1.000/0.965         0.100/0.100         1.775/1.737
+CMS_Scale_pileup lnN                             0.943/1.031         0.100/0.100         1.822/1.706
+CMS_UES lnN                                      0.987/0.987         0.100/0.100         1.776/1.776
+CMS_lumi_2017 lnN                                      1.026               1.026               1.026
+McStat_cat4L_bin120to160_Other4l lnN                       -                   -               1.113
+McStat_cat4L_bin120to160_ggZZ4l lnN                        -               1.011                   -
+McStat_cat4L_bin120to160_qqZZ4l lnN                    1.005                   -                   -
+ZZWZNorm_allBins rateParam cat4L_bin120to160 qqZZ4l 1. [0.01,10]
+ZZWZNorm_allBins rateParam cat4L_bin120to160 ggZZ4l 1. [0.01,10]

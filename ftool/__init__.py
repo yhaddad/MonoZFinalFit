@@ -146,12 +146,15 @@ class Workspace:
                         if process in processScales:
                             s = processScales[process]
                             if type(s) is tuple:
-                                line += "{0:>20}".format("%.3f/%.3f" % s)
+                                if s == (0,0):
+                                    line += "{0:>20}".format("0.100/0.100")
+                                else:
+                                    line += "{0:>20}".format("%.3f/%.3f" % s)
                             else:
                                 line += "{0:>20}".format("%.3f" % s)
                         else:
                             line += "{0:>20}".format("-")
-                    fout.write(line+"\n")
+                    fout.write(line.replace("0.000/0.000", "0.100/0.100").replace("0.000", "0.100")+"\n")
                 if makeGroups:
                     def makeGroups(name, prefix):
                         group = [n.split(" ")[0] for n in card["nuisances"].keys() if prefix in n]
