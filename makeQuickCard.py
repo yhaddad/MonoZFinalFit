@@ -19,6 +19,7 @@ def main():
     parser.add_argument("-c", "--channel" , action="append")
     parser.add_argument("-s", "--signal"  , action="append")
     parser.add_argument("-t", "--stack"   , type=str)
+    parser.add_argument("-p", "--plot"    , action="store_true")
     parser.add_argument("-tag", "--tag"   , type=str, default="DMSim")
 
 
@@ -30,6 +31,7 @@ def main():
     except FileExistsError:
         print("Directory " , options.outdir ,  " already exists")
 
+    print("doPlot:", options.plot)
     # read the input files that contains the shapes
     # this is produced by the MonoZWSproducer
     # make sure to run the nanohadd.py on lxplus to make these files
@@ -112,7 +114,7 @@ def main():
                 else:
                     addNuisance(card, "McStat_%s_%s lnN" % (channel, process), process, 1.+e/b)
 
-        def addShapeNuisance(process, nuisance, cardName):
+        def addShapeNuisance(process, nuisance, cardName, ):
             histUp, histDown = datasets.get(process).shape(ch, nuisance)
             nominalHist = datasets.get(process).shape(ch, "nom")
 
@@ -124,6 +126,43 @@ def main():
             shapeName = "%s_%s_%sUp" % (process, ch, cardName)
             ftool.checkShape(histUp, shapeName)
             shapeName = "%s_%s_%sDown" % (process, ch, cardName)
+            # making shapes plot
+
+            if options.plot and nominalHist.Integral() != 0:
+                c = ROOT.TCanvas("%s_%s_%s" % (process, ch, cardName))
+                c.Divide(1,2)
+                c.cd(1)
+                nominalHist.SetLineColor(ROOT.kBlack)
+                nominalHist.SetLineWidth(2)
+                nominalHist.SetFillStyle(0)
+                nominalHist.Draw("hist")
+                histUp.SetLineColor(ROOT.kRed)
+                histUp.SetLineWidth(2)
+                histUp.SetFillStyle(0)
+                histUp.Draw("histsame")
+                histDown.SetLineColor(ROOT.kBlue)
+                histDown.SetLineWidth(2)
+                histDown.SetFillStyle(0)
+                histDown.Draw("histsame")
+                text = c.GetName() + " lnN %.3f / %.3f" % (histUp.Integral()/nominalHist.Integral(), histDown.Integral()/nominalHist.Integral())
+                l = ROOT.TLatex()
+                ROOT.SetOwnership(l, False)
+                l.SetNDC()
+                l.SetTextSize(1.3*ROOT.gPad.GetTopMargin())
+                l.SetTextFont(42)
+                l.SetY(1-ROOT.gPad.GetTopMargin()-.1)
+                l.SetTextAlign(33)
+                l.SetX(1-ROOT.gPad.GetRightMargin()-.1)
+                l.SetTitle(text)
+                l.Draw()
+                c.cd(2)
+                hupratio.GetYaxis().SetTitle("Ratio")
+                hupratio.Draw("hist")
+                hupratio.GetYaxis().SetRangeUser(0.5, 1.5)
+                hdownratio.Draw("histsame")
+                if not os.path.exists("shapePlots"):
+                    os.makedirs("shapePlots")
+                c.Print("shapePlots/%s.pdf" % c.GetName())
             ftool.checkShape(histDown, shapeName)
             for iBin in range(histUp.GetNbinsX()):
                 channel = "%s_%s" % (ch, bin_name(nominalHist, iBin))
