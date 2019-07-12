@@ -19,7 +19,7 @@ controlreg = ["catMM","catEE", "catEM", "cat3L", "cat4L", "DY"]
 
 import yaml
 processes = {}
-with open("./config/inputs.yaml", 'r') as stream:
+with open("./config/inputs-NanoAODv4.yaml", 'r') as stream:
     processes = yaml.safe_load(stream)
 
 error_band_color           = 138
@@ -308,6 +308,7 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
         hist_objs = []
         dic_root_histos = {}
         for fn in files:
+            print "opening file : ", fn
             fn_root = uproot.open(fn)
             bn_root = ROOT.TFile.Open(fn)
             hist_names = []
@@ -319,6 +320,7 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
                 if observable[channel.replace('_','')] not in str(nm):
                     continue
                 hist_names.append(str(nm))
+            print hist_names
             for hist_name in hist_names:
                 hname = hist_name.replace("b'","").replace(";1'","")
                 hist  = bn_root.Get(hname)
@@ -330,7 +332,7 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
                     if blind and (channel=="njet"):
                         hist.SetBinContent(1, 0)
                 if cmd.get("type") != "data":
-                    scale = lumi/fn_root["Runs"].array("genEventSumw" )[0]
+                    scale = lumi/fn_root["Runs"].array("genEventCount")[0]
                     print("{:20s} Sumw={}, Nevt={}".format(
                         fn[:20],
                         fn_root["Runs"].array("genEventSumw" )[0],
@@ -338,11 +340,12 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
                     ))
 
                     #if 'GluGluToContinToZZ' in hist_name:
-                    #    scale = scale/1000.0
+                    scale = scale/10.0
                     kfactor = cmd.get("kfactor", 1.0)
                     scale *= kfactor
                     hist.Sumw2()
                     hist.Scale(scale)
+                    hist.SetDirectory(0)
                     for syst in systematics_sources:
                         _h_syst_up = bn_root.Get(hname + "_sys_"+syst+"Up")
                         _h_syst_up.Sumw2()
@@ -358,13 +361,14 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
                                 "Down" : _h_syst_dw
                             }
                         else:
-                            root_histos_syt[syst]["Up"].Add(_h_syst_up)
+                            root_histos_syt[syst]["Up"  ].Add(_h_syst_up)
                             root_histos_syt[syst]["Down"].Add(_h_syst_dw)
                 else:
                     print(colored(fn + " -> %i " %hist.Integral(), "yellow"))
                 hist.SetDirectory(0)
                 hist_objs.append(hist)
 
+        print len(hist_objs)
         assert(len(hist_objs)!=0)
 
         hist_com = hist_objs[0]
@@ -498,20 +502,20 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
     root_legend.Draw()
 
     c.SaveAs("plots/plot_met_%s_region.pdf" % channel)
-    #c.SaveAs("plots/plot_met_%s_region.png" % channel)
+    c.SaveAs("plots/plot_met_%s_region.png" % channel)
 
 def main():
     # drawing("catMM" , lumi=1.0)
     # drawing("catEE" , lumi=1.0)
-    drawing("cat3L" , lumi=1.0)
-    drawing("cat4L" , lumi=1.0)
-    drawing("catNRB", lumi=1.0)
-    drawing("catTOP", lumi=1.0)
+    drawing("cat3L" , lumi=41.50)
+    drawing("cat4L" , lumi=41.50)
+    drawing("catNRB", lumi=41.50)
+    drawing("catTOP", lumi=41.50)
     # drawing("cat3L" , lumi=41.50)
     # drawing("cat4L" , lumi=41.50)
     # drawing("catNRB", lumi=41.50)
     # drawing("catTOP", lumi=41.50)
-    # drawing("njet"  , lumi=41.50)
+    #drawing("njet"  , lumi=41.50)
     #drawing("balance"  , lumi=4.15)
     #drawing("phizmet"  , lumi=4.15)
 
