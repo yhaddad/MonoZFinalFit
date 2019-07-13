@@ -5,22 +5,32 @@ import uproot
 import collections
 from termcolor import colored
 import math
-#import xsection
-
+#import argparse
+import yaml
+import os
 
 ROOT.PyConfig.IgnoreCommandLineOptions = True
 ROOT.gROOT.SetBatch(ROOT.kTRUE)
 ROOT.gROOT.ProcessLine(".x rootlogon.C")
-
 ROOT.gErrorIgnoreLevel=ROOT.kError
 
-observable = "measMET"
-controlreg = ["catMM","catEE", "catEM", "cat3L", "cat4L", "DY"]
 
-import yaml
+#parser = argparse.ArgumentParser("")
+#parser.add_argument('-era', '--era', type=str, default="2018", help="")
+#parser.add_argument('-cfg', '--cfg', type=str, default="./config/inputs-NanoAODv4.yaml", help="")
+#parser.add_argument('--doxsec', action='store_true',  dest='doxsec', default=False)
+#options  = parser.parse_args()
+
 processes = {}
 with open("./config/inputs-NanoAODv4.yaml", 'r') as stream:
     processes = yaml.safe_load(stream)
+
+xsections = {}
+with open("./config/xsections_{}.yaml".format(2017), 'r') as stream:
+    xsections = yaml.safe_load(stream)
+
+#observable = "measMET"
+controlreg = ["catMM","catEE", "catEM", "cat3L", "cat4L", "DY"]
 
 error_band_color           = 138
 error_band_style           = 3357
@@ -45,48 +55,52 @@ text_font                  = 43
 text_size                  = 18
 
 systematics_sources = [
-    "ElectronEn", "MuonEn", "MuonSF",
-    "jesTotal", "jer", "unclustEn", "puWeight"
+ "ElectronEn", "MuonEn", "jesTotal", "jer", "unclustEn",
+ "puWeight", "PDF", "MuonSF", "ElecronSF", "EWK", "nvtxWeight","TriggerSFWeight","btagEventWeight"
 ]
 
 observable = {
-    "catMM"  : "measMET",
-    "catEE"  : "measMET",
-    "catEM"  : "measMET",
-    "cat3L"  : "measMET",
-    "cat4L"  : "measMET",
-    "catNRB" : "measMET",
-    "catTOP" : "measMET",
-    "njet"   : "njet",
-    "balance": "balance",
-    "phizmet": "phizmet"
+    "catSignal-0jet"  : "measMET",
+    "catEM"           : "measMET",
+    "catSignal-1jet"  : "measMET",
+    "cat3L"           : "measMET",
+    "cat4L"           : "measMET",
+    "catNRB"          : "measMET",
+    "catTOP"          : "measMET",
+    "catDY"           : "measMET",
+    "njet"            : "njet",
+    "balance"         : "balance",
+    "phizmet"         : "phizmet"
 }
 
 names = {
-    "catMM"  : "MET (GeV)",
-    "catEE"  : "MET (GeV)",
+    "catSignal-0jet"  : "MET (GeV)",
+    "catSignal-1jet"  : "MET (GeV)",
     "catEM"  : "MET (GeV)",
     "cat3L"  : "emulated MET (GeV)",
     "cat4L"  : "emulated MET (GeV)",
     "catNRB" : "MET (GeV)",
     "catTOP" : "MET (GeV)",
+    "catDY"  : "MET (GeV)",
     "njet"   : "N_{jet}",
     "balance": "balance",
     "phizmet": "#phi(Z,p_{T}^{miss})"
 }
 
 ranges = {
-    "catMM"  : [100, 600],
-    "catEE"  : [100, 600],
-    "catEM"  : [100, 600],
-    "cat3L"  : [100, 600],
-    "cat4L"  : [100, 600],
-    "catNRB" : [ 50,100],
-    "catTOP" : [ 50,100],
-    "njet"   : [0,6],
-    "balance": [0,2],
-    "phizmet": [0,4]
+    "catSignal-0jet"  : [100, 600],
+    "catSignal-1jet"  : [100, 600],
+    "catEM"  : [ 50, 600],
+    "cat3L"  : [ 50, 600],
+    "cat4L"  : [ 50, 600],
+    "catNRB" : [ 50, 100],
+    "catTOP" : [ 50, 100],
+    "catDY"  : [ 50, 100],
+    "njet"   : [  0,   6],
+    "balance": [  0,   2],
+    "phizmet": [  0,   4]
 }
+
 def get_channel_title(text):
     text = text.replace("_","")
     cat = {
@@ -97,7 +111,8 @@ def get_channel_title(text):
         "cat4L" : "ZZ"    ,
         "catNRB": "NRB"   ,
         "catTOP": "TOP"   ,
-        "njet" : "N_{jets}",
+        "catDY" : "DY"    ,
+        "njet"  : "N_{jets}",
         "balance" : "balance",
         "phizmet": "phizmet"
 
@@ -261,10 +276,8 @@ def makeRatioPlotCanvas(name=''):
     """
     canv  = ROOT.TCanvas("c_" + name, name, canvas_width, canvas_height)
     canv.cd()
-    #padup = ROOT.TPad("padup", "padup", 0, 0.4, 1, 1.0)
     padup = ROOT.TPad("padup", "padup", 0, 0.3, 1, 1.0)
     padup.SetNumber(1)
-    #paddw = ROOT.TPad("paddw", "paddw", 0, 0.0, 1, 0.4)
     paddw = ROOT.TPad("paddw", "paddw", 0, 0.0, 1, 0.3)
     paddw.SetNumber(2)
     padup.Draw()
@@ -286,6 +299,7 @@ def makeRatioPlotCanvas(name=''):
     return canv
 
 def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
+    print " @@@@@@ running the {} channel".format(channel)
     x_vec = collections.OrderedDict()
     w_vec = collections.OrderedDict()
 
@@ -304,14 +318,15 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
     root_signal = []
     root_histos_syt = {}
     for procname, cmd  in processes.items():
+        print "we process this one : ", procname
         files     = cmd["files"]
         hist_objs = []
         dic_root_histos = {}
         for fn in files:
-            print "opening file : ", fn
             fn_root = uproot.open(fn)
             bn_root = ROOT.TFile.Open(fn)
             hist_names = []
+            print "     --- [debug] file: ", fn
             for nm in fn_root.keys():
                 if 'sys' in str(nm):
                     continue
@@ -320,29 +335,31 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
                 if observable[channel.replace('_','')] not in str(nm):
                     continue
                 hist_names.append(str(nm))
-            print hist_names
             for hist_name in hist_names:
                 hname = hist_name.replace("b'","").replace(";1'","")
                 hist  = bn_root.Get(hname)
                 if cmd.get("type") == "data":
-                    if blind and (channel=="catEE" or channel=="catMM"):
+                    if blind and (channel=="catSignal-0jet" or channel=="catSignal-1jet"):
                         for ibin in range(hist.GetNbinsX()+1):
                             hist.SetBinContent(ibin, 0)
                             hist.SetBinError(ibin, 0)
                     if blind and (channel=="njet"):
                         hist.SetBinContent(1, 0)
                 if cmd.get("type") != "data":
-                    scale = lumi/fn_root["Runs"].array("genEventCount")[0]
-                    print("{:20s} Sumw={}, Nevt={}".format(
-                        fn[:20],
-                        fn_root["Runs"].array("genEventSumw" )[0],
-                        fn_root["Runs"].array("genEventCount" )[0]
-                    ))
-
-                    #if 'GluGluToContinToZZ' in hist_name:
-                    scale = scale/10.0
-                    kfactor = cmd.get("kfactor", 1.0)
-                    scale *= kfactor
+                    scale = lumi/fn_root["Runs"].array("genEventCount").sum()
+                    original_xsec = abs(fn_root["Events"].array("xsecscale")[0])
+                    #if original_xsec == 1000:
+                    print "       ++  filename :", os.path.basename(fn.replace(".root", ""))
+                    print "       + old xsec [fb] = ", original_xsec
+                    xsec  = xsections[os.path.basename(fn.replace(".root", ""))]["xsec"]
+                    xsec *= xsections[os.path.basename(fn.replace(".root", ""))]["kr"]
+                    xsec *= xsections[os.path.basename(fn.replace(".root", ""))]["br"]
+                    xsec *= 1000.0
+                    print "       + new xec [fb]  = ", xsec
+                    print "       + nevents       = ", fn_root["Runs"].array("genEventCount").sum()
+                    scale *= xsec/original_xsec
+                    print "       + sclae         = ", scale
+                    print "       + yield in hist = ", hist.Integral()
                     hist.Sumw2()
                     hist.Scale(scale)
                     hist.SetDirectory(0)
@@ -368,7 +385,7 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
                 hist.SetDirectory(0)
                 hist_objs.append(hist)
 
-        print len(hist_objs)
+        #print "hist : ", hist_objs
         assert(len(hist_objs)!=0)
 
         hist_com = hist_objs[0]
@@ -376,14 +393,12 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
             hist_com.Add(_h_)
 
         hist_com.SetTitle(";{};Events".format(names[channel.replace("_","")]))
-        #hist_com.SetFillColor(ROOT.TColor.GetColor(cmd.get("color")))
         hist_com.SetFillColor(cmd.get("color"))
         hist_com.SetLineColor(ROOT.kBlack)
         hist_com.SetLineStyle(1)
         hist_com.SetLineWidth(1)
-        #hist_com.SetFillStyle(0)
         hist_com.SetDirectory(0)
-        print("%5s: %1.3f" % (procname, hist_com.Integral()) )
+        #print("     --- %5s: %1.3f [events]" % (procname, hist_com.Integral()) )
         if cmd.get("type") == "background" and hist_com.Integral() > 0:
             stack_mc.Add(hist_com)
             root_histos.append(hist_com)
@@ -401,7 +416,6 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
             root_signal.append(hist_com)
     c = makeRatioPlotCanvas(name = channel)
     c.cd(1)
-    print("root_histos : ", root_histos)
     _htmp_ = root_histos[0].Clone('__htmp__')
     ROOT.SetOwnership(_htmp_, 0)
     _htmp_.Reset()
@@ -505,19 +519,14 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
     c.SaveAs("plots/plot_met_%s_region.png" % channel)
 
 def main():
-    # drawing("catMM" , lumi=1.0)
-    # drawing("catEE" , lumi=1.0)
+    #drawing("catSignal-0jet" , lumi=41.50)
+    #drawing("catSignal-1jet" , lumi=41.50)
     drawing("cat3L" , lumi=41.50)
     drawing("cat4L" , lumi=41.50)
     drawing("catNRB", lumi=41.50)
     drawing("catTOP", lumi=41.50)
-    # drawing("cat3L" , lumi=41.50)
-    # drawing("cat4L" , lumi=41.50)
-    # drawing("catNRB", lumi=41.50)
-    # drawing("catTOP", lumi=41.50)
-    #drawing("njet"  , lumi=41.50)
-    #drawing("balance"  , lumi=4.15)
-    #drawing("phizmet"  , lumi=4.15)
+    drawing("catDY" , lumi=41.50)
+    drawing("catEM" , lumi=41.50)
 
 if __name__=="__main__":
     main()
