@@ -5,7 +5,7 @@ import uproot
 import collections
 from termcolor import colored
 import math
-import argparse
+#import argparse
 import yaml
 import os
 import numpy as np
@@ -16,22 +16,19 @@ ROOT.gROOT.ProcessLine(".x rootlogon.C")
 ROOT.gErrorIgnoreLevel=ROOT.kError
 
 
-parser = argparse.ArgumentParser("")
-parser.add_argument('-era', '--era', type=str, default="2018", help="")
-parser.add_argument('-cfg', '--cfg', type=str, default="./config/inputs-NanoAODv5-2018.yaml", help="")
-parser.add_argument('-debug', '--debug', action='store_true')
-options  = parser.parse_args()
+#parser = argparse.ArgumentParser("")
+#parser.add_argument('-era', '--era', type=str, default="2018", help="")
+#parser.add_argument('-cfg', '--cfg', type=str, default="./config/inputs-NanoAODv4.yaml", help="")
+#parser.add_argument('--doxsec', action='store_true',  dest='doxsec', default=False)
+#options  = parser.parse_args()
 
 processes = {}
-with open(options.cfg, 'r') as stream:
+with open("./config/inputs-NanoAODv4.yaml", 'r') as stream:
     processes = yaml.safe_load(stream)
 
 xsections = {}
-with open("./config/xsections_{}.yaml".format(options.era), 'r') as stream:
+with open("./config/xsections_{}.yaml".format(2017), 'r') as stream:
     xsections = yaml.safe_load(stream)
-
-#observable = "measMET"
-controlreg = ["catMM","catEE", "catEM", "cat3L", "cat4L", "DY"]
 
 error_band_color           = 138
 error_band_style           = 3357
@@ -100,11 +97,11 @@ names = {
 }
 
 ranges = {
-    "catSignal-0jet"  : [100, 600],
-    "catSignal-1jet"  : [100, 600],
-    "catEM"  : [ 50, 600],
-    "cat3L"  : [ 50, 600],
-    "cat4L"  : [ 50, 600],
+    "catSignal-0jet"  : [100, 1000],
+    "catSignal-1jet"  : [100, 1000],
+    "catEM"  : [ 50, 1000],
+    "cat3L"  : [ 50, 1000],
+    "cat4L"  : [ 50, 1000],
     "catNRB" : [ 50, 100],
     "catTOP" : [ 50, 100],
     "catDY"  : [ 50, 100],
@@ -279,7 +276,7 @@ def make_stat_progression(myHisto,systematics={},
             systPrecision.SetBinError  (ibin, (band_max - band_min)/2.0);
     statPrecision.GetYaxis().SetRangeUser(0, 2)
     systPrecision.GetYaxis().SetRangeUser(0, 2)
-
+    
     return (statPrecision, systPrecision)
 
 def makeRatioPlotCanvas(name=''):
@@ -311,325 +308,213 @@ def makeRatioPlotCanvas(name=''):
     return canv
 
 def check_nuisance(process, nuisance, ch, hist_nm, hist_up, hist_dw):
-    c = ROOT.TCanvas(
-        "{}_{}_{}".format(process, ch, nuisance),
-        "{} {} {}".format(process, ch, nuisance),
-        400, 700
-    )
+    c = makeRatioPlotCanvas(process)
+    c.cd(1)
+    _htmp_ = hist_nm.Clone('__htmp__')
+    ROOT.SetOwnership(_htmp_, 0)
+    _htmp_.Reset()
+    _ymax_ = max([x.GetMaximum() for x in [hist_nm, hist_up, hist_dw]])
+    _ymin_ = min([x.GetMinimum() for x in [hist_nm, hist_up, hist_dw]])
+    
+    _ymin_ = (0.01 - 0.003) if _ymin_ <= 0 else _ymin_
+    _ymax_ = _ymax_*1000
+    
+    _htmp_.GetYaxis().SetRangeUser(_ymin_,_ymax_)
+    ROOT.gPad.SetLogy()
+
+    customizeHisto(_htmp_)
+    _htmp_.Draw('hist')
+        
     hup_ratio = hist_up.Clone("hratio_up")
     hup_ratio.Divide(hist_nm)
+    hup_ratio.SetLineColor(ROOT.kRed)
+    hup_ratio.SetLineWidth(2)
+    hup_ratio.SetFillStyle(0)
+    
     hdw_ratio = hist_dw.Clone("hratio_dw")
     hdw_ratio.Divide(hist_nm)
-
-    c.Divide(1,2)
-    c.cd(1)
+    hdw_ratio.SetLineColor(ROOT.kBlue)
+    hdw_ratio.SetLineWidth(2)
+    hdw_ratio.SetFillStyle(0)
+    
+    hist_nm.SetTitle("_".join([process,nuisance,ch]))
+    #customizeHisto(hist_nm)
     hist_nm.SetLineColor(ROOT.kBlack)
+    hist_nm.SetLineStyle(1)
     hist_nm.SetLineWidth(2)
     hist_nm.SetFillStyle(0)
-    hist_nm.Draw("hist")
+    hist_nm.Draw("hist,same")
 
+    #customizeHisto(hist_up)
     hist_up.SetLineColor(ROOT.kRed)
     hist_up.SetLineWidth(2)
     hist_up.SetFillStyle(0)
     hist_up.Draw("hist,same")
 
+    #customizeHisto(hist_dw)
     hist_dw.SetLineColor(ROOT.kBlue)
     hist_dw.SetLineWidth(2)
     hist_dw.SetFillStyle(0)
     hist_dw.Draw("hist,same")
 
     if hist_nm.Integral() != 0:
-        text = c.GetName() + " lnN {:1.3f}/{:1.3f}".format(
+        t = ROOT.TLatex()
+        t.SetTextAlign(13)
+        t.SetTextFont (text_font)
+        t.SetTextSize (text_size)
+        
+        text = "lnN {:1.3f}/{:1.3f}".format(
             hist_up.Integral()/hist_nm.Integral(),
             hist_dw.Integral()/hist_nm.Integral()
         )
-        l = ROOT.TLatex()
-        ROOT.SetOwnership(l, False)
-        l.SetNDC()
-        l.SetTextSize(1.3*ROOT.gPad.GetTopMargin())
-        l.SetTextFont(22)
-        l.SetY(1-ROOT.gPad.GetTopMargin()-.1)
-        l.SetTextAlign(33)
-        l.SetX(1-ROOT.gPad.GetRightMargin()-.1)
-        l.SetTitle(text)
-        l.Draw()
+        t.DrawLatexNDC(
+            (0.02 + ROOT.gStyle.GetPadLeftMargin()),
+            (0.93 - ROOT.gStyle.GetPadTopMargin()),
+            text
+        )
+    ROOT.gPad.RedrawAxis()
     c.cd(2)
     hup_ratio.GetYaxis().SetTitle("Ratio")
+    hup_ratio.SetTitle("")
+    hdw_ratio.SetTitle("")
+    
+    hup_ratio.GetYaxis().SetRangeUser(0, 2)
+    hup_ratio.GetYaxis().SetTitle('Data/MC')
+    hup_ratio.GetYaxis().CenterTitle(True)
+
+    customizeHisto(hup_ratio)
+    customizeHisto(hdw_ratio)
+     
     hup_ratio.Draw("hist")
-    hup_ratio.GetYaxis().SetRangeUser(0.5, 1.5)
     hdw_ratio.Draw("histsame")
+    
     if not os.path.exists("shape_check"):
         os.makedirs("shape_check")
-    c.Print("shape_check/%s.png" % c.GetName())
-    c.Print("shape_check/%s.pdf" % c.GetName())
 
+        ROOT.gPad.RedrawAxis()
+    c.SaveAs("shape_check/shape_{}_{}_{}.png".format(process, ch, nuisance))
+    c.SaveAs("shape_check/shape_{}_{}_{}.pdf".format(process, ch, nuisance))
+    
 
 def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
     print " @@@@@@ running the {} channel".format(channel)
     x_vec = collections.OrderedDict()
     w_vec = collections.OrderedDict()
-
+    
     _size_ = (len(processes) / 4) * 0.08
     root_legend  = ROOT.TLegend(
         0.35, (0.96 - ROOT.gStyle.GetPadTopMargin()) - _size_,
         (1.10 - ROOT.gStyle.GetPadRightMargin()),
         (0.94 - ROOT.gStyle.GetPadTopMargin()))
-    root_legend.SetNColumns(3)
-    #root_legend.SetColumnSeparation(-0.5)
+    root_legend.SetNColumns(4)
+    root_legend.SetColumnSeparation(-0.5)
 
     first = 0
-    stack_mc = ROOT.THStack("", "")
-    data_pts = None
-    root_histos = []
-    root_signal = []
-    root_histos_syt = {}
+    
     for procname, cmd  in processes.items():
-        print colored(" : "+procname, "green")
+        if "data" in procname.lower(): continue
+        #print "process : ", procname
         files     = cmd["files"]
-        hist_objs = []
-        dic_root_histos = {}
+        hist_nom  = None
+        root_histos_syst = {}
         for fn in files:
+            print " -- file : ", fn
             fn_root = uproot.open(fn)
             bn_root = ROOT.TFile.Open(fn)
             hist_names = []
             syst_names = []
             for nm in fn_root.keys():
                 if 'sys' in str(nm):
+                    syst_names.append(str(nm.decode('UTF-8')))
                     continue
                 if channel not in str(nm):
                     continue
                 if observable[channel.replace('_','')] not in str(nm):
                     continue
                 hist_names.append(str(nm.decode('UTF-8')))
+            
             for hist_name in hist_names:
                 hname = hist_name.replace("b'","")
                 hname = hname.replace(";1","")
                 hist  = bn_root.Get(hname)
-
-                if cmd.get("type").lower() == "data":
-                    if blind and (channel=="catSignal-0jet" or channel=="catSignal-1jet"):
-                        for ibin in range(hist.GetNbinsX()+1):
-                            hist.SetBinContent(ibin, 0)
-                            hist.SetBinError(ibin, 0)
-                    if blind and (channel=="njet"):
-                        hist.SetBinContent(1, 0)
-                if cmd.get("type").lower() == "background":
+                
+                hist.SetDirectory(0)
+                if cmd.get("type") != "data":
                     scale = lumi/fn_root["Runs"].array("genEventCount").sum()
                     original_xsec = abs(fn_root["Events"].array("xsecscale")[0])
                     xsec  = xsections[os.path.basename(fn.replace(".root", ""))]["xsec"]
                     xsec *= xsections[os.path.basename(fn.replace(".root", ""))]["kr"]
                     xsec *= xsections[os.path.basename(fn.replace(".root", ""))]["br"]
                     xsec *= 1000.0
-                    pos_fraction = np.mean((1.0+fn_root["Events"].array("xsecscale")/original_xsec)/2.0)
+                    print colored(
+                        "xsec={:1.3f} : {:1.3f}".format(
+                            xsec,
+                            original_xsec
+                        ),
+                        "green"
+                    )
+                    
                     scale *= xsec/original_xsec
-                    scale /= pos_fraction
+                    scale /= np.mean((1.0+fn_root["Events"].array("xsecscale")/original_xsec)/2.0)
                     scale *= cmd.get("kfactor", 1.0)
+                    
                     hist.Sumw2()
                     hist.Scale(scale)
-                    hist.SetDirectory(0)
-                    if options.debug:
-                        print "       ++  filename :", os.path.basename(fn.replace(".root", ""))
-                        print "       + old xsec [fb] = ", original_xsec
-                        print "       + pos w frac    = ", pos_fraction
-                        print "       + new xec [fb]  = ", xsec
-                        print "       + nevents       = ", fn_root["Runs"].array("genEventCount").sum()
-                        print "       + sclae         = ", scale
-                        print "       + yield in hist = ", hist.Integral()
                     for syst in systematics_sources:
-                        try:
-                            _h_syst_up = bn_root.Get(hname + "_sys_"+syst+"Up")
-                            _h_syst_up.SetDirectory(0)
-                            _h_syst_up.Sumw2()
-                            _h_syst_up.Scale(scale)
-
-                            _h_syst_dw = bn_root.Get(hname + "_sys_"+syst+"Down")
-                            _h_syst_dw.SetDirectory(0)
-                            _h_syst_dw.Sumw2()
-                            _h_syst_dw.Scale(scale)
-                            if options.debug:
-                                print colored(
-                                        "{:20} lnN {:1.3f}/{:1.3f}".format(
-                                            syst,
-                                            _h_syst_up.Integral()/hist.Integral() if hist.Integral() else 1.0,
-                                            _h_syst_dw.Integral()/hist.Integral() if hist.Integral() else 1.0,
-                                        ), "blue"
-                                    )
-                            if root_histos_syt.get(syst, None) is None:
-                                root_histos_syt[syst] = {
-                                    "Up"   : _h_syst_up,
-                                    "Down" : _h_syst_dw
-                                }
-                            else:
-                                root_histos_syt[syst]["Up"  ].Add(_h_syst_up)
-                                root_histos_syt[syst]["Down"].Add(_h_syst_dw)
-                        except:
-                            pass
-
-
-                elif cmd.get("type").lower() == "signal":
-                    print colored(fn, "red")
+                        if not any(syst in x  for x in syst_names):
+                            continue
+                        _h_syst_up = bn_root.Get(hname+"_sys_"+syst+"Up")
+                        _h_syst_up.SetDirectory(0)
+                        _h_syst_up.Sumw2()
+                        _h_syst_up.Scale(scale)
+                                                
+                        _h_syst_dw = bn_root.Get(hname + "_sys_"+syst+"Down")
+                        _h_syst_dw.SetDirectory(0)
+                        _h_syst_dw.Sumw2()
+                        _h_syst_dw.Scale(scale)
+                        print "{:20} lnN {:1.3f}/{:1.3f}".format(
+                            syst,
+                            _h_syst_up.Integral()/hist.Integral() if hist.Integral() else 0,
+                            _h_syst_dw.Integral()/hist.Integral() if hist.Integral() else 0,
+                        )
+                        if root_histos_syst.get(syst, None) is None:
+                            root_histos_syst[syst] = {
+                                "Up"   : _h_syst_up,
+                                "Down" : _h_syst_dw
+                            }
+                        else:
+                            root_histos_syst[syst]["Up"  ].Add(_h_syst_up)
+                            root_histos_syst[syst]["Down"].Add(_h_syst_dw)
+                                                    
                 else:
                     print(colored(fn + " -> %i " %hist.Integral(), "yellow"))
-                hist.SetDirectory(0)
-                hist_objs.append(hist)
-
-        assert(len(hist_objs)!=0)
-
-        hist_com = hist_objs[0]
-        for _h_ in hist_objs[1:]:
-            hist_com.Add(_h_)
-
-        hist_com.SetTitle(";{};Events".format(names[channel.replace("_","")]))
-        hist_com.SetFillColor(cmd.get("color"))
-        hist_com.SetLineColor(ROOT.kBlack)
-        hist_com.SetLineStyle(1)
-        hist_com.SetLineWidth(1)
-        hist_com.SetDirectory(0)
-
-        if cmd.get("type") == "background" and hist_com.Integral() > 0:
-            stack_mc.Add(hist_com)
-            root_histos.append(hist_com)
-            root_legend.AddEntry(hist_com, procname, "f" )
-        elif cmd.get("type") == "data":
-            hist_com.SetBinErrorOption(ROOT.TH1.kPoisson)
-            hist_com.SetLineWidth(2)
-            hist_com.SetFillStyle(0)
-            hist_com.SetMarkerStyle(20)
-            hist_com.SetFillColorAlpha(0,0)
-            hist_com.SetMarkerSize (1.2)
-            hist_com.SetMarkerColor(1)
-            data_pts = hist_com
-        else:
-            root_signal.append(hist_com)
-
-    c = makeRatioPlotCanvas(name = channel)
-    c.cd(1)
-    _htmp_ = root_histos[0].Clone('__htmp__')
-    ROOT.SetOwnership(_htmp_, 0)
-    _htmp_.Reset()
-    _ymax_ = max([x.GetMaximum() for x in root_histos])
-    _ymin_ = min([x.GetMinimum() for x in root_histos])
-    if ylog :
-        _ymin_ = (0.01 - 0.003) if _ymin_ <= 0 else _ymin_
-        _ymax_ = stack_mc.GetMaximum()*1000
-        _htmp_.GetYaxis().SetRangeUser(_ymin_,_ymax_)
-        ROOT.gPad.SetLogy()
-    else:
-        _ymin_ = 0
-        _ymax_ = _ymax_ + _ymax_ * 0.5
-        _htmp_.GetYaxis().SetRangeUser(_ymin_,_ymax_)
-    customizeHisto(_htmp_)
-    _htmp_.Draw('hist')
-    _htmp_.GetXaxis().SetRangeUser(
-        ranges[channel.replace("_","")][0],
-        ranges[channel.replace("_","")][1]
-    )
-    stack_mc.Draw('hist,same')
-    data_pts.SetFillStyle(0)
-    data_pts.Draw("E,same")
-    # Error bars
-    (herrstat, herrsyst) = draw_error_band(stack_mc.GetStack().Last(),root_histos_syt)
-    herrsyst.Draw("E2,same")
-    # this to check the different varations
-    if options.debug:
-        for n, syst in root_histos_syt.items():
-            syst['Up'].SetLineColor(2)
-            syst['Up'].Draw('hist,same')
-            syst['Down'].SetLineColor(4)
-            syst['Down'].Draw('hist,same')
-
-    # this is for the legend
-    root_legend.SetTextAlign( 12 )
-    root_legend.SetTextFont ( 43 )
-    root_legend.SetTextSize ( 18 )
-    root_legend.SetLineColor( 0 )
-    root_legend.SetFillColor( 0 )
-    root_legend.SetFillStyle( 0 )
-    root_legend.SetLineColorAlpha(0,0)
-    root_legend.SetShadowColor(0)
-
-    t = ROOT.TLatex()
-    t.SetTextAlign(13)
-    t.SetTextFont (text_font)
-    t.SetTextSize (text_size)
-
-    t.DrawLatexNDC((0.02 + ROOT.gStyle.GetPadLeftMargin()),
-                   (0.93 - ROOT.gStyle.GetPadTopMargin()),
-                   "%s region" % get_channel_title(channel))
-    draw_cms_headlabel(
-        label_right='#sqrt{s} = 13 TeV, L = %1.2f fb^{-1}' % 41.5
-    )
-    ROOT.gPad.RedrawAxis()
-
-    c.cd(2)
-    (errorHist,systHist) = make_stat_progression(
-        stack_mc.GetStack().Last(),
-        systematics=root_histos_syt
-    )
-    ROOT.SetOwnership(errorHist,0)
-    ROOT.SetOwnership(systHist ,0)
-
-    errorHist.GetXaxis().SetTitle(_htmp_.GetXaxis().GetTitle())
-    errorHist.GetYaxis().SetTitle('Data/MC')
-    errorHist.GetYaxis().CenterTitle(True)
-    systHist.GetXaxis ().SetTitle(_htmp_.GetXaxis().GetTitle())
-    systHist.GetYaxis ().SetTitle('Data/MC')
-    systHist.GetYaxis ().CenterTitle(True)
-    systHist.GetXaxis().SetRangeUser(
-        ranges[channel.replace("_","")][0],
-        ranges[channel.replace("_","")][1]
-    )
-    customizeHisto(errorHist)
-    customizeHisto(systHist)
-
-    systHist.Draw('E2')
-    errorHist.Draw('E2,same')
-
-    ratioHist = makeRatio(
-        hist1 = data_pts,
-        hist2 = stack_mc.GetStack().Last(),
-        isdata = True
-    )
-    ROOT.SetOwnership(ratioHist,0)
-    ratioHist.GetXaxis().SetTitle(_htmp_.GetXaxis().GetTitle())
-    ratioHist.GetYaxis().SetTitle(_htmp_.GetYaxis().GetTitle())
-    ratioHist.Draw('same')
-    line = ROOT.TLine(
-        ranges[channel.replace("_","")][0],1,
-        ranges[channel.replace("_","")][1],1
-    )
-    line.SetLineColor(4)
-    line.SetLineStyle(7)
-    line.Draw()
-    ROOT.SetOwnership(line,0)
-    print(" ---------------- ")
-    print(" MC   : %1.3f" % stack_mc.GetStack().Last().Integral())
-    print(" DATA : %1.3f" % data_pts.Integral())
-    print(" ---------------- ")
-    c.cd(1)
-    root_legend.AddEntry(systHist, "Uncert", "f"   )
-    root_legend.AddEntry(data_pts, "Data"  , "lep" )
-    root_legend.Draw()
-    print " --- before saving"
-    if not os.path.exists("plots/{}".format(options.era)):
-        os.makedirs("plots/{}".format(options.era))
-    c.SaveAs("plots/{}/plot_met_{}_region.pdf".format(options.era, channel))
-    c.SaveAs("plots/{}/plot_met_{}_region.png".format(options.era, channel))
-    print " --- after saving"
-
+                
+                if hist_nom is None:
+                    hist_nom = hist
+                else:
+                    hist_nom.Add(hist)
+        
+        print "+ process : ", procname, " nsyst : ", len(root_histos_syst.keys())
+        
+        for n, cnt in root_histos_syst.items():
+            print "  -- syst : ", n
+            check_nuisance(
+                procname, n, channel, hist_nom,
+                cnt["Up"], cnt["Down"]
+            )
+        
+        
+        
 def main():
-    lumi = {
-        "2016" : 35.9,
-        "2017" : 41.5,
-        "2018" : 60.0
-    }
-    drawing("catSignal-0jet" , lumi=lumi[options.era])
-    drawing("catSignal-1jet" , lumi=lumi[options.era])
-    drawing("cat3L"          , lumi=lumi[options.era])
-    drawing("cat4L"          , lumi=lumi[options.era])
-    drawing("catNRB"         , lumi=lumi[options.era])
-    drawing("catDY"          , lumi=lumi[options.era])
-    drawing("catEM"          , lumi=lumi[options.era])
+    drawing("catSignal-0jet" , lumi=41.50)
+    drawing("catSignal-1jet" , lumi=41.50)
+    drawing("cat3L" , lumi=41.50)
+    drawing("cat4L" , lumi=41.50)
+    drawing("catNRB", lumi=41.50)
+    drawing("catTOP", lumi=41.50)
+    drawing("catDY" , lumi=41.50)
+    drawing("catEM" , lumi=41.50)
+    drawing("njet"  , lumi=41.50)
 
 
 if __name__=="__main__":
