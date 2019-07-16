@@ -2,6 +2,8 @@ import ROOT
 import uproot
 import os
 import sys
+import operator
+import numpy as np
 from pprint import pprint
 
 def checkShape(shapeHist, name):
@@ -74,15 +76,29 @@ class DataGroup:
 
     def shape(self, channel, systvar="nom"):
         shapeUp, shapeDown= None, None
+        nominal = None
         for n, hist in self.hists.items():
-            if systvar=="nom" and channel in n:
-                return hist
-            elif channel in n and systvar in n:
+            #if systvar=="nom" and channel in n:
+            #    return hist
+            if channel in n and systvar in n:
                 if "Up" in n:
                     shapeUp = hist
                 if "Down" in n:
                     shapeDown= hist
-        return (shapeUp, shapeDown)
+            if channel in n and "nom" in n:
+                nominal= hist
+        if shapeUp is None or shapeDown is None:
+            return nominal
+        else:
+            vars = [shapeDown, nominal, shapeUp]
+            ints = np.array(
+                [shapeDown.Integral(), nominal.Integral(), shapeUp.Integral()]
+            )
+            idx = ints.argsort()
+            if systvar=="nom":
+                return vars[idx[1]]
+            else:
+                return (vars[idx[0]], vars[idx[2]])
 
     def rootfile(self):
         return self.outfile
