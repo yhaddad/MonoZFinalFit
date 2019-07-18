@@ -12,13 +12,6 @@ VVV:
   type: background
   color: 895
 
-Other:
-  files:
-    - data/DYJetsToTauTau_ForcedMuEleDecay_M-50_TuneCP5_PSweights_13TeV-amcatnloFXFX-pythia8.root
-  type:
-    background
-  color: 55
-
 ZZ:
   files:
     - data/ZZTo2L2Nu_13TeV_powheg_pythia8.root
@@ -55,6 +48,7 @@ DY:
     - data/DY2JetsToLL_M-50_LHEZpT_150-250_TuneCP5_13TeV-amcnloFXFX-pythia8.root
     - data/DY2JetsToLL_M-50_LHEZpT_250-400_TuneCP5_13TeV-amcnloFXFX-pythia8.root
     - data/DY2JetsToLL_M-50_LHEZpT_400-inf_TuneCP5_13TeV-amcnloFXFX-pythia8.root
+    - data/DYJetsToTauTau_ForcedMuEleDecay_M-50_TuneCP5_PSweights_13TeV-amcatnloFXFX-pythia8.root
   type:
     background
   color: 901

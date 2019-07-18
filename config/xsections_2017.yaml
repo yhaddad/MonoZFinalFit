@@ -70,6 +70,10 @@ TTWJetsToLNu_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8:
   xsec: 0.2043
   br  : 1.0
   kr  : 1.0
+TTWJetsToLNu_TuneCP5_PSweights_13TeV-amcatnloFXFX-madspin-pythia8:
+  xsec: 0.2043
+  br  : 1.0
+  kr  : 1.0
 TTWJetsToQQ_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8:
   xsec: 0.4062
   br  : 1.0

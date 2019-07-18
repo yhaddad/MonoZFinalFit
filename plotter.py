@@ -86,22 +86,22 @@ observable = {
 }
 
 names = {
-    "catSignal-0jet"  : "MET (GeV)",
-    "catSignal-1jet"  : "MET (GeV)",
-    "catEM"  : "MET (GeV)",
-    "cat3L"  : "emulated MET (GeV)",
-    "cat4L"  : "emulated MET (GeV)",
-    "catNRB" : "MET (GeV)",
-    "catTOP" : "MET (GeV)",
-    "catDY"  : "MET (GeV)",
+    "catSignal-0jet"  : "E_{T}^{miss} (GeV)",
+    "catSignal-1jet"  : "M_{T}^{miss} (GeV)",
+    "catEM"  : "E_{T}^{miss} (GeV)",
+    "cat3L"  : "emulated E_{T}^{miss} (GeV)",
+    "cat4L"  : "emulated M_{T}^{miss} (GeV)",
+    "catNRB" : "M_{T}^{miss} (GeV)",
+    "catTOP" : "M_{T}^{miss} (GeV)",
+    "catDY"  : "M_{T}^{miss} (GeV)",
     "njet"   : "N_{jet}",
     "balance": "balance",
-    "phizmet": "#phi(Z,p_{T}^{miss})"
+    "phizmet": "#phi(Z,E_{T}^{miss})/#pi"
 }
 
 ranges = {
-    "catSignal-0jet"  : [100, 600],
-    "catSignal-1jet"  : [100, 600],
+    "catSignal-0jet"  : [100, 1000],
+    "catSignal-1jet"  : [100, 1000],
     "catEM"  : [ 50, 600],
     "cat3L"  : [ 50, 600],
     "cat4L"  : [ 50, 600],
@@ -110,7 +110,7 @@ ranges = {
     "catDY"  : [ 50, 100],
     "njet"   : [  0,   6],
     "balance": [  0,   2],
-    "phizmet": [  0,   4]
+    "phizmet": [  0,   1]
 }
 
 def get_channel_title(text):
@@ -126,7 +126,7 @@ def get_channel_title(text):
         "catDY" : "DY"    ,
         "njet"  : "N_{jets}",
         "balance" : "balance",
-        "phizmet": "phizmet"
+        "phizmet": ""
 
     }
     return cat[text]
@@ -369,13 +369,13 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
     x_vec = collections.OrderedDict()
     w_vec = collections.OrderedDict()
 
-    _size_ = (len(processes) / 4) * 0.08
+    _size_ = (len(processes) / 4) * 0.02
     root_legend  = ROOT.TLegend(
-        0.35, (0.96 - ROOT.gStyle.GetPadTopMargin()) - _size_,
-        (1.10 - ROOT.gStyle.GetPadRightMargin()),
-        (0.94 - ROOT.gStyle.GetPadTopMargin()))
+        0.35, (0.99 - ROOT.gStyle.GetPadTopMargin()) - _size_,
+        (0.95 - ROOT.gStyle.GetPadRightMargin()),
+        (0.82 - ROOT.gStyle.GetPadTopMargin()))
     root_legend.SetNColumns(3)
-    #root_legend.SetColumnSeparation(-0.5)
+    root_legend.SetColumnSeparation(0.1)
 
     first = 0
     stack_mc = ROOT.THStack("", "")
@@ -401,6 +401,7 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
                 if observable[channel.replace('_','')] not in str(nm):
                     continue
                 hist_names.append(str(nm.decode('UTF-8')))
+            print " --> ", hist_names
             for hist_name in hist_names:
                 hname = hist_name.replace("b'","")
                 hname = hname.replace(";1","")
@@ -470,6 +471,7 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
                     print colored(fn, "red")
                 else:
                     print(colored(fn + " -> %i " %hist.Integral(), "yellow"))
+                    print(colored("  --- "+str(abs(fn_root["Events"].array("xsecscale")[0])), "yellow"))
                 hist.SetDirectory(0)
                 hist_objs.append(hist)
 
@@ -603,6 +605,7 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
     line.Draw()
     ROOT.SetOwnership(line,0)
     print(" ---------------- ")
+    print(" Lumi : %1.3f" % lumi)
     print(" MC   : %1.3f" % stack_mc.GetStack().Last().Integral())
     print(" DATA : %1.3f" % data_pts.Integral())
     print(" ---------------- ")
@@ -630,7 +633,6 @@ def main():
     drawing("catNRB"         , lumi=lumi[options.era])
     drawing("catDY"          , lumi=lumi[options.era])
     drawing("catEM"          , lumi=lumi[options.era])
-
 
 if __name__=="__main__":
     main()
