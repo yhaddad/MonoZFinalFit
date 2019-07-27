@@ -35,7 +35,7 @@ WZ:
     - data/WZTo3LNu_TuneCP5_13TeV-amcatnloFXFX-pythia8.root
   type:
     background
-  kfactor: 1.0
+  kfactor: 1.23
   color: 856
 
 DY:
@@ -98,10 +98,87 @@ Data:
     data
   color: 1
 
-#ADDMonoZ_MD_1_d_2:
+ADD_MD_1_d_2:
+  files:
+    - data/ADDMonoZ2017_MD_1_d_2.root
+  type: signal
+ADD_MD_1_d_3:
+  files:
+    - data/ADDMonoZ2017_MD_1_d_3.root
+  type: signal
+ADD_MD_1_d_4:
+  files:
+    - data/ADDMonoZ2017_MD_1_d_4.root
+  type: signal
+ADD_MD_1_d_5:
+  files:
+    - data/ADDMonoZ2017_MD_1_d_5.root
+  type: signal
+ADD_MD_1_d_6:
+  files:
+    - data/ADDMonoZ2017_MD_1_d_6.root
+  type: signal
+ADD_MD_1_d_7:
+  files:
+    - data/ADDMonoZ2017_MD_1_d_7.root
+  type: signal
+#ADD_MD_1_d_8:
 #  files:
-#    - data/ADDMonoZ2017_MD_1_d_2.root
-#  type:
-#    signal
-#  color:
-#    2
+#    - data/ADDMonoZ2017_MD_1_d_8.root
+#  type: signal
+ADD_MD_2_d_2:
+  files:
+    - data/ADDMonoZ2017_MD_2_d_2.root
+  type: signal
+ADD_MD_2_d_3:
+  files:
+    - data/ADDMonoZ2017_MD_2_d_3.root
+  type: signal
+ADD_MD_2_d_4:
+  files:
+    - data/ADDMonoZ2017_MD_2_d_4.root
+  type: signal
+ADD_MD_2_d_5:
+  files:
+    - data/ADDMonoZ2017_MD_2_d_5.root
+  type: signal
+ADD_MD_2_d_6:
+  files:
+    - data/ADDMonoZ2017_MD_2_d_6.root
+  type: signal
+ADD_MD_2_d_7:
+  files:
+    - data/ADDMonoZ2017_MD_2_d_7.root
+  type: signal
+#ADD_MD_2_d_8:
+#  files:
+#    - data/ADDMonoZ2017_MD_2_d_8.root
+#  type: signal
+ADD_MD_3_d_2:
+  files:
+    - data/ADDMonoZ2017_MD_3_d_2.root
+  type: signal
+ADD_MD_3_d_3:
+  files:
+    - data/ADDMonoZ2017_MD_3_d_3.root
+  type: signal
+ADD_MD_3_d_4:
+  files:
+    - data/ADDMonoZ2017_MD_3_d_4.root
+  type: signal
+ADD_MD_3_d_5:
+  files:
+    - data/ADDMonoZ2017_MD_3_d_5.root
+  type: signal
+ADD_MD_3_d_6:
+  files:
+    - data/ADDMonoZ2017_MD_3_d_6.root
+  type: signal
+ADD_MD_3_d_7:
+  files:
+    - data/ADDMonoZ2017_MD_3_d_7.root
+  type: signal
+#ADD_MD_3_d_8:
+#  files:
+#    - data/ADDMonoZ2017_MD_3_d_8.root
+#  type: signal

@@ -18,12 +18,12 @@ VVV:
 ZZ:
   files:
     - /eos/cms/store/group/phys_exotica/monoZ/LionKing2018/merged2018/ZZTo2L2Nu_TuneCP5_13TeV_powheg_pythia8.root
-    #- eos/cms/store/group/phys_exotica/monoZ/LionKing2018/merged2018/ZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8.root
+      #- /eos/cms/store/group/phys_exotica/monoZ/LionKing2018/merged2018/ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8.root
     - /eos/cms/store/group/phys_exotica/monoZ/LionKing2018/merged2018/ZZTo4L_TuneCP5_13TeV_powheg_pythia8.root
     - /eos/cms/store/group/phys_exotica/monoZ/LionKing2018/merged2018/GluGluToContinToZZTo2e2mu_13TeV_MCFM701_pythia8.root
     - /eos/cms/store/group/phys_exotica/monoZ/LionKing2018/merged2018/GluGluToContinToZZTo2e2nu_13TeV_MCFM701_pythia8.root
     - /eos/cms/store/group/phys_exotica/monoZ/LionKing2018/merged2018/GluGluToContinToZZTo2e2tau_13TeV_MCFM701_pythia8.root
-    #- /eos/cms/store/group/phys_exotica/monoZ/LionKing2018/merged2018/GluGluToContinToZZTo2mu2nu_13TeV_MCFM701_pythia8.root
+    - /eos/cms/store/group/phys_exotica/monoZ/LionKing2018/merged2018/GluGluToContinToZZTo2mu2nu_13TeV_MCFM701_pythia8.root
     - /eos/cms/store/group/phys_exotica/monoZ/LionKing2018/merged2018/GluGluToContinToZZTo2mu2tau_13TeV_MCFM701_pythia8.root
     - /eos/cms/store/group/phys_exotica/monoZ/LionKing2018/merged2018/GluGluToContinToZZTo4e_13TeV_MCFM701_pythia8.root
     - /eos/cms/store/group/phys_exotica/monoZ/LionKing2018/merged2018/GluGluToContinToZZTo4mu_13TeV_MCFM701_pythia8.root
@@ -35,10 +35,9 @@ ZZ:
 WZ:
   files:
     - /eos/cms/store/group/phys_exotica/monoZ/LionKing2018/merged2018/WZTo3LNu_TuneCP5_13TeV-amcatnloFXFX-pythia8.root
-#    - eos/WZTo2L2Q
   type:
     background
-  kfactor: 1.0
+  kfactor: 1.23
   color: 856
 
 DY:
@@ -46,7 +45,7 @@ DY:
     - /eos/cms/store/group/phys_exotica/monoZ/LionKing2018/merged2018/DY1JetsToLL_M-50_LHEZpT_50-150_TuneCP5_13TeV-amcnloFXFX-pythia8.root
     - /eos/cms/store/group/phys_exotica/monoZ/LionKing2018/merged2018/DY1JetsToLL_M-50_LHEZpT_150-250_TuneCP5_13TeV-amcnloFXFX-pythia8.root
     - /eos/cms/store/group/phys_exotica/monoZ/LionKing2018/merged2018/DY1JetsToLL_M-50_LHEZpT_250-400_TuneCP5_13TeV-amcnloFXFX-pythia8.root
-   # - /eos/cms/store/group/phys_exotica/monoZ/LionKing2018/merged2018/DY1JetsToLL_M-50_LHEZpT_400-inf_TuneCP5_13TeV-amcnloFXFX-pythia8.root
+    - /eos/cms/store/group/phys_exotica/monoZ/LionKing2018/merged2018/DY1JetsToLL_M-50_LHEZpT_400-inf_TuneCP5_13TeV-amcnloFXFX-pythia8.root
     - /eos/cms/store/group/phys_exotica/monoZ/LionKing2018/merged2018/DY2JetsToLL_M-50_LHEZpT_50-150_TuneCP5_13TeV-amcnloFXFX-pythia8.root
     - /eos/cms/store/group/phys_exotica/monoZ/LionKing2018/merged2018/DY2JetsToLL_M-50_LHEZpT_150-250_TuneCP5_13TeV-amcnloFXFX-pythia8.root
     - /eos/cms/store/group/phys_exotica/monoZ/LionKing2018/merged2018/DY2JetsToLL_M-50_LHEZpT_250-400_TuneCP5_13TeV-amcnloFXFX-pythia8.root
@@ -54,7 +53,7 @@ DY:
   type:
     background
   color: 901
-  kfactor: 1.0
+  kfactor: 0.7
 
 TOP:
   files:
@@ -68,7 +67,7 @@ TOP:
   type:
     background
   color: 124
-  kfactor: 1.0
+  kfactor: 2
 Data:
   files:
     - /eos/cms/store/group/phys_exotica/monoZ/LionKing2018/merged2018/DoubleMuon_Run2018A-Nano1June2019-v1.root

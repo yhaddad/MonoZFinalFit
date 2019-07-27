@@ -15,7 +15,6 @@ ROOT.gROOT.SetBatch(ROOT.kTRUE)
 ROOT.gROOT.ProcessLine(".x rootlogon.C")
 ROOT.gErrorIgnoreLevel=ROOT.kError
 
-
 parser = argparse.ArgumentParser("")
 parser.add_argument('-era', '--era', type=str, default="2018", help="")
 parser.add_argument('-cfg', '--cfg', type=str, default="./config/inputs-NanoAODv5-2018.yaml", help="")
@@ -30,7 +29,6 @@ xsections = {}
 with open("./config/xsections_{}.yaml".format(options.era), 'r') as stream:
     xsections = yaml.safe_load(stream)
 
-#observable = "measMET"
 controlreg = ["catMM","catEE", "catEM", "cat3L", "cat4L", "DY"]
 
 error_band_color           = 138
@@ -100,8 +98,8 @@ names = {
 }
 
 ranges = {
-    "catSignal-0jet"  : [100, 1000],
-    "catSignal-1jet"  : [100, 1000],
+    "catSignal-0jet"  : [100, 600],
+    "catSignal-1jet"  : [100, 600],
     "catEM"  : [ 50, 600],
     "cat3L"  : [ 50, 600],
     "cat4L"  : [ 50, 600],
@@ -130,6 +128,25 @@ def get_channel_title(text):
 
     }
     return cat[text]
+
+
+
+
+def checkShape(shapeHist):
+    negativeBins = False
+    zeroBins = False
+    for iBin in range(shapeHist.GetNbinsX()):
+        b = shapeHist.GetBinContent(iBin + 1)
+        if b < 0.:
+            negativeBins = True
+            shapeHist.SetBinContent(iBin + 1, 0.)
+            shapeHist.SetBinError(iBin + 1, -b)
+        elif b == 0.:
+            zeroBins = True
+    if shapeHist.GetBinContent(0) != 0.:
+        shapeHist.SetBinContent(0, 0.)
+    if shapeHist.GetBinContent(shapeHist.GetNbinsX()+1) != 0.:
+        shapeHist.SetBinContent(shapeHist.GetNbinsX()+1, 0.)
 
 def customizeHisto(hist, ratioplot = True):
     hist.GetYaxis().SetTitleSize  (21)
@@ -365,11 +382,10 @@ def check_nuisance(process, nuisance, ch, hist_nm, hist_up, hist_dw):
 
 
 def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
-    print " @@@@@@ running the {} channel".format(channel)
     x_vec = collections.OrderedDict()
     w_vec = collections.OrderedDict()
 
-    _size_ = (len(processes) / 4) * 0.02
+    _size_ = (len(processes) / 4) * 0.04
     root_legend  = ROOT.TLegend(
         0.35, (0.99 - ROOT.gStyle.GetPadTopMargin()) - _size_,
         (0.95 - ROOT.gStyle.GetPadRightMargin()),
@@ -384,7 +400,6 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
     root_signal = []
     root_histos_syt = {}
     for procname, cmd  in processes.items():
-        print colored(" : "+procname, "green")
         files     = cmd["files"]
         hist_objs = []
         dic_root_histos = {}
@@ -395,18 +410,17 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
             syst_names = []
             for nm in fn_root.keys():
                 if 'sys' in str(nm):
+                    syst_names.append(nm)
                     continue
                 if channel not in str(nm):
                     continue
                 if observable[channel.replace('_','')] not in str(nm):
                     continue
                 hist_names.append(str(nm.decode('UTF-8')))
-            print " --> ", hist_names
             for hist_name in hist_names:
                 hname = hist_name.replace("b'","")
                 hname = hname.replace(";1","")
                 hist  = bn_root.Get(hname)
-
                 if cmd.get("type").lower() == "data":
                     if blind and (channel=="catSignal-0jet" or channel=="catSignal-1jet"):
                         for ibin in range(hist.GetNbinsX()+1):
@@ -421,7 +435,9 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
                     xsec *= xsections[os.path.basename(fn.replace(".root", ""))]["kr"]
                     xsec *= xsections[os.path.basename(fn.replace(".root", ""))]["br"]
                     xsec *= 1000.0
-                    pos_fraction = np.mean((1.0+fn_root["Events"].array("xsecscale")/original_xsec)/2.0)
+                    pos_fraction = np.mean(
+                        (1.0+fn_root["Events"].array("xsecscale")/original_xsec)/2.0
+                    )
                     scale *= xsec/original_xsec
                     scale /= pos_fraction
                     scale *= cmd.get("kfactor", 1.0)
@@ -442,7 +458,6 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
                             _h_syst_up.SetDirectory(0)
                             _h_syst_up.Sumw2()
                             _h_syst_up.Scale(scale)
-
                             _h_syst_dw = bn_root.Get(hname + "_sys_"+syst+"Down")
                             _h_syst_dw.SetDirectory(0)
                             _h_syst_dw.Sumw2()
@@ -465,16 +480,11 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
                                 root_histos_syt[syst]["Down"].Add(_h_syst_dw)
                         except:
                             pass
-
-
                 elif cmd.get("type").lower() == "signal":
                     print colored(fn, "red")
-                else:
-                    print(colored(fn + " -> %i " %hist.Integral(), "yellow"))
-                    print(colored("  --- "+str(abs(fn_root["Events"].array("xsecscale")[0])), "yellow"))
+
                 hist.SetDirectory(0)
                 hist_objs.append(hist)
-
         assert(len(hist_objs)!=0)
 
         hist_com = hist_objs[0]
@@ -482,7 +492,7 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
             hist_com.Add(_h_)
 
         hist_com.SetTitle(";{};Events".format(names[channel.replace("_","")]))
-        hist_com.SetFillColor(cmd.get("color"))
+        hist_com.SetFillColor(cmd.get("color",1))
         hist_com.SetLineColor(ROOT.kBlack)
         hist_com.SetLineStyle(1)
         hist_com.SetLineWidth(1)
@@ -490,6 +500,7 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
 
         if cmd.get("type") == "background" and hist_com.Integral() > 0:
             stack_mc.Add(hist_com)
+            print colored(" -- %5s : %1.3f"%(procname, hist_com.Integral()), "blue")
             root_histos.append(hist_com)
             root_legend.AddEntry(hist_com, procname, "f" )
         elif cmd.get("type") == "data":
@@ -501,6 +512,7 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
             hist_com.SetMarkerSize (1.2)
             hist_com.SetMarkerColor(1)
             data_pts = hist_com
+            print colored(" -- %5s : %1.3f"%(procname, hist_com.Integral()), "yellow")
         else:
             root_signal.append(hist_com)
 
@@ -559,7 +571,7 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
                    (0.93 - ROOT.gStyle.GetPadTopMargin()),
                    "%s region" % get_channel_title(channel))
     draw_cms_headlabel(
-        label_right='#sqrt{s} = 13 TeV, L = %1.2f fb^{-1}' % 41.5
+        label_right='#sqrt{s} = 13 TeV, L = %1.2f fb^{-1}' % lumi
     )
     ROOT.gPad.RedrawAxis()
 
@@ -613,12 +625,12 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
     root_legend.AddEntry(systHist, "Uncert", "f"   )
     root_legend.AddEntry(data_pts, "Data"  , "lep" )
     root_legend.Draw()
-    print " --- before saving"
+
     if not os.path.exists("plots/{}".format(options.era)):
         os.makedirs("plots/{}".format(options.era))
     c.SaveAs("plots/{}/plot_met_{}_region.pdf".format(options.era, channel))
     c.SaveAs("plots/{}/plot_met_{}_region.png".format(options.era, channel))
-    print " --- after saving"
+
 
 def main():
     lumi = {
@@ -626,8 +638,8 @@ def main():
         "2017" : 41.5,
         "2018" : 60.0
     }
-    drawing("catSignal-0jet" , lumi=lumi[options.era])
-    drawing("catSignal-1jet" , lumi=lumi[options.era])
+    drawing("catSignal-0jet" , lumi=lumi[options.era],blind=True)
+    drawing("catSignal-1jet" , lumi=lumi[options.era],blind=True)
     drawing("cat3L"          , lumi=lumi[options.era])
     drawing("cat4L"          , lumi=lumi[options.era])
     drawing("catNRB"         , lumi=lumi[options.era])

@@ -2,6 +2,8 @@ import ROOT
 import uproot
 import os
 import sys
+import numpy as np
+from termcolor import colored
 from pprint import pprint
 
 def checkShape(shapeHist, name):
@@ -20,14 +22,47 @@ def checkShape(shapeHist, name):
     if shapeHist.GetBinContent(shapeHist.GetNbinsX()+1) != 0.:
         shapeHist.SetBinContent(shapeHist.GetNbinsX()+1, 0.)
 
+def get_scale(infile, xsections, lumi=1.0):
+    _uproot_file = uproot.open(infile)
+    # getting the luminosity wright
+    scale = lumi/_uproot_file["Runs"].array("genEventCount").sum()
+    # removing the old normalisation and using new xsection
+    original_xsec = abs(_uproot_file["Events"].array("xsecscale")[0])
+    xsec  = xsections[os.path.basename(infile.replace(".root", ""))]["xsec"]
+    xsec *= xsections[os.path.basename(infile.replace(".root", ""))]["kr"]
+    xsec *= xsections[os.path.basename(infile.replace(".root", ""))]["br"]
+    xsec *= 1000.0
+    # getting the negative/positive weight fractions
+    pos_fraction = np.mean(
+        (1.0+_uproot_file["Events"].array("xsecscale")/original_xsec)/2.0
+    )
+    scale *= xsec/original_xsec
+    scale /= pos_fraction
+    return scale
+
+
+def print_hist(hist):
+    st = ",".join([ str(hist.GetBinContent(ibin)) for ibin in range(1, 3)])
+    st = "first 2 bins : " + st
+    print colored(st, "blue")
+
+
 class DataGroup:
-    def __init__(self, files, variable="measMET", proc="DY", rebin=1,
-                 ptype="background", luminosity=1.0, normalise=True):
+    def __init__(self, files, variable="measMET", proc="DY", rebin=1, kfactor=1.,
+                 ptype="background", luminosity=1.0, normalise=True, xsections=None):
         self._names = files
         self.proc = proc
         self.ptype = ptype
         self.hists  = dict()
         self.outfile = None
+        if False:
+            print " -- variable  : ", variable
+            print " -- proc      : ", proc
+            print " -- kfactor   : ", kfactor
+            print " -- ptype     : ", ptype
+            print " -- lumi      : ", luminosity
+            print " -- normalise : ", normalise
+
         for fn in self._names:
             _proc = os.path.basename(fn).replace(".root","")
             _file = ROOT.TFile.Open(fn)
@@ -35,25 +70,24 @@ class DataGroup:
                 raise "%s is not a valid rootfile" % self._name
             _scale = 1.0
             if ptype.lower() != "data":
-                _uproot_file = uproot.open(fn)
-                _scale = _uproot_file["Runs"].array("genEventSumw")[0]
-                _scale = luminosity/_scale
-            # Here we go, let hist
+                _scale  = get_scale(fn, xsections=xsections, lumi=luminosity)
+                _scale *= kfactor
             for key in _file.GetListOfKeys():
-                if "TH1" in key.GetClassName() :#and observable in key.GetName():
-                    # if proc.lower() not in key.GetName().lower():
-                    #     continue
-                    #if proc.lower() not in fn.lower():
-                    #    continue
+                if "TH1" in key.GetClassName() :
                     if variable not in key.GetName():
                         continue
                     roothist = key.ReadObj()
-                    if 'GluGluToContinToZZ' in fn:
-                        _scale = _scale/1000.0
+                    roothist.Sumw2()
                     roothist.Scale(_scale)
                     name = key.GetName().replace(_proc, self.proc)
                     name = name if 'sys' in name else name + "_nom"
-                    roothist.SetName(name)
+                    if ptype.lower() == "signal":
+                        name = name.replace(proc, "DM")
+                    if "catSignal-0jet" in name:
+                        name = name.replace("catSignal-0jet", "BSM0")
+                    if "catSignal-1jet" in name:
+                        name = name.replace("catSignal-1jet", "BSM1")
+                    roothist.SetName(name.replace("nom",""))
                     roothist.SetDirectory(0)
                     ROOT.SetOwnership(roothist, 0)
                     if rebin > 1:
@@ -62,9 +96,6 @@ class DataGroup:
                         self.hists[name].Add(roothist)
                     else:
                         self.hists[name] = roothist
-
-        if proc.lower() == "data":
-            print(" -->", self.hists)
 
     def histograms(self):
         """
@@ -75,7 +106,7 @@ class DataGroup:
     def shape(self, channel, systvar="nom"):
         shapeUp, shapeDown= None, None
         for n, hist in self.hists.items():
-            if systvar=="nom" and channel in n:
+            if systvar in n and systvar=="nom" and channel in n:
                 return hist
             elif channel in n and systvar in n:
                 if "Up" in n:
@@ -97,6 +128,64 @@ class DataGroup:
             hist.Write()
         fout.Write()
         fout.Close()
+
+class DataCard:
+    def __init__(self, fileName, working_dir="fitroom"):
+        self.cards = {}
+        self.nSignals = 0
+        self.working_dir = working_dir
+    def addChannel(self, channel):
+        self.cards[channel] = {
+            "shapes": [],
+            "observation": [],
+            "rates": [],  # To be a tuple (process name, rate), signals first!
+            "nuisances": {},  # To be a dict "nuisance name": {"process name": scale, ...}
+            "extras": set(),
+        }
+    def write(self, makeGroups=False):
+        for channel, card in self.cards.items():
+            with open(self.working_dir + "/card_%s" % channel, "w") as fout:
+                # Headers
+                fout.write("# Card for channel %s\n" % channel)
+                fout.write("imax 1 # process in this card\n")
+                fout.write("jmax %d # process in this card - 1\n" % (len(card["rates"])-1, ))
+                fout.write("kmax %d # nuisances in this card\n" % len(card["nuisances"]))
+                fout.write("-"*30 + "\n")
+                for line in card["shapes"]:
+                    fout.write(line+"\n")
+                fout.write("-"*30 + "\n")
+                for line in card["observation"]:
+                    fout.write(line+"\n")
+                fout.write("-"*30 + "\n")
+                binLine = "{0:<40}".format("bin")
+                procLine = "{0:<40}".format("process")
+                indexLine = "{0:<40}".format("process")
+                rateLine = "{0:<40}".format("rate")
+                for i, tup in enumerate(card["rates"]):
+                    binLine += "{0:>15}".format(channel)
+                    procLine += "{0:>15}".format(tup[0])
+                    indexLine += "{0:>15}".format(i - self.nSignals + 1)
+                    rateLine += "{0:>15}".format("%.3f" % tup[1])
+                for line in [binLine, procLine, indexLine, rateLine]:
+                    fout.write(line+"\n")
+                fout.write("-"*30 + "\n")
+                for nuisance in sorted(card["nuisances"].keys()):
+                    processScales = card["nuisances"][nuisance]
+                    line = "{0:<40}".format(nuisance)
+                    for process, _ in card["rates"]:
+                        if process in processScales:
+                            line += "{0:>15}".format("%.3f" % processScales[process])
+                        else:
+                            line += "{0:>15}".format("-")
+                    fout.write(line+"\n")
+                def makeGroups(name, prefix):
+                    group = [n.split(" ")[0] for n in card["nuisances"].keys() if prefix in n]
+                    fout.write("%s group = %s\n" % (name, " ".join(group)))
+                #makeGroups("theory", "Theo_")
+                #makeGroups("mcStat", "Stat_")
+                #makeGroups("CMS", "CMS_")
+                for line in card["extras"]:
+                    fout.write(line+"\n")
 
 class Workspace:
     def __init__(self, fileName, working_dir="fitroom"):
@@ -146,8 +235,8 @@ class Workspace:
                         if process in processScales:
                             s = processScales[process]
                             if type(s) is tuple:
-                                if s == (0,0):
-                                    line += "{0:>20}".format("0.100/0.100")
+                                if (s[0] <= 0) or (s[1] <= 0):
+                                    line += "{0:>20}".format("-")
                                 else:
                                     line += "{0:>20}".format("%.3f/%.3f" % s)
                             else:

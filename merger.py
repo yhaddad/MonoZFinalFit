@@ -93,10 +93,12 @@ def haddnano(ofname, files):
 
 
 def main():
-    #pattern = "DY"
+    pattern = "WZ"
     for sample in os.listdir(indir):
         print colored(" -- " + sample, "blue")
         if "merged" in sample:
+            continue
+        if pattern not in sample:
             continue
         in_files = glob.glob("{indir}/{sample}/*.root".format(sample=sample, indir=indir))
         out_file = "{outdir}/{sample}.root".format(sample=sample, outdir=outdir)
@@ -104,6 +106,7 @@ def main():
             print colored(" -- [warning] empty directory for " + sample, "red")
             continue
         haddnano(out_file, in_files)
+
 
 if __name__ == "__main__":
    main()
