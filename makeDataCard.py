@@ -1,16 +1,11 @@
 import yaml
-import ROOT
 import uproot
 import os
-import math
 import argparse
 import ftool
+import numpy as np
 from termcolor import colored
-from pprint import pprint
 
-ROOT.gROOT.SetBatch(True)
-ROOT.PyConfig.IgnoreCommandLineOptions = True
-ROOT.gErrorIgnoreLevel=ROOT.kError
 
 lumis = {
     "2016" : 35.9,
@@ -23,12 +18,11 @@ def main():
     parser.add_argument("-i"  , "--input"   , type=str, default="config/inputs.yaml")
     parser.add_argument("-v"  , "--variable", type=str, default="measMET")
     parser.add_argument("-o"  , "--outdir"  , type=str, default="fitroom")
-    parser.add_argument("-c"  , "--channel" , action="append")
-    parser.add_argument("-s"  , "--signal"  , action="append")
-    parser.add_argument("-t"  , "--stack"   , type=str)
+    parser.add_argument("-c"  , "--channel" , nargs='+', type=str)
+    parser.add_argument("-s"  , "--signal"  , nargs='+', type=str)
+    parser.add_argument("-t"  , "--stack"   , nargs='+', type=str)
     parser.add_argument("-era", "--era"     , type=str, default="2017")
     parser.add_argument("-f"  , "--force"   , action="store_true")
-    parser.add_argument("-tag", "--tag"     , type=str, default="ADD")
     parser.add_argument("-xs" , "--xsection", type=str, default="config/xsections_2017.yaml")
 
     options = parser.parse_args()
@@ -40,7 +34,7 @@ def main():
         if options.force:
             os.rmdir(options.outdir)
             os.mkdir(options.outdir)
-            print "Directory " , options.outdir ,  " Re-created "
+            print("Directory " , options.outdir ,  " Re-created ")
 
     inputs = None
     with open(options.input) as f:
@@ -56,142 +50,82 @@ def main():
         except yaml.YAMLError as exc:
             print (exc)
 
+    if len(options.channel) == 1:
+        options.channel = options.channel[0]
+
     # make datasets per prcess
     datasets = {}
-    options.stack = options.stack.split(",")
     nsignals = 0
+    signal = ""
     for dg in options.stack:
-        p = ftool.DataGroup(
+        p = ftool.datagroup(
             inputs[dg]["files"],
             ptype      = inputs[dg]["type"],
-            variable   = options.variable,
-            rebin      = 1,
-            proc       = dg,
+            observable = options.variable,
+            name       = dg,
             kfactor    = inputs[dg].get("kfactor", 1.0),
             xsections  = xsections,
+            channel    = options.channel, #["cat3L", "cat4L", "catEM", "catSignal-0jet", "catSignal-1jet"],
             luminosity = lumis[options.era]
         )
-        if inputs[dg]["type"].lower() == "signal":
-            p.save(
-                filename="histogram-{}.root".format("DM"),
-                working_dir=options.outdir
-            )
-        else:
-            p.save(
-                filename="histogram-{}.root".format(dg),
-                working_dir=options.outdir
-            )
-        if inputs[dg]["type"].lower() =='signal':
-            nsignals += 1
+        #p.save()
+        datasets[p.name] = p
+        if p.ptype == "signal":
+            signal = p.name
 
-        print colored(" -- data group : " + inputs[dg]["type"] + " : " + dg, "green")
-        if 'signal' in inputs[dg]["type"]:
-            dg = dg.replace(dg, "DM")
-        # ---
-        datasets[dg] = p
+    print ("channel  : ", options.channel)
 
-    if options.stack is None:
-        options.stack = ["WW", "ZZ", "WZ", "DY", "TOP", "Data"]
+    card_name = "ch"+options.era
+    if isinstance(options.channel, str):
+        card_name = options.channel+options.era
+    elif isinstance(options.channel, list):
+        if np.all(["signal" in c.lower() for c in options.channel]):
+            card_name = "chBSM"+options.era
+    print(" -- cardname : ", card_name)
 
-    ws = ftool.DataCard("ws.root", working_dir=options.outdir)
-    ws.nSignals = nsignals
+    card = ftool.datacard(
+        name = signal,
+        channel= card_name
+    )
+    card.shapes_headers()
 
-    for ch in options.channel:
-        if "catSignal-0jet" in ch:
-            ch = ch.replace("catSignal-0jet", "BSM0")
-        if "catSignal-1jet" in ch:
-            ch = ch.replace("catSignal-1jet", "BSM1")
+    data_obs = datasets.get("data").get("nom")
+    print("data_osb : ", data_obs)
+    card.add_observation(data_obs)
 
-        data_obs = datasets.get("Data").shape(ch, "nom")
-        ftool.checkShape(data_obs, "data{}".format(ch))
+    for n, p in datasets.items():
+        name = "signal" if p.ptype=="signal" else p.name
+        if p.ptype=="data":
+            continue
+        card.add_nominal(name, p.get("nom"))
 
-        ws.addChannel(ch)
-        ws.cards[ch]["observation"].append("bin          {}".format(ch))
-        ws.cards[ch]["observation"].append("observation  {}".format(data_obs.Integral()))
+        card.add_nuisance(name, "{:<21}  lnN".format("CMS_Scale_el"),  1.020)
+        card.add_nuisance(name, "{:<21}  lnN".format("CMS_Scale_mu"),  1.010)
+        card.add_nuisance(name, "{:<21}  lnN".format("CMS_lumi_2016"),  1.025)
+        card.add_nuisance(name, "{:<21}  lnN".format("UEPS"),  1.020)
+        #
+        card.add_shape_nuisance(name, "ElectronEn", "CMS_res_e", p.get("ElectronEn"))
+        card.add_shape_nuisance(name, "ElecronSF" , "CMS_eff_e", p.get("ElecronSF"))
+        card.add_shape_nuisance(name, "MuonEn"    , "CMS_res_m", p.get("MuonEn"))
+        card.add_shape_nuisance(name, "MuonSF"    , "CMS_eff_m", p.get("MuonSF"))
+        #
+        card.add_shape_nuisance(name, "jesTotal"  , "CMS_JES_2017", p.get("jesTotal"))
+        card.add_shape_nuisance(name, "jer"       , "CMS_JER_2017", p.get("jer"))
+        card.add_shape_nuisance(name, "unclustEn" , "CMS_UES_2017", p.get("unclustEn"))
+        #
+        card.add_shape_nuisance(name, "btagEventWeight" , "CMS_BTag_2017" , p.get("btagEventWeight"))
+        card.add_shape_nuisance(name, "TriggerSFWeight" , "CMS_Trig_2017" , p.get("TriggerSFWeight"))
+        card.add_shape_nuisance(name, "PrefireWeight"   , "CMS_pfire_2017", p.get("PrefireWeight"))
+        #
+        card.add_shape_nuisance(name, "EWK"  , "EWKZZWZ", p.get("EWK"))
+        card.add_shape_nuisance(name, "PDF"  , "PDF"    , p.get("PDF"))
+        #
+        card.add_shape_nuisance(name, "nvtxWeight", "CMS_Vx", p.get("nvtxWeight"))
+        card.add_shape_nuisance(name, "puWeight"  , "CMS_PU", p.get("puWeight"))
+        #
+        card.add_auto_stat()
 
-        ws.cards[ch]["shapes"].append(
-            "shapes {process:<20} {channel:<10} {file:>20} {variable}_{proc}_{channel}".format(
-                process="data_obs",
-                proc="data",
-                channel=ch,
-                file="histogram-Data.root",
-                variable=options.variable
-            )
-        )
-
-
-        def add_nuisance(nuisName, process, rate):
-            if nuisName not in ws.cards[ch]["nuisances"]:
-                ws.cards[ch]["nuisances"][nuisName] = {}
-            ws.cards[ch]["nuisances"][nuisName][process] = rate
-
-        def add_nominal(process):
-            nominalHist = datasets.get(process).shape(ch, "nom")
-            ftool.checkShape(nominalHist, "{}_{}".format(process, ch))
-            ws.cards[ch]["rates" ].append((process, nominalHist.Integral()))
-            ws.cards[ch]["shapes"].append(
-                "shapes {process:<20} {channel:<10} {file:>20} {variable}_{process}_{channel}_$SYSTEMATIC".format(
-                    process=process, channel=ch,
-                    file="histogram-{}.root".format(process),
-                    variable=options.variable
-                )
-            )
-            #ws.cards[ch]["extras"].add("{:<10} autoMCStats 0 0 1".format(process))
-
-        def add_shape_nuisance(process, nuisance, cardName):
-            print "process : ", process, " : ", nuisance
-            histUp, histDown = datasets.get(process).shape(ch, nuisance)
-            print " -- > get proc : ", datasets.keys()
-            nominalHist = datasets.get(process).shape(ch, "nom")
-
-            try:
-                def allBins(hist):
-                    return [hist.GetBinContent(i + 1) for i in range(hist.GetNbinsX())]
-                if allBins(histUp) == allBins(histDown):
-                    print "Info: shape nuisance %s has no variation for process %s, skipping" % (nuisance, process)
-                    return
-            except:
-                return
-
-
-            nuisName = "{:<20} shape".format(cardName)
-            add_nuisance(nuisName, process, 1.)
-
-        for p, pg in  datasets.items():
-            if 'data'   in pg.ptype: continue
-            add_nominal(p)
-            add_nuisance("CMS_Scale_el lnN", p, 1.02)
-            add_nuisance("CMS_Scale_mu lnN", p, 1.01)
-
-            if options.era == "2016":
-                add_nuisance("CMS_lumi_2016 lnN".format(options.era), p, 1.025)
-            if options.era == "2017":
-                add_nuisance("CMS_lumi_2017 lnN".format(options.era), p, 1.023)
-            if options.era == "2018":
-                add_nuisance("CMS_lumi_2018 lnN".format(options.era), p, 1.025)
-            add_nuisance("CMS_EUPS      lnN".format(options.era), p, 1.02)
-            # -- objects
-            add_shape_nuisance(p, "ElectronEn", "CMS_res_e")
-            add_shape_nuisance(p, "ElecronSF" , "CMS_eff_e")
-            add_shape_nuisance(p, "MuonEn"    , "CMS_res_m")
-            add_shape_nuisance(p, "MuonSF"    , "CMS_eff_m")
-            # -- jets/met
-            add_shape_nuisance(p, "jesTotal"  , "CMS_JES_{}".format(options.era))
-            add_shape_nuisance(p, "jer"       , "CMS_JER_{}".format(options.era))
-            add_shape_nuisance(p, "unclustEn" , "CMS_UES_{}".format(options.era))
-            # -- trigger and bjets
-            add_shape_nuisance(p, "btagEventWeight", "CMS_BTag_{}".format(options.era))
-            add_shape_nuisance(p, "TriggerSFWeight", "CMS_Trig_{}".format(options.era))
-            add_shape_nuisance(p, "PrefireWeight"  , "CMS_Prefire_{}".format(options.era))
-            # -- thoery uncert
-            add_shape_nuisance(p, "EWK"  , "EWKZZWZ")
-            add_shape_nuisance(p, "PDF"  , "PDF")
-            # -- pu/vtx reweighting
-            add_shape_nuisance(p, "nvtxWeight", "CMS_Vx")
-            add_shape_nuisance(p, "puWeight"  , "CMS_PU")
-
-    ws.write(makeGroups=False)
-
+    card.dump()
 
 
 if __name__ == "__main__":
