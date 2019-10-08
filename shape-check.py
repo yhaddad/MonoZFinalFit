@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+from __future__ import absolute_import
+from __future__ import print_function
 
 import ROOT
 import uproot
@@ -23,7 +25,7 @@ ROOT.gErrorIgnoreLevel=ROOT.kError
 #options  = parser.parse_args()
 
 processes = {}
-with open("./config/inputs-NanoAODv4.yaml", 'r') as stream:
+with open("./config/inputs-NanoAODv5-2017.yaml", 'r') as stream:
     processes = yaml.safe_load(stream)
 
 xsections = {}
@@ -397,7 +399,6 @@ def check_nuisance(process, nuisance, ch, hist_nm, hist_up, hist_dw):
 
 
 def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
-    print " @@@@@@ running the {} channel".format(channel)
     x_vec = collections.OrderedDict()
     w_vec = collections.OrderedDict()
 
@@ -413,12 +414,10 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
 
     for procname, cmd  in processes.items():
         if "data" in procname.lower(): continue
-        #print "process : ", procname
         files     = cmd["files"]
         hist_nom  = None
         root_histos_syst = {}
         for fn in files:
-            print " -- file : ", fn
             fn_root = uproot.open(fn)
             bn_root = ROOT.TFile.Open(fn)
             hist_names = []
@@ -446,13 +445,13 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
                     xsec *= xsections[os.path.basename(fn.replace(".root", ""))]["kr"]
                     xsec *= xsections[os.path.basename(fn.replace(".root", ""))]["br"]
                     xsec *= 1000.0
-                    print colored(
+                    print(colored(
                         "xsec={:1.3f} : {:1.3f}".format(
                             xsec,
                             original_xsec
                         ),
                         "green"
-                    )
+                    ))
 
                     scale *= xsec/original_xsec
                     scale /= np.mean((1.0+fn_root["Events"].array("xsecscale")/original_xsec)/2.0)
@@ -472,11 +471,11 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
                         _h_syst_dw.SetDirectory(0)
                         _h_syst_dw.Sumw2()
                         _h_syst_dw.Scale(scale)
-                        print "{:20} lnN {:1.3f}/{:1.3f}".format(
+                        print("{:20} lnN {:1.3f}/{:1.3f}".format(
                             syst,
                             _h_syst_up.Integral()/hist.Integral() if hist.Integral() else 0,
                             _h_syst_dw.Integral()/hist.Integral() if hist.Integral() else 0,
-                        )
+                        ))
                         if root_histos_syst.get(syst, None) is None:
                             root_histos_syst[syst] = {
                                 "Up"   : _h_syst_up,
@@ -494,10 +493,9 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
                 else:
                     hist_nom.Add(hist)
 
-        print "+ process : ", procname, " nsyst : ", len(root_histos_syst.keys())
+        print("+ process : ", procname, " nsyst : ", len(root_histos_syst.keys()))
 
         for n, cnt in root_histos_syst.items():
-            print "  -- syst : ", n
             check_nuisance(
                 procname, n, channel, hist_nom,
                 cnt["Up"], cnt["Down"]

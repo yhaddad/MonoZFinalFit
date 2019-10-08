@@ -93,17 +93,17 @@ void setYacineStyle(){
   //
   //
   //// for the statistic box
-  YacineStyle->SetOptStat(0);
-  YacineStyle->SetStatBorderSize(0);
-  YacineStyle->SetStatFont(43);
-  YacineStyle->SetStatFontSize(25);
-  YacineStyle->SetStatColor(0);
-  YacineStyle->SetStatStyle(0);
-  YacineStyle->SetStatW(0.25);
-  YacineStyle->SetStatH(0.125);
-  YacineStyle->SetStatX(0.90);
-  YacineStyle->SetStatY(0.90);
-  YacineStyle->SetStatBorderSize(0);
+  //YacineStyle->SetOptStat(0);
+  //YacineStyle->SetStatBorderSize(0);
+  //YacineStyle->SetStatFont(43);
+  //YacineStyle->SetStatFontSize(25);
+  //YacineStyle->SetStatColor(0);
+  //YacineStyle->SetStatStyle(0);
+  //YacineStyle->SetStatW(0.25);
+  //YacineStyle->SetStatH(0.125);
+  //YacineStyle->SetStatX(0.90);
+  //YacineStyle->SetStatY(0.90);
+  //YacineStyle->SetStatBorderSize(0);
   //
   ////YacineStyle->SetStatX(1.0-YacineStyle->GetPadRightMargin()-0.02);
   ////YacineStyle->SetStatY(1.0-YacineStyle->GetPadTopMargin()-0.02);
@@ -115,16 +115,16 @@ void setYacineStyle(){
   YacineStyle->SetPadLeftMargin  (0.15);
   //
   //// Global Title
-  YacineStyle->SetTitleFont  (43); //@
-  YacineStyle->SetTitleSize  (25);//@
-  YacineStyle->SetTitleColor (1);
-  YacineStyle->SetTitleTextColor(1);
-  YacineStyle->SetTitleFillColor(0);                // Changed -- JEK
-  YacineStyle->SetTitleFontSize(25); //@
-  YacineStyle->SetTitleBorderSize(0);
-  YacineStyle->SetTitleAlign(33);
-  YacineStyle->SetTitleX(0.8);
-  YacineStyle->SetTitleY(0.95);
+  // acineStyle->SetTitleFont  (43); //@
+  // acineStyle->SetTitleSize  (25);//@
+  // acineStyle->SetTitleColor (1);
+  // acineStyle->SetTitleTextColor(1);
+  // acineStyle->SetTitleFillColor(0);                // Changed -- JEK
+  // acineStyle->SetTitleFontSize(25); //@
+  // acineStyle->SetTitleBorderSize(0);
+  // acineStyle->SetTitleAlign(33);
+  // acineStyle->SetTitleX(0.8);
+  // acineStyle->SetTitleY(0.95);
   //// Axis Titles
   YacineStyle->SetTitleColor (1 ,  "xyz");
   YacineStyle->SetTitleFont  (43,  "xyz");

@@ -53,20 +53,16 @@ ratio_plot_grid            = True
 text_font                  = 43
 text_size                  = 18
 
+# systematics_sources = [
+#     "ElectronEn",
+#     # "MuonEn",
+#     # "jesTotal",
+#     # "jer"
+# ]
 systematics_sources = [
-    "ElectronEn",
-    "MuonEn",
-    "jesTotal",
-    "jer",
-    "unclustEn",
-    "puWeight",
-    "PDF",
-    "MuonSF",
-    "ElecronSF",
-    "EWK",
-    "nvtxWeight",
-    "TriggerSFWeight",
-    "btagEventWeight",
+    # "puWeight", "PDF", "MuonSF", "ElecronSF", "EWK",
+    # "nvtxWeight","TriggerSFWeight","btagEventWeight",
+    # "QCDScale0w", "QCDScale1w", "QCDScale2w"
 ]
 
 observable = {
@@ -83,15 +79,29 @@ observable = {
     "phizmet"         : "phizmet"
 }
 
+# observable = {
+#     "catSignal-0jet"  : "MT",
+#     "catEM"           : "MT",
+#     "catSignal-1jet"  : "MT",
+#     "cat3L"           : "MT",
+#     "cat4L"           : "MT",
+#     "catNRB"          : "MT",
+#     "catTOP"          : "MT",
+#     "catDY"           : "MT",
+#     "njet"            : "njet",
+#     "balance"         : "balance",
+#     "phizmet"         : "phizmet"
+# }
+
 names = {
     "catSignal-0jet"  : "E_{T}^{miss} (GeV)",
-    "catSignal-1jet"  : "M_{T}^{miss} (GeV)",
+    "catSignal-1jet"  : "E_{T}^{miss} (GeV)",
     "catEM"  : "E_{T}^{miss} (GeV)",
     "cat3L"  : "emulated E_{T}^{miss} (GeV)",
-    "cat4L"  : "emulated M_{T}^{miss} (GeV)",
-    "catNRB" : "M_{T}^{miss} (GeV)",
-    "catTOP" : "M_{T}^{miss} (GeV)",
-    "catDY"  : "M_{T}^{miss} (GeV)",
+    "cat4L"  : "emulated E_{T}^{miss} (GeV)",
+    "catNRB" : "E_{T}^{miss} (GeV)",
+    "catTOP" : "E_{T}^{miss} (GeV)",
+    "catDY"  : "E_{T}^{miss} (GeV)",
     "njet"   : "N_{jet}",
     "balance": "balance",
     "phizmet": "#phi(Z,E_{T}^{miss})/#pi"
@@ -110,6 +120,20 @@ ranges = {
     "balance": [  0,   2],
     "phizmet": [  0,   1]
 }
+
+# ranges = {
+#     "catSignal-0jet"  : [0, 2000],
+#     "catSignal-1jet"  : [0, 2000],
+#     "catEM"  : [0, 2000],
+#     "cat3L"  : [0, 2000],
+#     "cat4L"  : [0, 2000],
+#     "catNRB" : [0, 2000],
+#     "catTOP" : [0, 2000],
+#     "catDY"  : [0, 2000],
+#     "njet"   : [  0,   6],
+#     "balance": [  0,   2],
+#     "phizmet": [  0,   1]
+# }
 
 def get_channel_title(text):
     text = text.replace("_","")
@@ -381,17 +405,13 @@ def check_nuisance(process, nuisance, ch, hist_nm, hist_up, hist_dw):
     c.Print("shape_check/%s.pdf" % c.GetName())
 
 
-def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
+def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True, rebin=1):
     x_vec = collections.OrderedDict()
     w_vec = collections.OrderedDict()
 
-    _size_ = (len(processes) / 4) * 0.04
-    root_legend  = ROOT.TLegend(
-        0.35, (0.99 - ROOT.gStyle.GetPadTopMargin()) - _size_,
-        (0.95 - ROOT.gStyle.GetPadRightMargin()),
-        (0.82 - ROOT.gStyle.GetPadTopMargin()))
+    root_legend = ROOT.TLegend(0.4, 0.7, 0.95, 0.90)
     root_legend.SetNColumns(3)
-    root_legend.SetColumnSeparation(0.1)
+    #root_legend.SetColumnSeparation(0.1)
 
     first = 0
     stack_mc = ROOT.THStack("", "")
@@ -429,29 +449,15 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
                     if blind and (channel=="njet"):
                         hist.SetBinContent(1, 0)
                 if cmd.get("type").lower() == "background":
-                    scale = lumi/fn_root["Runs"].array("genEventCount").sum()
-                    original_xsec = abs(fn_root["Events"].array("xsecscale")[0])
-                    xsec  = xsections[os.path.basename(fn.replace(".root", ""))]["xsec"]
-                    xsec *= xsections[os.path.basename(fn.replace(".root", ""))]["kr"]
-                    xsec *= xsections[os.path.basename(fn.replace(".root", ""))]["br"]
-                    xsec *= 1000.0
-                    pos_fraction = np.mean(
-                        (1.0+fn_root["Events"].array("xsecscale")/original_xsec)/2.0
-                    )
-                    scale *= xsec/original_xsec
-                    scale /= pos_fraction
+                    scale  = xsections[os.path.basename(fn.replace(".root", ""))]["xsec"]
+                    scale *= xsections[os.path.basename(fn.replace(".root", ""))]["kr"]
+                    scale *= xsections[os.path.basename(fn.replace(".root", ""))]["br"]
+                    scale *= 1000.0
+                    scale *= lumi/fn_root["Runs"].array("genEventSumw").sum()
                     scale *= cmd.get("kfactor", 1.0)
                     hist.Sumw2()
                     hist.Scale(scale)
                     hist.SetDirectory(0)
-                    if options.debug:
-                        print "       ++  filename :", os.path.basename(fn.replace(".root", ""))
-                        print "       + old xsec [fb] = ", original_xsec
-                        print "       + pos w frac    = ", pos_fraction
-                        print "       + new xec [fb]  = ", xsec
-                        print "       + nevents       = ", fn_root["Runs"].array("genEventCount").sum()
-                        print "       + sclae         = ", scale
-                        print "       + yield in hist = ", hist.Integral()
                     for syst in systematics_sources:
                         try:
                             _h_syst_up = bn_root.Get(hname + "_sys_"+syst+"Up")
@@ -463,13 +469,13 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
                             _h_syst_dw.Sumw2()
                             _h_syst_dw.Scale(scale)
                             if options.debug:
-                                print colored(
+                                print(colored(
                                         "{:20} lnN {:1.3f}/{:1.3f}".format(
                                             syst,
                                             _h_syst_up.Integral()/hist.Integral() if hist.Integral() else 1.0,
                                             _h_syst_dw.Integral()/hist.Integral() if hist.Integral() else 1.0,
                                         ), "blue"
-                                    )
+                                    ))
                             if root_histos_syt.get(syst, None) is None:
                                 root_histos_syt[syst] = {
                                     "Up"   : _h_syst_up,
@@ -481,7 +487,7 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
                         except:
                             pass
                 elif cmd.get("type").lower() == "signal":
-                    print colored(fn, "red")
+                    print(colored(fn, "red"))
 
                 hist.SetDirectory(0)
                 hist_objs.append(hist)
@@ -500,7 +506,7 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
 
         if cmd.get("type") == "background" and hist_com.Integral() > 0:
             stack_mc.Add(hist_com)
-            print colored(" -- %5s : %1.3f"%(procname, hist_com.Integral()), "blue")
+            print(colored(" -- %5s : %1.3f"%(procname, hist_com.Integral()), "blue"))
             root_histos.append(hist_com)
             root_legend.AddEntry(hist_com, procname, "f" )
         elif cmd.get("type") == "data":
@@ -512,7 +518,6 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
             hist_com.SetMarkerSize (1.2)
             hist_com.SetMarkerColor(1)
             data_pts = hist_com
-            print colored(" -- %5s : %1.3f"%(procname, hist_com.Integral()), "yellow")
         else:
             root_signal.append(hist_com)
 
@@ -616,11 +621,9 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
     line.SetLineStyle(7)
     line.Draw()
     ROOT.SetOwnership(line,0)
-    print(" ---------------- ")
     print(" Lumi : %1.3f" % lumi)
     print(" MC   : %1.3f" % stack_mc.GetStack().Last().Integral())
     print(" DATA : %1.3f" % data_pts.Integral())
-    print(" ---------------- ")
     c.cd(1)
     root_legend.AddEntry(systHist, "Uncert", "f"   )
     root_legend.AddEntry(data_pts, "Data"  , "lep" )
@@ -640,11 +643,14 @@ def main():
     }
     drawing("catSignal-0jet" , lumi=lumi[options.era],blind=True)
     drawing("catSignal-1jet" , lumi=lumi[options.era],blind=True)
-    drawing("cat3L"          , lumi=lumi[options.era])
-    drawing("cat4L"          , lumi=lumi[options.era])
-    drawing("catNRB"         , lumi=lumi[options.era])
-    drawing("catDY"          , lumi=lumi[options.era])
-    drawing("catEM"          , lumi=lumi[options.era])
+    # drawing("cat3L"          , lumi=lumi[options.era])
+    # drawing("cat4L"          , lumi=lumi[options.era])
+    # drawing("catEM"          , lumi=lumi[options.era])
+    # drawing("catDY"          , lumi=lumi[options.era])
+    #
+    # drawing("njet"          , lumi=lumi[options.era])
+    # drawing("balance"       , lumi=lumi[options.era])
+    # drawing("phizmet"       , lumi=lumi[options.era])
 
 if __name__=="__main__":
     main()

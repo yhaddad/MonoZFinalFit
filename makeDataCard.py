@@ -23,7 +23,8 @@ def main():
     parser.add_argument("-t"  , "--stack"   , nargs='+', type=str)
     parser.add_argument("-era", "--era"     , type=str, default="2017")
     parser.add_argument("-f"  , "--force"   , action="store_true")
-    parser.add_argument("-xs" , "--xsection", type=str, default="config/xsections_2017.yaml")
+    parser.add_argument("-xs" , "--xsection", type=str, default="config/xsections_ERA.yaml")
+    parser.add_argument("--onexsec", action="store_true")
 
     options = parser.parse_args()
     # create a working directory where to store the datacards
@@ -44,11 +45,14 @@ def main():
             print (exc)
 
     xsections = None
-    with open(options.xsection) as f:
+    with open(options.xsection.replace("ERA", options.era)) as f:
+        print(" -- cross section file : ", options.xsection.replace("ERA", options.era))
         try:
             xsections = yaml.safe_load(f.read())
         except yaml.YAMLError as exc:
             print (exc)
+    if options.onexsec:
+        xsections = { s: {'br': 1.0, 'kr': 1.0, 'xsec': 1.0} for s, xs in xsections.items()}
 
     if len(options.channel) == 1:
         options.channel = options.channel[0]
@@ -73,15 +77,12 @@ def main():
         if p.ptype == "signal":
             signal = p.name
 
-    print ("channel  : ", options.channel)
-
     card_name = "ch"+options.era
     if isinstance(options.channel, str):
         card_name = options.channel+options.era
     elif isinstance(options.channel, list):
         if np.all(["signal" in c.lower() for c in options.channel]):
             card_name = "chBSM"+options.era
-    print(" -- cardname : ", card_name)
 
     card = ftool.datacard(
         name = signal,
@@ -90,15 +91,14 @@ def main():
     card.shapes_headers()
 
     data_obs = datasets.get("data").get("nom")
-    print("data_osb : ", data_obs)
     card.add_observation(data_obs)
 
     for n, p in datasets.items():
-        name = "signal" if p.ptype=="signal" else p.name
+        name = "Signal" if p.ptype=="signal" else p.name
         if p.ptype=="data":
             continue
         card.add_nominal(name, p.get("nom"))
-
+        #
         card.add_nuisance(name, "{:<21}  lnN".format("CMS_Scale_el"),  1.020)
         card.add_nuisance(name, "{:<21}  lnN".format("CMS_Scale_mu"),  1.010)
         card.add_nuisance(name, "{:<21}  lnN".format("CMS_lumi_2016"),  1.025)
@@ -109,22 +109,44 @@ def main():
         card.add_shape_nuisance(name, "MuonEn"    , "CMS_res_m", p.get("MuonEn"))
         card.add_shape_nuisance(name, "MuonSF"    , "CMS_eff_m", p.get("MuonSF"))
         #
-        card.add_shape_nuisance(name, "jesTotal"  , "CMS_JES_2017", p.get("jesTotal"))
-        card.add_shape_nuisance(name, "jer"       , "CMS_JER_2017", p.get("jer"))
-        card.add_shape_nuisance(name, "unclustEn" , "CMS_UES_2017", p.get("unclustEn"))
+        card.add_shape_nuisance(name, "jesTotal"  , "CMS_JES_2016", p.get("jesTotal"))
+        card.add_shape_nuisance(name, "jer"       , "CMS_JER_2016", p.get("jer"))
+        #card.add_shape_nuisance(name, "unclustEn" , "CMS_UES_2017", p.get("unclustEn"))
         #
-        card.add_shape_nuisance(name, "btagEventWeight" , "CMS_BTag_2017" , p.get("btagEventWeight"))
-        card.add_shape_nuisance(name, "TriggerSFWeight" , "CMS_Trig_2017" , p.get("TriggerSFWeight"))
-        card.add_shape_nuisance(name, "PrefireWeight"   , "CMS_pfire_2017", p.get("PrefireWeight"))
+        card.add_shape_nuisance(name, "btagEventWeight" , "CMS_BTag_2016" , p.get("btagEventWeight"))
+        card.add_shape_nuisance(name, "TriggerSFWeight" , "CMS_Trig_2016" , p.get("TriggerSFWeight"))
+        card.add_shape_nuisance(name, "PrefireWeight"   , "CMS_pfire_2016", p.get("PrefireWeight"))
         #
         card.add_shape_nuisance(name, "EWK"  , "EWKZZWZ", p.get("EWK"))
         card.add_shape_nuisance(name, "PDF"  , "PDF"    , p.get("PDF"))
         #
         card.add_shape_nuisance(name, "nvtxWeight", "CMS_Vx", p.get("nvtxWeight"))
         card.add_shape_nuisance(name, "puWeight"  , "CMS_PU", p.get("puWeight"))
-        #
-        card.add_auto_stat()
 
+        card.add_shape_nuisance(name, "QCDScale0w"  , "CMS_QCDScale0"    , p.get("QCDScale0w"))
+        card.add_shape_nuisance(name, "QCDScale1w"  , "CMS_QCDScale1"    , p.get("QCDScale1w"))
+        card.add_shape_nuisance(name, "QCDScale2w"  , "CMS_QCDScale2"    , p.get("QCDScale2w"))
+        # define rates
+        if name == "NonResonant":
+            if "catEM" in card_name:
+                card.add_rate_param("EMnorm_" + options.era, "catEM*", name)
+            elif "BSM" in card_name:
+                card.add_rate_param("EMnorm_" + options.era, "chBSM*", name)
+                card.add_nuisance(name, "{:<21}  lnN".format("EMNorm"+name),  1.2)
+        elif name in ["ZZ", "WZ"]:
+            if ("cat3L" in card_name) or ("cat4L" in card_name):
+                card.add_rate_param("VVnorm_" + options.era, "cat3L*", name)
+                card.add_rate_param("VVnorm_" + options.era, "cat4L*", name)
+            elif "BSM" in card_name:
+                card.add_rate_param("VVnorm_" + options.era, "chBSM*", name)
+                card.add_rate_param("VVnorm_" + options.era, "chBSM*", name)
+                card.add_nuisance(name, "{:<21}  lnN".format("VVNorm"+card_name),  1.2)
+        elif name in ["DY"]:
+            if  "BSM" in card_name:
+                card.add_rate_param("DYnorm_" + options.era, "chBSM*", name)
+                card.add_nuisance(name, "{:<21}  lnN".format("CMS_DYNorm"+card_name),  1.2)
+
+        card.add_auto_stat()
     card.dump()
 
 

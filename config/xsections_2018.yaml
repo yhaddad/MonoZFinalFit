@@ -401,151 +401,151 @@ DMSimp_MonoZLL_Scalar_TuneCP5_GQ1p0_GDM1p0_MY0-750_mxd-1:
 ADDMonoZ_MD_1_d_2: 
   br: 1.0
   kr: 1.0
-  xsec: 0.192030738063914
+  xsec: 0.06738
 ADDMonoZ_MD_1_d_3: 
   br: 1.0
   kr: 1.0
-  xsec: 0.512791940078820
+  xsec: 0.06738
 ADDMonoZ_MD_1_d_4: 
   br: 1.0
   kr: 1.0
-  xsec: 1.649037221188880
+  xsec: 0.06738
 ADDMonoZ_MD_1_d_5: 
   br: 1.0
   kr: 1.0
-  xsec: 5.914724065571205
+  xsec: 0.06738
 ADDMonoZ_MD_1_d_6: 
   br: 1.0
   kr: 1.0
-  xsec: 23.627171879231849
+  xsec: 0.06738
 ADDMonoZ_MD_1_d_7: 
   br: 1.0
   kr: 1.0
-  xsec: 101.896816514136020
+  xsec: 0.06738
 ADDMonoZ_MD_1_d_8: 
   br: 1.0
   kr: 1.0
-  xsec: 471.295556042241628
+  xsec: 0.06738
 ADDMonoZ_MD_2_d_2: 
   br: 1.0
   kr: 1.0
-  xsec: 0.011983374372043
+  xsec: 0.06738
 ADDMonoZ_MD_2_d_3: 
   br: 1.0
   kr: 1.0
-  xsec: 0.016002917011589
+  xsec: 0.06738
 ADDMonoZ_MD_2_d_4: 
   br: 1.0
   kr: 1.0
-  xsec: 0.025652359956827
+  xsec: 0.06738
 ADDMonoZ_MD_2_d_5: 
   br: 1.0
   kr: 1.0
-  xsec: 0.046242367074265
+  xsec: 0.06738
 ADDMonoZ_MD_2_d_6: 
   br: 1.0
   kr: 1.0
-  xsec: 0.091340095073955
+  xsec: 0.06738
 ADDMonoZ_MD_2_d_7: 
   br: 1.0
   kr: 1.0
-  xsec: 0.198130213169614
+  xsec: 0.06738
 ADDMonoZ_MD_2_d_8: 
   br: 1.0
   kr: 1.0
-  xsec: 0.459774714341567
+  xsec: 0.06738
 ADDMonoZ_MD_3_d_2: 
   br: 1.0
   kr: 1.0
-  xsec: 0.002365880798455
+  xsec: 0.06738
 ADDMonoZ_MD_3_d_3: 
   br: 1.0
   kr: 1.0
-  xsec: 0.002120390885834
+  xsec: 0.06738
 ADDMonoZ_MD_3_d_4: 
   br: 1.0
   kr: 1.0
-  xsec: 0.002257245920936
+  xsec: 0.06738
 ADDMonoZ_MD_3_d_5: 
   br: 1.0
   kr: 1.0
-  xsec: 0.002713755833686
+  xsec: 0.06738
 ADDMonoZ_MD_3_d_6: 
   br: 1.0
   kr: 1.0
-  xsec: 0.003617779427516
+  xsec: 0.06738
 ADDMonoZ_MD_3_d_7: 
   br: 1.0
   kr: 1.0
-  xsec: 0.005165820641130
+  xsec: 0.06738
 ADDMonoZ_MD_3_d_8: 
   br: 1.0
   kr: 1.0
-  xsec: 0.008021225465078
+  xsec: 0.06738
 Unpart_ZToEEAndMuMu_SU_0_dU_1p01_LU_15_TuneCP5_13TeV_pythia8: 
   br: 1.0
   kr: 1.0
-  xsec: 2.254811668137521
+  xsec: 0.06738
 Unpart_ZToEEAndMuMu_SU_0_dU_1p02_LU_15_TuneCP5_13TeV_pythia8: 
   br: 1.0
   kr: 1.0
-  xsec: 3.736256168155077
+  xsec: 0.06738
 Unpart_ZToEEAndMuMu_SU_0_dU_1p04_LU_15_TuneCP5_13TeV_pythia8: 
   br: 1.0
   kr: 1.0
-  xsec: 5.161007670619189
+  xsec: 0.06738
 Unpart_ZToEEAndMuMu_SU_0_dU_1p06_LU_15_TuneCP5_13TeV_pythia8: 
   br: 1.0
   kr: 1.0
-  xsec: 5.335350234339767
+  xsec: 0.06738
 Unpart_ZToEEAndMuMu_SU_0_dU_1p09_LU_15_TuneCP5_13TeV_pythia8: 
   br: 1.0
   kr: 1.0
-  xsec: 4.641694506391622
+  xsec: 0.06738
 Unpart_ZToEEAndMuMu_SU_0_dU_1p10_LU_15_TuneCP5_13TeV_pythia8: 
   br: 1.0
   kr: 1.0
-  xsec: 4.290083604507911
+  xsec: 0.06738
 Unpart_ZToEEAndMuMu_SU_0_dU_1p20_LU_15_TuneCP5_13TeV_pythia8: 
   br: 1.0
   kr: 1.0
-  xsec: 1.431430529635487
+  xsec: 0.06738
 Unpart_ZToEEAndMuMu_SU_0_dU_1p30_LU_15_TuneCP5_13TeV_pythia8: 
   br: 1.0
   kr: 1.0
-  xsec: 0.378832699490018
+  xsec: 0.06738
 Unpart_ZToEEAndMuMu_SU_0_dU_1p40_LU_15_TuneCP5_13TeV_pythia8: 
   br: 1.0
   kr: 1.0
-  xsec: 0.094624705708494
+  xsec: 0.06738
 Unpart_ZToEEAndMuMu_SU_0_dU_1p50_LU_15_TuneCP5_13TeV_pythia8: 
   br: 1.0
   kr: 1.0
-  xsec: 0.023451546484137
+  xsec: 0.06738
 Unpart_ZToEEAndMuMu_SU_0_dU_1p60_LU_15_TuneCP5_13TeV_pythia8: 
   br: 1.0
   kr: 1.0
-  xsec: 0.005856055859912
+  xsec: 0.06738
 Unpart_ZToEEAndMuMu_SU_0_dU_1p70_LU_15_TuneCP5_13TeV_pythia8: 
   br: 1.0
   kr: 1.0
-  xsec: 0.001477939124315
+  xsec: 0.06738
 Unpart_ZToEEAndMuMu_SU_0_dU_1p80_LU_15_TuneCP5_13TeV_pythia8: 
   br: 1.0
   kr: 1.0
-  xsec: 0.000381732753796
+  xsec: 0.06738
 Unpart_ZToEEAndMuMu_SU_0_dU_1p90_LU_15_TuneCP5_13TeV_pythia8: 
   br: 1.0
   kr: 1.0
-  xsec: 0.000101546768559
+  xsec: 0.06738
 Unpart_ZToEEAndMuMu_SU_0_dU_2p00_LU_15_TuneCP5_13TeV_pythia8: 
   br: 1.0
   kr: 1.0
-  xsec: 0.000027364944545
+  xsec: 0.06738
 Unpart_ZToEEAndMuMu_SU_0_dU_2p20_LU_15_TuneCP5_13TeV_pythia8: 
   br: 1.0
   kr: 1.0
-  xsec: 0.000002140546937
+  xsec: 0.06738
 Pseudoscalar2HDM_MonoZLL_mScan_mH-1000_ma-100: 
   br: 1.0
   kr: 1.0

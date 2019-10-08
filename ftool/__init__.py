@@ -9,6 +9,35 @@ import physt
 
 __all__ = ['datacard', 'datagroup', "plot"]
 
+def draw_ratio(nom, uph, dwh, name):
+     import matplotlib.pyplot as plt
+     plt.style.use('physics.mplstyle')
+     _up = uph.frequencies
+     _dw = dwh.frequencies
+     _nm = nom.frequencies
+     x = nom.bin_centers
+     plt.figure(figsize=(7,4))
+     plt.title(name)
+     plt.hist(
+          nom.bin_centers, bins=nom.numpy_bins,
+          weights=np.divide(_up-_nm, _nm, out=np.zeros_like(_up), where=_nm!=0),
+          histtype="step", label="up", lw=2
+     )
+     plt.hist(
+          nom.bin_centers, bins=nom.numpy_bins,
+          weights=np.divide(_dw-_nm, _nm, out=np.zeros_like(_dw), where=_nm!=0),
+          histtype="step", label="down", lw=2
+     )
+     plt.axhline(0, ls="--", color="black", alpha=0.5)
+     plt.legend(loc="best")
+     plt.xlabel("observable")
+     plt.ylabel("ratio to nominal")
+     #plt.ylim([-2,2])
+     plt.xlim([min(nom.numpy_bins),max(nom.numpy_bins)])
+     plt.savefig("plots/"+name + ".png")
+     #plt.savefig("plots/"+name + ".png")
+
+
 
 class datagroup:
      def __init__(self, files, observable="measMET", name = "DY",
@@ -106,7 +135,7 @@ class datagroup:
             m_hist = self.merge_cat(self.nominal, lambda elem: "sys" not in elem[0])
             self.merged[m_hist[0]] = m_hist
           else:
-            self.merged = self.nominal
+            self.merged = {i: (i, c) for i,c  in self.nominal.items()}
 
      def check_shape(self, histogram):
           for ibin in range(histogram.numbins+1):
@@ -131,16 +160,25 @@ class datagroup:
           for name, h in iteration:
                if first:
                     merged_bins = h.numpy_bins
+                    merged_bins[-1] = 1000
                     merged_cent = h.bin_centers
+                    merged_cent[-1] = (1000+600)/2.0
                     merged_hist = h.frequencies
                     first = False
                else:
-                    merged_bins = np.concatenate(
-                         [merged_bins, merged_bins[-1] - h.numpy_bins[0:1] + h.numpy_bins[1:] ]
-                    )
-                    merged_cent = np.concatenate([merged_cent, merged_cent[-1] + h.bin_centers])
-                    merged_hist = np.concatenate([merged_hist, h.frequencies])
+                    new_bins = h.numpy_bins
+                    new_bins[-1] = 1000
+                    new_bin_cent = h.bin_centers
+                    new_bin_cent[-1] = (1000+600)/2.0
 
+                    merged_bins = np.concatenate(
+                         [merged_bins, merged_bins[-1] - new_bins[0:1] + new_bins[1:] ]
+                    )
+                    merged_cent = np.array([0.5*(merged_bins[i+1] + merged_bins[i]) for i in range(merged_bins.shape[0]-1)])
+                    #np.concatenate([merged_cent, merged_cent[-1] + new_bin_cent])
+                    merged_hist = np.concatenate([merged_hist, h.frequencies])
+          # print("bins = ", merged_bins)
+          # print("cent = ", merged_cent)
           cat = re.search('cat(.*)', name).group().split("_")[0]
           if len(merged_hist):
                new_hist = physt.histogram(
@@ -155,7 +193,7 @@ class datagroup:
      def get(self, systvar, merged=True):
           shapeUp, shapeDown= None, None
           for n, hist in self.merged.items():
-               if systvar.replace("nom","") in n and systvar=="nom":
+               if "sys" not in n and systvar=="nom":
                     return hist[1]
                elif systvar in n:
                     if "Up" in n:
@@ -181,19 +219,12 @@ class datagroup:
                fout.close()
 
      def xs_scale(self, ufile, proc):
-          scale = self.lumi/ufile["Runs"].array("genEventCount").sum()
-          original_xsec = np.abs(ufile["Events"].array("xsecscale")[0])
           xsec  = self.xsec[proc]["xsec"]
           xsec *= self.xsec[proc]["kr"]
           xsec *= self.xsec[proc]["br"]
           xsec *= 1000.0
           assert xsec > 0, "{} has a null cross section!".format(proc)
-
-          pos_fraction = np.mean(
-               (1.0+ufile["Events"].array("xsecscale")/original_xsec)/2.0
-          )
-          scale *= xsec/original_xsec
-          scale /= pos_fraction
+          scale = xsec * self.lumi/ufile["Runs"].array("genEventSumw").sum()
 
           return scale
 
@@ -230,6 +261,7 @@ class datacard:
         self.dc_file.append(lines)
 
     def add_observation(self, shape):
+        print(" -- ", shape)
         value = shape.total
         self.dc_file.append("bin          {0:>10}".format(self.channel))
         self.dc_file.append("observation  {0:>10}".format(value))
@@ -244,13 +276,36 @@ class datacard:
         value = shape.total
         self.rates.append((process, value))
         self.shape_file[process] = shape
+        self.nominal_hist = shape
 
     def add_shape_nuisance(self, process, name, cardname, shape):
         nuisance = "{:<20} shape".format(cardname)
-        if shape[0] is not None:
+        if shape[0] is not None and (
+                  (shape[0].frequencies[shape[0].frequencies>0].shape[0]) and
+                  (shape[1].frequencies[shape[1].frequencies>0].shape[0])
+        ):
+            if shape[0] == shape[1]:
+                 shape = (2 * self.nominal_hist - shape[0], shape[1])
             self.add_nuisance(process, nuisance, 1.0)
             self.shape_file[process + "_" + cardname + "Up"  ] = shape[0]
             self.shape_file[process + "_" + cardname + "Down"] = shape[1]
+            if False:
+                 draw_ratio(
+                      self.nominal_hist,
+                      shape[0], shape[1], process + cardname
+                 )
+
+    def add_rate_param(self, name, channel, process, vmin=0.1, vmax=10):
+        # name rateParam bin process initial_value [min,max]
+        template = "{name} rateParam {channel} {process} 1 [{vmin},{vmax}]"
+        template = template.format(
+             name = name,
+             channel = channel,
+             process = process,
+             vmin = vmin,
+             vmax = vmax
+        )
+        self.extras.add(template)
 
     def add_auto_stat(self):
         self.extras.add(
