@@ -193,27 +193,27 @@ WWTo2L2Nu_NNPDF31_TuneCP5_PSweights_13TeV-powheg-pythia8:
 ADDMonoZ2017_MD_1_d_2:
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 0.05656
 ADDMonoZ2017_MD_1_d_3:
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 0.07002666666666667
 ADDMonoZ2017_MD_1_d_4:
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 0.09561333333333333
 ADDMonoZ2017_MD_1_d_5:
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 0.14880666666666667
 ADDMonoZ2017_MD_1_d_6:
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 0.26664000000000004
 ADDMonoZ2017_MD_1_d_7:
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 0.5757000000000001
 ADDMonoZ2017_MD_1_d_8:
   br: 1.0
   kr: 1.0
@@ -221,27 +221,27 @@ ADDMonoZ2017_MD_1_d_8:
 ADDMonoZ2017_MD_2_d_2:
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 0.007204666666666667
 ADDMonoZ2017_MD_2_d_3:
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 0.007406666666666666
 ADDMonoZ2017_MD_2_d_4:
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 0.008416666666666668
 ADDMonoZ2017_MD_2_d_5:
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 0.009628666666666669
 ADDMonoZ2017_MD_2_d_6:
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 0.011648666666666668
 ADDMonoZ2017_MD_2_d_7:
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 0.015419333333333334
 ADDMonoZ2017_MD_2_d_8:
   br: 1.0
   kr: 1.0
@@ -249,27 +249,27 @@ ADDMonoZ2017_MD_2_d_8:
 ADDMonoZ2017_MD_3_d_2:
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 0.0017372000000000002
 ADDMonoZ2017_MD_3_d_3:
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 0.0014342
 ADDMonoZ2017_MD_3_d_4:
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 0.0013736000000000002
 ADDMonoZ2017_MD_3_d_5:
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 0.0013601333333333335
 ADDMonoZ2017_MD_3_d_6:
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 0.0013803333333333335
 ADDMonoZ2017_MD_3_d_7:
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 0.0014207333333333336
 ADDMonoZ2017_MD_3_d_8:
   br: 1.0
   kr: 1.0
@@ -802,3 +802,11 @@ Unpart_ZToEEAndMuMu_SU_0_dU_1p90_LU_15_TuneCP5_13TeV_pythia8:
   br: 1.0
   kr: 1.0
   xsec: 0.06738
+ggZH_ZToLL_HToInvisible_M125_13TeV_powheg_pythia8:
+  br: 0.101
+  kr: 1.0
+  xsec: 0.1227
+ZH_ZToLL_HToInvisible_M125_13TeV_TuneCP5_powheg_pythia8:
+  br: 1.0
+  kr: 1.0
+  xsec:  0.076881

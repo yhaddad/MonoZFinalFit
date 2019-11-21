@@ -13,9 +13,14 @@ lumis = {
     "2018" : 60.0
 }
 
+lumi_unc = {
+    "2016" : 1.025,
+    "2017" : 1.023,
+    "2018" : 1.025
+}
 def main():
     parser = argparse.ArgumentParser(description='The Creator of Combinators')
-    parser.add_argument("-i"  , "--input"   , type=str, default="config/inputs.yaml")
+    parser.add_argument("-i"  , "--input"   , type=str, default="config/inputs-NanoAODv5-2018.yaml")
     parser.add_argument("-v"  , "--variable", type=str, default="measMET")
     parser.add_argument("-o"  , "--outdir"  , type=str, default="fitroom")
     parser.add_argument("-c"  , "--channel" , nargs='+', type=str)
@@ -101,7 +106,7 @@ def main():
         #
         card.add_nuisance(name, "{:<21}  lnN".format("CMS_Scale_el"),  1.020)
         card.add_nuisance(name, "{:<21}  lnN".format("CMS_Scale_mu"),  1.010)
-        card.add_nuisance(name, "{:<21}  lnN".format("CMS_lumi_2016"),  1.025)
+        card.add_nuisance(name, "{:<21}  lnN".format("CMS_lumi_{}".format(options.era)),  lumi_unc[options.era])
         card.add_nuisance(name, "{:<21}  lnN".format("UEPS"),  1.020)
         #
         card.add_shape_nuisance(name, "ElectronEn", "CMS_res_e", p.get("ElectronEn"))
@@ -109,30 +114,36 @@ def main():
         card.add_shape_nuisance(name, "MuonEn"    , "CMS_res_m", p.get("MuonEn"))
         card.add_shape_nuisance(name, "MuonSF"    , "CMS_eff_m", p.get("MuonSF"))
         #
-        card.add_shape_nuisance(name, "jesTotal"  , "CMS_JES_2016", p.get("jesTotal"))
-        card.add_shape_nuisance(name, "jer"       , "CMS_JER_2016", p.get("jer"))
-        #card.add_shape_nuisance(name, "unclustEn" , "CMS_UES_2017", p.get("unclustEn"))
+        card.add_shape_nuisance(name, "jesTotal"  , "CMS_JES_{}".format(options.era), p.get("jesTotal"))
+        card.add_shape_nuisance(name, "jer"       , "CMS_JER_{}".format(options.era), p.get("jer"))
+        card.add_shape_nuisance(name, "unclustEn" , "CMS_UES_{}".format(options.era), p.get("unclustEn"))
         #
-        card.add_shape_nuisance(name, "btagEventWeight" , "CMS_BTag_2016" , p.get("btagEventWeight"))
-        card.add_shape_nuisance(name, "TriggerSFWeight" , "CMS_Trig_2016" , p.get("TriggerSFWeight"))
-        card.add_shape_nuisance(name, "PrefireWeight"   , "CMS_pfire_2016", p.get("PrefireWeight"))
+        card.add_shape_nuisance(name, "btagEventWeight" , "CMS_BTag_{}".format(options.era) , p.get("btagEventWeight"))
+        card.add_shape_nuisance(name, "TriggerSFWeight" , "CMS_Trig_{}".format(options.era) , p.get("TriggerSFWeight"))
+        if options.era in ['2016','2017']:
+            card.add_shape_nuisance(name, "PrefireWeight"   , "CMS_pfire_{}".format(options.era), p.get("PrefireWeight"))
         #
-        card.add_shape_nuisance(name, "EWK"  , "EWKZZWZ", p.get("EWK"))
+        #if name in ["ZZ", "WZ"]:
+        #    card.add_shape_nuisance(name, "EWK"  , "EWKZZWZ", p.get("EWK"))
+        if name in ["ZZ"]:
+            card.add_shape_nuisance(name, "EWK"  , "EWKZZ", p.get("EWK"))
+        if name in ["WZ"]:
+            card.add_shape_nuisance(name, "EWK"  , "EWKWZ", p.get("EWK"))
         card.add_shape_nuisance(name, "PDF"  , "PDF"    , p.get("PDF"))
         #
-        card.add_shape_nuisance(name, "nvtxWeight", "CMS_Vx", p.get("nvtxWeight"))
+        card.add_shape_nuisance(name, "nvtxWeight", "CMS_Vtx", p.get("nvtxWeight"))
         card.add_shape_nuisance(name, "puWeight"  , "CMS_PU", p.get("puWeight"))
 
-        card.add_shape_nuisance(name, "QCDScale0w"  , "CMS_QCDScale0"    , p.get("QCDScale0w"))
-        card.add_shape_nuisance(name, "QCDScale1w"  , "CMS_QCDScale1"    , p.get("QCDScale1w"))
-        card.add_shape_nuisance(name, "QCDScale2w"  , "CMS_QCDScale2"    , p.get("QCDScale2w"))
+        #card.add_shape_nuisance(name, "QCDScale0w"  , "CMS_QCDScale0"    , p.get("QCDScale0w"))
+        #card.add_shape_nuisance(name, "QCDScale1w"  , "CMS_QCDScale1"    , p.get("QCDScale1w"))
+        #card.add_shape_nuisance(name, "QCDScale2w"  , "CMS_QCDScale2"    , p.get("QCDScale2w"))
         # define rates
-        if name == "NonResonant":
+        if name  in ["WW", "TOP"]:
             if "catEM" in card_name:
                 card.add_rate_param("EMnorm_" + options.era, "catEM*", name)
             elif "BSM" in card_name:
                 card.add_rate_param("EMnorm_" + options.era, "chBSM*", name)
-                card.add_nuisance(name, "{:<21}  lnN".format("EMNorm"+name),  1.2)
+                #card.add_nuisance(name, "{:<21}  lnN".format("EMNorm"+name),  1.2)
         elif name in ["ZZ", "WZ"]:
             if ("cat3L" in card_name) or ("cat4L" in card_name):
                 card.add_rate_param("VVnorm_" + options.era, "cat3L*", name)
@@ -140,11 +151,11 @@ def main():
             elif "BSM" in card_name:
                 card.add_rate_param("VVnorm_" + options.era, "chBSM*", name)
                 card.add_rate_param("VVnorm_" + options.era, "chBSM*", name)
-                card.add_nuisance(name, "{:<21}  lnN".format("VVNorm"+card_name),  1.2)
+                #card.add_nuisance(name, "{:<21}  lnN".format("VVNorm"+card_name),  1.2)
         elif name in ["DY"]:
             if  "BSM" in card_name:
                 card.add_rate_param("DYnorm_" + options.era, "chBSM*", name)
-                card.add_nuisance(name, "{:<21}  lnN".format("CMS_DYNorm"+card_name),  1.2)
+                #card.add_nuisance(name, "{:<21}  lnN".format("CMS_DYNorm"+card_name),  1.2)
 
         card.add_auto_stat()
     card.dump()
