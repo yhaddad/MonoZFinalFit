@@ -401,151 +401,151 @@ DMSimp_MonoZLL_Scalar_TuneCP5_GQ1p0_GDM1p0_MY0-750_mxd-1:
 ADDMonoZ_MD_1_d_2: 
   br: 1.0
   kr: 1.0
-  xsec: 0.05656
+  xsec: 0.192030738063914
 ADDMonoZ_MD_1_d_3: 
   br: 1.0
   kr: 1.0
-  xsec: 0.07002666666666667
+  xsec: 0.512791940078820
 ADDMonoZ_MD_1_d_4: 
   br: 1.0
   kr: 1.0
-  xsec: 0.09561333333333333
+  xsec: 1.649037221188880
 ADDMonoZ_MD_1_d_5: 
   br: 1.0
   kr: 1.0
-  xsec: 0.14880666666666667
+  xsec: 5.914724065571205
 ADDMonoZ_MD_1_d_6: 
   br: 1.0
   kr: 1.0
-  xsec: 0.26664000000000004
+  xsec: 23.627171879231849
 ADDMonoZ_MD_1_d_7: 
   br: 1.0
   kr: 1.0
-  xsec: 0.5757000000000001
+  xsec: 101.896816514136020
 ADDMonoZ_MD_1_d_8: 
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 471.295556042241628
 ADDMonoZ_MD_2_d_2: 
   br: 1.0
   kr: 1.0
-  xsec: 0.007204666666666667
+  xsec: 0.011983374372043
 ADDMonoZ_MD_2_d_3: 
   br: 1.0
   kr: 1.0
-  xsec: 0.007406666666666666
+  xsec: 0.016002917011589
 ADDMonoZ_MD_2_d_4: 
   br: 1.0
   kr: 1.0
-  xsec: 0.008416666666666668
+  xsec: 0.025652359956827
 ADDMonoZ_MD_2_d_5: 
   br: 1.0
   kr: 1.0
-  xsec: 0.009628666666666669
+  xsec: 0.046242367074265
 ADDMonoZ_MD_2_d_6: 
   br: 1.0
   kr: 1.0
-  xsec: 0.011648666666666668
+  xsec: 0.091340095073955
 ADDMonoZ_MD_2_d_7: 
   br: 1.0
   kr: 1.0
-  xsec: 0.015419333333333334
+  xsec: 0.198130213169614
 ADDMonoZ_MD_2_d_8: 
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 0.459774714341567
 ADDMonoZ_MD_3_d_2: 
   br: 1.0
   kr: 1.0
-  xsec: 0.0017372000000000002
+  xsec: 0.002365880798455
 ADDMonoZ_MD_3_d_3: 
   br: 1.0
   kr: 1.0
-  xsec: 0.0014342
+  xsec: 0.002120390885834
 ADDMonoZ_MD_3_d_4: 
   br: 1.0
   kr: 1.0
-  xsec: 0.0013736000000000002
+  xsec: 0.002257245920936
 ADDMonoZ_MD_3_d_5: 
   br: 1.0
   kr: 1.0
-  xsec: 0.0013601333333333335
+  xsec: 0.002713755833686
 ADDMonoZ_MD_3_d_6: 
   br: 1.0
   kr: 1.0
-  xsec: 0.0013803333333333335
+  xsec: 0.003617779427516
 ADDMonoZ_MD_3_d_7: 
   br: 1.0
   kr: 1.0
-  xsec: 0.0014207333333333336
+  xsec: 0.005165820641130
 ADDMonoZ_MD_3_d_8: 
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 0.008021225465078
 Unpart_ZToEEAndMuMu_SU_0_dU_1p01_LU_15_TuneCP5_13TeV_pythia8: 
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 2.254811668137521
 Unpart_ZToEEAndMuMu_SU_0_dU_1p02_LU_15_TuneCP5_13TeV_pythia8: 
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 3.736256168155077
 Unpart_ZToEEAndMuMu_SU_0_dU_1p04_LU_15_TuneCP5_13TeV_pythia8: 
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 5.161007670619189
 Unpart_ZToEEAndMuMu_SU_0_dU_1p06_LU_15_TuneCP5_13TeV_pythia8: 
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 5.335350234339767
 Unpart_ZToEEAndMuMu_SU_0_dU_1p09_LU_15_TuneCP5_13TeV_pythia8: 
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 4.641694506391622
 Unpart_ZToEEAndMuMu_SU_0_dU_1p10_LU_15_TuneCP5_13TeV_pythia8: 
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 4.290083604507911
 Unpart_ZToEEAndMuMu_SU_0_dU_1p20_LU_15_TuneCP5_13TeV_pythia8: 
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 1.431430529635487
 Unpart_ZToEEAndMuMu_SU_0_dU_1p30_LU_15_TuneCP5_13TeV_pythia8: 
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 0.378832699490018
 Unpart_ZToEEAndMuMu_SU_0_dU_1p40_LU_15_TuneCP5_13TeV_pythia8: 
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 0.094624705708494
 Unpart_ZToEEAndMuMu_SU_0_dU_1p50_LU_15_TuneCP5_13TeV_pythia8: 
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 0.023451546484137
 Unpart_ZToEEAndMuMu_SU_0_dU_1p60_LU_15_TuneCP5_13TeV_pythia8: 
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 0.005856055859912
 Unpart_ZToEEAndMuMu_SU_0_dU_1p70_LU_15_TuneCP5_13TeV_pythia8: 
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 0.001477939124315
 Unpart_ZToEEAndMuMu_SU_0_dU_1p80_LU_15_TuneCP5_13TeV_pythia8: 
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 0.000381732753796
 Unpart_ZToEEAndMuMu_SU_0_dU_1p90_LU_15_TuneCP5_13TeV_pythia8: 
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 0.000101546768559
 Unpart_ZToEEAndMuMu_SU_0_dU_2p00_LU_15_TuneCP5_13TeV_pythia8: 
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 0.000027364944545
 Unpart_ZToEEAndMuMu_SU_0_dU_2p20_LU_15_TuneCP5_13TeV_pythia8: 
   br: 1.0
   kr: 1.0
-  xsec: 0.06738
+  xsec: 0.000002140546937
 Pseudoscalar2HDM_MonoZLL_mScan_mH-1000_ma-100: 
   br: 1.0
   kr: 1.0
@@ -726,15 +726,3 @@ Pseudoscalar2HDM_MonoZLL_mScan_mH-900_ma-500:
   br: 1.0
   kr: 1.0
   xsec: 0.000713802959316
-ggZH_ZToLL_HToInvisible_M125_TuneCP5_PSweights_13TeV_powheg_pythia8:
-  br: 0.101
-  kr: 1.0
-  xsec: 0.1227
-ZH_ZToMM_HToInvisible_M125_TuneCP5_PSweights_13TeV_powheg_pythia8:
-  br: 1.0
-  kr: 1.0
-  xsec:  0.025627
-ZH_ZToEE_HToInvisible_M125_TuneCP5_PSweights_13TeV_powheg_pythia8:
-  br: 1.0
-  kr: 1.0
-  xsec: 0.025627  
