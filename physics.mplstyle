@@ -278,7 +278,7 @@ savefig.bbox        : standard
 savefig.pad_inches  : 0.1      
 savefig.jpeg_quality: 95       
 savefig.transparent : False    
-savefig.frameon : True
+# savefig.frameon : True
 savefig.orientation : portrait
 
 # pdf backend params
