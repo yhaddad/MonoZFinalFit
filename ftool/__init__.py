@@ -179,24 +179,23 @@ class datagroup:
                filtredhist.items(),
                key=lambda pair: self.channel.index(pair[0].split("_")[2])
           )
+          print("how many histos : ", iteration)
           for name, h in iteration:
                
                if first:
                     merged_bins = h.numpy_bins
-                    merged_bins[-1] = 1000
                     merged_cent = h.bin_centers
-                    merged_cent[-1] = (1000+600)/2.0
                     merged_hist = h.frequencies
-                    merged_var = h.errors2
-
+                    merged_var  = h.errors2
                     first = False
                else:
                     new_bins = h.numpy_bins
-                    new_bins[-1] = 1000
                     new_bin_cent = h.bin_centers
-                    new_bin_cent[-1] = (1000+600)/2.0
-
-                    new_bins = new_bins + 1000.0
+                    
+                    if merged_bins[-1] == new_bins[-1]:
+                        new_bins = new_bins + merged_bins[-1] + 10
+                    else:
+                        new_bins = new_bins + merged_bins[-1]
 
                     merged_bins = np.concatenate([merged_bins, new_bins])
                     merged_cent = np.array([0.5*(merged_bins[i+1] + merged_bins[i]) for i in range(merged_bins.shape[0]-1)])
@@ -208,9 +207,16 @@ class datagroup:
                     merged_var = np.concatenate([merged_var, new_error])
 
           cat = re.search('cat(.*)', name).group().split("_")[0]
+          print("binning : ", merged_bins)
+          print("centers : ", merged_cent)
+          print("histogr : ", merged_hist)
+          print("var     : ", merged_var)
+          physt.binnings.NumpyBinning(merged_cent)
+          physt.binnings.NumpyBinning(merged_bins)
           if len(merged_hist):
                new_hist = physt.histogram1d.Histogram1D(
                    bin_centers = physt.binnings.NumpyBinning(merged_cent),
+                   #bin_centers= merged_cent,
                    frequencies= merged_hist, 
                    binning = physt.binnings.NumpyBinning(merged_bins),
                    errors2 = merged_var

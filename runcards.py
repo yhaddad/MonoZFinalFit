@@ -12,6 +12,7 @@ from multiprocessing.pool import ThreadPool
 
 def call_makeDataCard(cmd):
     """ This runs in a separate thread. """
+    print(" ---- [%] :", cmd)
     p = subprocess.Popen(shlex.split(cmd), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = p.communicate()
     return (out, err)
@@ -19,7 +20,7 @@ def call_makeDataCard(cmd):
 
 pool = ThreadPool(multiprocessing.cpu_count())
 results = []
-for year in [2017, 2018, 2016]:
+for year in [2016, 2017, 2018]:
     with open(options_input.format(year)) as f:
         try:
             inputs = yaml.safe_load(f.read())
@@ -27,9 +28,10 @@ for year in [2017, 2018, 2016]:
             print ("failed to open the YAML ....")
             print (exc)
     for n, sam in inputs.items():
-        print(" ===== processing : ", n, sam)
+        if "Pseudoscalar2HDM_mH-300_ma-100" not in n: continue
+        print(" ===== processing : ", n, sam, year)
         cmd_sr = "python3 makeDataCard.py --channel catSignal-0jet catSignal-1jet "
-        cmd_sr += "--variable measMT " if "2HDM" in n else "" 
+        cmd_sr += "--variable MT " if "2HDM" in n else "" 
         cmd_sr += "--stack {signal} ZZ WZ WW VVV TOP DY data "
         cmd_sr += "--input=config/inputs-NanoAODv5-{era}.yaml --era={era}"
         cmd_sr = cmd_sr.format(signal=n, era=year)
@@ -59,4 +61,8 @@ pool.close()
 pool.join()
 for result in results:
     out, err = result.get()
-    print("out: {}".format(out))
+    #print("out: {}".format(out))
+    if "No such file or directory" in str(err):
+        print(str(err))
+        print(" ----------------- ")
+        print()
