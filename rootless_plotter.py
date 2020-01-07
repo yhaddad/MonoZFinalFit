@@ -6,8 +6,7 @@ import collections
 from termcolor import colored
 import math
 import argparse
-#import yaml
-import oyaml as yaml
+import yaml
 import os
 import numpy as np
 
@@ -18,9 +17,8 @@ ROOT.gErrorIgnoreLevel=ROOT.kError
 
 parser = argparse.ArgumentParser("")
 parser.add_argument('-era', '--era', type=str, default="2018", help="")
+parser.add_argument('-cfg', '--cfg', type=str, default="./config/inputs-NanoAODv5-2017.yaml", help="")
 #parser.add_argument('-cfg', '--cfg', type=str, default="./config/inputs-NanoAODv5-2018.yaml", help="")
-#parser.add_argument('-cfg', '--cfg', type=str, default="./config/inputs-NanoAODv5-2017.yaml", help="")
-parser.add_argument('-cfg', '--cfg', type=str, default="./config/inputs-NanoAODv5-2016.yaml", help="")
 parser.add_argument('-debug', '--debug', action='store_true')
 options  = parser.parse_args()
 
@@ -56,20 +54,16 @@ ratio_plot_grid            = True
 text_font                  = 43
 text_size                  = 18
 
+# systematics_sources = [
+#     "ElectronEn",
+#     # "MuonEn",
+#     # "jesTotal",
+#     # "jer"
+# ]
 systematics_sources = [
-    "ElectronEn",
-    "MuonEn",
-    "jesTotal",
-    "jer",
-    "unclustEn",
-    "puWeight",
-    "PDF",
-    "MuonSF",
-    "ElecronSF",
-    "EWK",
-    "nvtxWeight",
-    "TriggerSFWeight",
-    "btagEventWeight",
+    # "puWeight", "PDF", "MuonSF", "ElecronSF", "EWK",
+    # "nvtxWeight","TriggerSFWeight","btagEventWeight",
+    # "QCDScale0w", "QCDScale1w", "QCDScale2w"
 ]
 
 observable = {
@@ -83,8 +77,22 @@ observable = {
     "catDY"           : "measMET",
     "njet"            : "njet",
     "balance"         : "balance",
-    "phiz"         : "phizmet"
+    "phizmet"         : "phizmet"
 }
+
+# observable = {
+#     "catSignal-0jet"  : "MT",
+#     "catEM"           : "MT",
+#     "catSignal-1jet"  : "MT",
+#     "cat3L"           : "MT",
+#     "cat4L"           : "MT",
+#     "catNRB"          : "MT",
+#     "catTOP"          : "MT",
+#     "catDY"           : "MT",
+#     "njet"            : "njet",
+#     "balance"         : "balance",
+#     "phizmet"         : "phizmet"
+# }
 
 names = {
     "catSignal-0jet"  : "E_{T}^{miss} (GeV)",
@@ -97,7 +105,7 @@ names = {
     "catDY"  : "E_{T}^{miss} (GeV)",
     "njet"   : "N_{jet}",
     "balance": "balance",
-    "phiz": "#phi(Z,E_{T}^{miss})/#pi"
+    "phizmet": "#phi(Z,E_{T}^{miss})/#pi"
 }
 
 ranges = {
@@ -111,8 +119,22 @@ ranges = {
     "catDY"  : [ 50, 100],
     "njet"   : [  0,   6],
     "balance": [  0,   2],
-    "phiz": [  0,   1]
+    "phizmet": [  0,   1]
 }
+
+# ranges = {
+#     "catSignal-0jet"  : [0, 2000],
+#     "catSignal-1jet"  : [0, 2000],
+#     "catEM"  : [0, 2000],
+#     "cat3L"  : [0, 2000],
+#     "cat4L"  : [0, 2000],
+#     "catNRB" : [0, 2000],
+#     "catTOP" : [0, 2000],
+#     "catDY"  : [0, 2000],
+#     "njet"   : [  0,   6],
+#     "balance": [  0,   2],
+#     "phizmet": [  0,   1]
+# }
 
 def get_channel_title(text):
     text = text.replace("_","")
@@ -127,7 +149,8 @@ def get_channel_title(text):
         "catDY" : "DY"    ,
         "njet"  : "N_{jets}",
         "balance" : "balance",
-        "phiz": "phiz"
+        "phizmet": ""
+
     }
     return cat[text]
 
@@ -220,7 +243,7 @@ def draw_error_band(myHisto,systematics={},systematic_only=True, combine_with_sy
     systPrecision.SetLineWidth(2)
     systPrecision.SetMarkerColorAlpha(0,0)
 
-    #print syst
+
     if combine_with_systematic : systematic_only = True
     if systematic_only:
         for ibin in range(myHisto.GetNbinsX()+1):
@@ -241,6 +264,7 @@ def draw_error_band(myHisto,systematics={},systematic_only=True, combine_with_sy
 
             band_max   = y + up_error
             band_min   = y - dw_error
+
             systPrecision.SetBinContent(ibin, (band_max + band_min)/2.0);
             systPrecision.SetBinError  (ibin, (band_max - band_min)/2.0);
 
@@ -295,8 +319,8 @@ def make_stat_progression(myHisto,systematics={},
             band_min   = 1 - dw_error
             systPrecision.SetBinContent(ibin, (band_max + band_min)/2.0);
             systPrecision.SetBinError  (ibin, (band_max - band_min)/2.0);
-    statPrecision.GetYaxis().SetRangeUser(0, 3)
-    systPrecision.GetYaxis().SetRangeUser(0, 3)
+    statPrecision.GetYaxis().SetRangeUser(0, 2)
+    systPrecision.GetYaxis().SetRangeUser(0, 2)
 
     return (statPrecision, systPrecision)
 
@@ -382,17 +406,13 @@ def check_nuisance(process, nuisance, ch, hist_nm, hist_up, hist_dw):
     c.Print("shape_check/%s.pdf" % c.GetName())
 
 
-def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
+def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True, rebin=1):
     x_vec = collections.OrderedDict()
     w_vec = collections.OrderedDict()
 
-    _size_ = (len(processes) / 4) * 0.04
-    root_legend  = ROOT.TLegend(
-        0.35, (0.99 - ROOT.gStyle.GetPadTopMargin()) - _size_,
-        (0.95 - ROOT.gStyle.GetPadRightMargin()),
-        (0.82 - ROOT.gStyle.GetPadTopMargin()))
+    root_legend = ROOT.TLegend(0.4, 0.7, 0.95, 0.90)
     root_legend.SetNColumns(3)
-    root_legend.SetColumnSeparation(0.1)
+    #root_legend.SetColumnSeparation(0.1)
 
     first = 0
     stack_mc = ROOT.THStack("", "")
@@ -430,29 +450,15 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
                     if blind and (channel=="njet"):
                         hist.SetBinContent(1, 0)
                 if cmd.get("type").lower() == "background":
-                    scale = lumi/fn_root["Runs"].array("genEventSumw").sum()
-                    #original_xsec = abs(fn_root["Events"].array("xsecscale")[0])
-                    xsec  = xsections[os.path.basename(fn.replace(".root", ""))]["xsec"]
-                    xsec *= xsections[os.path.basename(fn.replace(".root", ""))]["kr"]
-                    xsec *= xsections[os.path.basename(fn.replace(".root", ""))]["br"]
-                    xsec *= 1000.0
-                    #pos_fraction = np.mean(
-                    #    (1.0+fn_root["Events"].array("xsecscale")/original_xsec)/2.0
-                    #)
-                    scale *= xsec
-                    #scale /= pos_fraction
+                    scale  = xsections[os.path.basename(fn.replace(".root", ""))]["xsec"]
+                    scale *= xsections[os.path.basename(fn.replace(".root", ""))]["kr"]
+                    scale *= xsections[os.path.basename(fn.replace(".root", ""))]["br"]
+                    scale *= 1000.0
+                    scale *= lumi/fn_root["Runs"].array("genEventSumw").sum()
                     scale *= cmd.get("kfactor", 1.0)
                     hist.Sumw2()
                     hist.Scale(scale)
                     hist.SetDirectory(0)
-                    if options.debug:
-                        print "       ++  filename :", os.path.basename(fn.replace(".root", ""))
-#                        print "       + old xsec [fb] = ", original_xsec
-                       # print "       + pos w frac    = ", pos_fraction
-                        print "       + new xec [fb]  = ", xsec
-                        print "       + nevents       = ", fn_root["Runs"].array("genEventSumw").sum()
-                        print "       + scale         = ", scale
-                        print "       + yield in hist = ", hist.Integral()
                     for syst in systematics_sources:
                         try:
                             _h_syst_up = bn_root.Get(hname + "_sys_"+syst+"Up")
@@ -464,13 +470,13 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
                             _h_syst_dw.Sumw2()
                             _h_syst_dw.Scale(scale)
                             if options.debug:
-                                print colored(
+                                print(colored(
                                         "{:20} lnN {:1.3f}/{:1.3f}".format(
                                             syst,
                                             _h_syst_up.Integral()/hist.Integral() if hist.Integral() else 1.0,
                                             _h_syst_dw.Integral()/hist.Integral() if hist.Integral() else 1.0,
                                         ), "blue"
-                                    )
+                                    ))
                             if root_histos_syt.get(syst, None) is None:
                                 root_histos_syt[syst] = {
                                     "Up"   : _h_syst_up,
@@ -482,7 +488,7 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
                         except:
                             pass
                 elif cmd.get("type").lower() == "signal":
-                    print colored(fn, "red")
+                    print(colored(fn, "red"))
 
                 hist.SetDirectory(0)
                 hist_objs.append(hist)
@@ -500,9 +506,8 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
         hist_com.SetDirectory(0)
 
         if cmd.get("type") == "background" and hist_com.Integral() > 0:
-            hist_com.Rebin(5)
             stack_mc.Add(hist_com)
-            print colored(" -- %5s : %1.3f"%(procname, hist_com.Integral()), "blue")
+            print(colored(" -- %5s : %1.3f"%(procname, hist_com.Integral()), "blue"))
             root_histos.append(hist_com)
             root_legend.AddEntry(hist_com, procname, "f" )
         elif cmd.get("type") == "data":
@@ -514,7 +519,6 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
             hist_com.SetMarkerSize (1.2)
             hist_com.SetMarkerColor(1)
             data_pts = hist_com
-            print colored(" -- %5s : %1.3f"%(procname, hist_com.Integral()), "yellow")
         else:
             root_signal.append(hist_com)
 
@@ -541,7 +545,6 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
         ranges[channel.replace("_","")][1]
     )
     stack_mc.Draw('hist,same')
-    data_pts.Rebin(5)
     data_pts.SetFillStyle(0)
     data_pts.Draw("E,same")
     # Error bars
@@ -619,11 +622,9 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
     line.SetLineStyle(7)
     line.Draw()
     ROOT.SetOwnership(line,0)
-    print(" ---------------- ")
     print(" Lumi : %1.3f" % lumi)
     print(" MC   : %1.3f" % stack_mc.GetStack().Last().Integral())
     print(" DATA : %1.3f" % data_pts.Integral())
-    print(" ---------------- ")
     c.cd(1)
     root_legend.AddEntry(systHist, "Uncert", "f"   )
     root_legend.AddEntry(data_pts, "Data"  , "lep" )
@@ -631,8 +632,8 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
 
     if not os.path.exists("plots/{}".format(options.era)):
         os.makedirs("plots/{}".format(options.era))
-    c.SaveAs("plots/{}/plot__{}_region.pdf".format(options.era, channel))
-    c.SaveAs("plots/{}/plot__{}_region.png".format(options.era, channel))
+    c.SaveAs("plots/{}/plot_met_{}_region.pdf".format(options.era, channel))
+    c.SaveAs("plots/{}/plot_met_{}_region.png".format(options.era, channel))
 
 
 def main():
@@ -645,12 +646,12 @@ def main():
     drawing("catSignal-1jet" , lumi=lumi[options.era],blind=True)
     drawing("cat3L"          , lumi=lumi[options.era])
     drawing("cat4L"          , lumi=lumi[options.era])
-    drawing("catNRB"         , lumi=lumi[options.era])
-    drawing("catDY"          , lumi=lumi[options.era])
     drawing("catEM"          , lumi=lumi[options.era])
-    drawing("njet"          , lumi=lumi[options.era])
-    drawing("balance"          , lumi=lumi[options.era])
-    drawing("phiz"          , lumi=lumi[options.era])
+    drawing("catDY"          , lumi=lumi[options.era])
+    #
+    # drawing("njet"          , lumi=lumi[options.era])
+    # drawing("balance"       , lumi=lumi[options.era])
+    # drawing("phizmet"       , lumi=lumi[options.era])
 
 if __name__=="__main__":
     main()

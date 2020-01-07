@@ -18,9 +18,9 @@ ROOT.gErrorIgnoreLevel=ROOT.kError
 
 parser = argparse.ArgumentParser("")
 parser.add_argument('-era', '--era', type=str, default="2018", help="")
-#parser.add_argument('-cfg', '--cfg', type=str, default="./config/inputs-NanoAODv5-2018.yaml", help="")
+parser.add_argument('-cfg', '--cfg', type=str, default="./config/inputs-NanoAODv5-2018.yaml", help="")
 #parser.add_argument('-cfg', '--cfg', type=str, default="./config/inputs-NanoAODv5-2017.yaml", help="")
-parser.add_argument('-cfg', '--cfg', type=str, default="./config/inputs-NanoAODv5-2016.yaml", help="")
+#parser.add_argument('-cfg', '--cfg', type=str, default="./config/inputs-NanoAODv5-2016.yaml", help="")
 parser.add_argument('-debug', '--debug', action='store_true')
 options  = parser.parse_args()
 
@@ -51,7 +51,7 @@ ratio_error_band_color     = 139
 ratio_error_band_style     = 1001
 ratio_error_band_opacity   = 0.7
 ratio_draw_signal          = False
-ratio_precision_range      = [0, 2.6]
+ratio_precision_range      = [0, 6.6]
 ratio_plot_grid            = True
 text_font                  = 43
 text_size                  = 18
@@ -178,7 +178,7 @@ def draw_cms_headlabel(label_left  ='#scale[1.2]{#bf{CMS}} #it{Preliminary}',
     tex_right.DrawLatexNDC(1-0.05,
                            1.01 - ROOT.gStyle.GetPadTopMargin(),label_right)
 
-def makeRatio(hist1,hist2,ymax=2.1,ymin=0,norm=False, isdata =False):
+def makeRatio(hist1,hist2,ymax=6,ymin=0,norm=False, isdata =False):
     """returns the ratio plot hist2/hist1
     if one of the histograms is a stack put it in as argument 2!"""
     if norm:
@@ -189,6 +189,7 @@ def makeRatio(hist1,hist2,ymax=2.1,ymin=0,norm=False, isdata =False):
             pass
     retH = hist1.Clone()
     retH.Divide(hist2)
+    retH.GetYaxis().SetRange(ymin,ymax)
     if isdata:
         for ibin in range(hist2.GetNbinsX()+1):
             ymc  = hist2.GetBinContent(ibin);
@@ -295,8 +296,8 @@ def make_stat_progression(myHisto,systematics={},
             band_min   = 1 - dw_error
             systPrecision.SetBinContent(ibin, (band_max + band_min)/2.0);
             systPrecision.SetBinError  (ibin, (band_max - band_min)/2.0);
-    statPrecision.GetYaxis().SetRangeUser(0, 3)
-    systPrecision.GetYaxis().SetRangeUser(0, 3)
+    statPrecision.GetYaxis().SetRangeUser(0, 4)
+    systPrecision.GetYaxis().SetRangeUser(0, 4)
 
     return (statPrecision, systPrecision)
 
@@ -500,7 +501,8 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
         hist_com.SetDirectory(0)
 
         if cmd.get("type") == "background" and hist_com.Integral() > 0:
-            hist_com.Rebin(5)
+	    #hist_com.Rebin(5)
+	    hist_com.SetBinErrorOption(1)#Poisson error
             stack_mc.Add(hist_com)
             print colored(" -- %5s : %1.3f"%(procname, hist_com.Integral()), "blue")
             root_histos.append(hist_com)
@@ -540,13 +542,14 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
         ranges[channel.replace("_","")][0],
         ranges[channel.replace("_","")][1]
     )
+    #data_pts.Rebin(5)
+    data_pts.SetBinErrorOption(1)
     stack_mc.Draw('hist,same')
-    data_pts.Rebin(5)
     data_pts.SetFillStyle(0)
-    data_pts.Draw("E,same")
+    data_pts.Draw("E0,same")
     # Error bars
     (herrstat, herrsyst) = draw_error_band(stack_mc.GetStack().Last(),root_histos_syt)
-    herrsyst.Draw("E2,same")
+    herrsyst.Draw("E20,same")
     # this to check the different varations
     if options.debug:
         for n, syst in root_histos_syt.items():
@@ -585,7 +588,6 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
     )
     ROOT.SetOwnership(errorHist,0)
     ROOT.SetOwnership(systHist ,0)
-
     errorHist.GetXaxis().SetTitle(_htmp_.GetXaxis().GetTitle())
     errorHist.GetYaxis().SetTitle('Data/MC')
     errorHist.GetYaxis().CenterTitle(True)
@@ -598,9 +600,8 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
     )
     customizeHisto(errorHist)
     customizeHisto(systHist)
-
-    systHist.Draw('E2')
-    errorHist.Draw('E2,same')
+    systHist.Draw('E20')
+    errorHist.Draw('E20,same')
 
     ratioHist = makeRatio(
         hist1 = data_pts,
@@ -610,6 +611,7 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
     ROOT.SetOwnership(ratioHist,0)
     ratioHist.GetXaxis().SetTitle(_htmp_.GetXaxis().GetTitle())
     ratioHist.GetYaxis().SetTitle(_htmp_.GetYaxis().GetTitle())
+    #ratioHist.GetYaxis().SetRange(0,5)
     ratioHist.Draw('same')
     line = ROOT.TLine(
         ranges[channel.replace("_","")][0],1,
@@ -631,8 +633,8 @@ def drawing(channel="_3L", ylog=True, lumi=41.5, blind=True):
 
     if not os.path.exists("plots/{}".format(options.era)):
         os.makedirs("plots/{}".format(options.era))
-    c.SaveAs("plots/{}/plot__{}_region.pdf".format(options.era, channel))
-    c.SaveAs("plots/{}/plot__{}_region.png".format(options.era, channel))
+    c.SaveAs("plots/{}/plot_MET_{}_region.pdf".format(options.era, channel))
+    c.SaveAs("plots/{}/plot_MET_{}_region.png".format(options.era, channel))
 
 
 def main():
