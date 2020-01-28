@@ -20,7 +20,7 @@ def call_makeDataCard(cmd):
 
 pool = ThreadPool(multiprocessing.cpu_count())
 results = []
-for year in [2016, 2017, 2018]:
+for year in [2017]:
     with open(options_input.format(year)) as f:
         try:
             inputs = yaml.safe_load(f.read())
@@ -28,7 +28,7 @@ for year in [2016, 2017, 2018]:
             print ("failed to open the YAML ....")
             print (exc)
     for n, sam in inputs.items():
-        if "Pseudoscalar2HDM_mH-300_ma-100" not in n: continue
+        if "ADD_MD_1_d_2" not in n: continue
         print(" ===== processing : ", n, sam, year)
         cmd_sr = "python3 makeDataCard.py --channel catSignal-0jet catSignal-1jet "
         cmd_sr += "--variable MT " if "2HDM" in n else "" 

@@ -95,10 +95,12 @@ def main():
     elif isinstance(options.channel, list):
         if np.all(["signal" in c.lower() for c in options.channel]):
             card_name = "chBSM"+options.era
+    print ("the name is:   ", signal)
+    print ("the channel is:   ", card_name)
 
     card = ftool.datacard(
-        name = signal,
-        channel= card_name
+       name = signal,
+       channel= card_name
     )
     card.shapes_headers()
 

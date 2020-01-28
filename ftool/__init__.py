@@ -65,6 +65,7 @@ class datagroup:
                     raise ValueError("%s is not a valid rootfile" % self.name)
 
                _scale = 1
+               print("[chad] --  the proc : ", _proc)
                if ptype.lower() != "data":
                     _scale  = self.xs_scale(ufile=_file, proc=_proc)
                     _scale *= kfactor
@@ -104,6 +105,10 @@ class datagroup:
                for name, roothist in histograms:
                     name = name.decode("utf-8")
                     name = name.replace(_proc, self.name)
+                    #if "ADD" in _proc:
+                    #    if ";2" in name: continue
+                    #    name = name.replace(";1", "")
+                    #else:
                     name = name.replace(";1", "")
 
                     if ptype.lower() == "signal":
@@ -115,6 +120,8 @@ class datagroup:
 
                     roothist = self.check_shape(roothist)
                     ph_hist = roothist.physt()
+                    if 'sys' not in name:
+                        print("          integral == ", np.sum(roothist.physt().frequencies))
                     newhist = physt.histogram1d.Histogram1D(
                         ph_hist.binning, 
                         ph_hist.frequencies, 
@@ -136,7 +143,8 @@ class datagroup:
                             rebinned_hist.frequencies,
                             errors2=rebinned_hist.errors2
                         )
-                        
+                    if 'sys' not in name:
+                        print("      new integral == ", np.sum(newhist.frequencies))
                     newhist.name = name
                     if name in self.nominal.keys():
                          self.nominal[name] += newhist
@@ -179,7 +187,7 @@ class datagroup:
                filtredhist.items(),
                key=lambda pair: self.channel.index(pair[0].split("_")[2])
           )
-          print("how many histos : ", iteration)
+          #print("how many histos : ", iteration)
           for name, h in iteration:
                
                if first:
@@ -207,10 +215,10 @@ class datagroup:
                     merged_var = np.concatenate([merged_var, new_error])
 
           cat = re.search('cat(.*)', name).group().split("_")[0]
-          print("binning : ", merged_bins)
-          print("centers : ", merged_cent)
-          print("histogr : ", merged_hist)
-          print("var     : ", merged_var)
+          #print("binning : ", merged_bins)
+          #print("centers : ", merged_cent)
+          #print("histogr : ", merged_hist)
+          #print("var     : ", merged_var)
           physt.binnings.NumpyBinning(merged_cent)
           physt.binnings.NumpyBinning(merged_bins)
           if len(merged_hist):
@@ -262,6 +270,9 @@ class datagroup:
           #print (proc, xsec)
           assert xsec > 0, "{} has a null cross section!".format(proc)
           scale = xsec * self.lumi/ufile["Runs"].array("genEventSumw").sum()
+          print(" [CHAD]-- genEventSumw : ", ufile["Runs"].array("genEventSumw").sum())
+          print(" [CHAD]-- xsec         : ", xsec)
+          print(" [CHAD]-- scale        : ", scale)
           return scale
 
 
@@ -289,6 +300,13 @@ class datacard:
           self.shape_file = uproot.recreate(
                "cards-{}/shapes-{}.root".format(name, channel)
           )
+        
+        
+     def check_the_shape(self, histogram):
+          for ibin in range(histogram.bin_count):
+               if histogram.frequencies[ibin] < 0:
+                    histogram.frequencies[ibin] = 0
+          return histogram
 
      def shapes_headers(self):
           filename = self.dc_name.replace("dat", "root")
@@ -373,8 +391,13 @@ class datacard:
                     h_uncert = physt.histogram1d.Histogram1D(
                          shape[0].binning, uncert, errors2=np.zeros_like(uncert)
                     )
+                    #shape_up = self.check_the_shape(self.nominal_hist - h_uncert)
+                    #shape_down = self.check_the_shape(self.nominal_hist + h_uncert)
                     shape = (self.nominal_hist - h_uncert, self.nominal_hist + h_uncert)
+                    #shape = (shape_up,shape_down)
                self.add_nuisance(process, nuisance, 1.0)
+               #shape[0] = self.check_shape(methods.from_physt(shape[0]))
+               #shape[1] = self.check_shape(methods.from_physt(shape[1])) 
                self.shape_file[process + "_" + cardname + "Up"  ] = methods.from_physt(shape[0])
                self.shape_file[process + "_" + cardname + "Down"] = methods.from_physt(shape[1])
                if False:
