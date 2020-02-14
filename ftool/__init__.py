@@ -104,8 +104,18 @@ class datagroup:
                for name, roothist in histograms:
                     name = name.decode("utf-8")
                     name = name.replace(_proc, self.name)
-                    name = name.replace(";1", "")
-
+                    print (name)
+                    if "ADD" in _proc:
+                        name = name.replace(";1", "")
+                    elif "ZH" in _proc:
+                        name = name.replace(";1", "")
+                    elif "2HDM" in _proc:
+                        name = name.replace(";1", "")
+                    else:
+                        #if "monoZ" not in name: continue
+                        #name = name.replace("monoZ",self.name)
+                        name = name.replace(";1", "")
+                    print ("finale name is :",name)   
                     if ptype.lower() == "signal":
                          name = name.replace(self.name, "signal")
                     if "catSignal-0jet" in name:
@@ -261,7 +271,11 @@ class datagroup:
           xsec *= 1000.0
           #print (proc, xsec)
           assert xsec > 0, "{} has a null cross section!".format(proc)
-          scale = xsec * self.lumi/ufile["Runs"].array("genEventSumw").sum()
+          try :
+              scale = xsec * self.lumi/ufile["Runs"].array("genEventSumw_").sum()
+          except :
+              scale = xsec * self.lumi/ufile["Runs"].array("genEventSumw").sum()
+            
           return scale
 
 
@@ -367,6 +381,10 @@ class datacard:
           ):
                if shape[0] == shape[1]:
                     shape = (2 * self.nominal_hist - shape[0], shape[1])
+               if "ZZ" in process:
+                    print ("the nominal hist is:   ", self.nominal_hist.frequencies)
+                    print ("the shape[0] hist is:   ", shape[0].frequencies)
+                    print ("the shape[1] hist is:   ", shape[1].frequencies)
                if symmetrise: 
                     uncert = np.maximum(np.abs(self.nominal_hist - shape[0]), 
                                         np.abs(self.nominal_hist - shape[1]))
