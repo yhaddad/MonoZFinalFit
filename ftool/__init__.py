@@ -43,7 +43,7 @@ def draw_ratio(nom, uph, dwh, name):
 class datagroup:
      def __init__(self, files, observable="measMET", name = "DY",
                   channel="", kfactor=1.0, ptype="background",
-                  luminosity= 1.0, rebin=1, normalise=True,
+                  luminosity= 1.0, rebin=1, rebin_piecewise=[], normalise=True,
                   xsections=None, mergecat=True, binrange=None):
           self._files  = files
           self.name    = name
@@ -55,6 +55,7 @@ class datagroup:
           self.nominal = {}
           self.systvar = set()
           self.rebin   = rebin
+          self.rebin_piecewise = rebin_piecewise
           self.binrange= binrange # droping bins the same way as droping elements in numpy arrays a[1:3]
 
           for fn in self._files:
@@ -104,18 +105,21 @@ class datagroup:
                for name, roothist in histograms:
                     name = name.decode("utf-8")
                     name = name.replace(_proc, self.name)
-                    print (name)
+                    #print (name)
                     if "ADD" in _proc:
                         name = name.replace(";1", "")
                     elif "ZH" in _proc:
                         name = name.replace(";1", "")
-                    elif "2HDM" in _proc:
+                    elif "DMSimp" in _proc:
                         name = name.replace(";1", "")
+                    #elif "2HDM" in _proc:
+                    #    name = name.replace(";1", "")
                     else:
-                        #if "monoZ" not in name: continue
-                        #name = name.replace("monoZ",self.name)
+                        #if self.ptype != "data" and "monoZ" not in name: continue #for 2018
+                        if "monoZ" not in name: continue
+                        name = name.replace("monoZ",self.name)
                         name = name.replace(";1", "")
-                    print ("finale name is :",name)   
+                    #print ("finale name is :",name)   
                     if ptype.lower() == "signal":
                          name = name.replace(self.name, "signal")
                     if "catSignal-0jet" in name:
@@ -146,7 +150,20 @@ class datagroup:
                             rebinned_hist.frequencies,
                             errors2=rebinned_hist.errors2
                         )
-                        
+                    
+                    #merge bins to specified array
+                    self.rebin_piecewise = np.array(self.rebin_piecewise,dtype=int)
+                    if len(self.rebin_piecewise)!=0:
+                        #self.rebin_piecewise = np.array(self.rebin_piecewise,dtype=int)
+                        new_freq = self.rebin_piecewise_constant(newhist.numpy_bins, newhist.frequencies, self.rebin_piecewise)
+                        new_errors2 = self.rebin_piecewise_constant(newhist.numpy_bins, newhist.errors2, self.rebin_piecewise)
+                        #print ("the new bin array is :", self.rebin_piecewise)
+                        newhist = physt.histogram1d.Histogram1D(
+                            physt.binnings.NumpyBinning(self.rebin_piecewise),
+                            new_freq,
+                            errors2 = new_errors2
+                        )
+                    
                     newhist.name = name
                     if name in self.nominal.keys():
                          self.nominal[name] += newhist
@@ -189,7 +206,7 @@ class datagroup:
                filtredhist.items(),
                key=lambda pair: self.channel.index(pair[0].split("_")[2])
           )
-          print("how many histos : ", iteration)
+          #print("how many histos : ", iteration)
           for name, h in iteration:
                
                if first:
@@ -277,7 +294,44 @@ class datagroup:
               scale = xsec * self.lumi/ufile["Runs"].array("genEventSumw").sum()
             
           return scale
+     
+     #for rebinning to new array. see: https://github.com/jhykes/rebin (rebin.py) 
+     def rebin_piecewise_constant(self,x1, y1, x2):
+          x1 = np.asarray(x1)
+          y1 = np.asarray(y1)
+          x2 = np.asarray(x2)
 
+          # the fractional bin locations of the new bins in the old bins
+          i_place = np.interp(x2, x1, np.arange(len(x1)))
+          cum_sum = np.r_[[0], np.cumsum(y1)]
+            
+          # calculate bins where lower and upper bin edges span
+          # greater than or equal to one original bin.
+          # This is the contribution from the 'intact' bins (not including the
+          # fractional start and end parts.
+          whole_bins = np.floor(i_place[1:]) - np.ceil(i_place[:-1]) >= 1.
+          start = cum_sum[np.ceil(i_place[:-1]).astype(int)]
+          finish = cum_sum[np.floor(i_place[1:]).astype(int)]
+          y2 = np.where(whole_bins, finish - start, 0.)
+          bin_loc = np.clip(np.floor(i_place).astype(int), 0, len(y1) - 1)
+        
+          # fractional contribution for bins where the new bin edges are in the same
+          # original bin.
+          same_cell = np.floor(i_place[1:]) == np.floor(i_place[:-1])
+          frac = i_place[1:] - i_place[:-1]
+          contrib = (frac * y1[bin_loc[:-1]])
+          y2 += np.where(same_cell, contrib, 0.)
+        
+          # fractional contribution for bins where the left and right bin edges are in
+          # different original bins.
+          different_cell = np.floor(i_place[1:]) > np.floor(i_place[:-1])
+          frac_left = np.ceil(i_place[:-1]) - i_place[:-1]
+          contrib = (frac_left * y1[bin_loc[:-1]])
+          frac_right = i_place[1:] - np.floor(i_place[1:])
+          contrib += (frac_right * y1[bin_loc[1:]])
+          y2 += np.where(different_cell, contrib, 0.)
+        
+          return y2
 
 
 class datacard:
@@ -372,7 +426,19 @@ class datacard:
                self.shape_file[process + "_" + cardname + "Down"] = methods.from_physt(shape[1])
           else:
                raise ValueError("add_qcd_scales: the qcd_scales should be a list!")
-
+     def add_custom_shape_nuisance(self, process, cardname, range, vmin=0.1, vmax=10):
+        nuisance = "{:<20} shape".format(cardname)
+        hist_up = self.nominal_hist.copy()
+        hist_dw = self.nominal_hist.copy()
+        #making range of values to edit histogram
+        mask = lambda h: (h.bin_right_edges> range[0]) & ((h.bin_right_edges<=range[1]))
+        hist_up.frequencies[mask(hist_up)] = hist_up.frequencies[mask(hist_up)] * vmin
+        hist_dw.frequencies[mask(hist_dw)] = hist_dw.frequencies[mask(hist_dw)] * vmax
+        self.add_nuisance(process, nuisance, 1.0)
+        
+        self.shape_file[process + "_" + cardname + "Up"  ] = methods.from_physt(hist_up)
+        self.shape_file[process + "_" + cardname + "Down"] = methods.from_physt(hist_dw)
+  
      def add_shape_nuisance(self, process, cardname, shape, symmetrise=False):
           nuisance = "{:<20} shape".format(cardname)
           if shape[0] is not None and (
@@ -381,10 +447,10 @@ class datacard:
           ):
                if shape[0] == shape[1]:
                     shape = (2 * self.nominal_hist - shape[0], shape[1])
-               if "ZZ" in process:
-                    print ("the nominal hist is:   ", self.nominal_hist.frequencies)
-                    print ("the shape[0] hist is:   ", shape[0].frequencies)
-                    print ("the shape[1] hist is:   ", shape[1].frequencies)
+               #if "ZZ" in process:
+                    #print ("the nominal hist is:   ", self.nominal_hist.frequencies)
+                    #print ("the shape[0] hist is:   ", shape[0].frequencies)
+                    #print ("the shape[1] hist is:   ", shape[1].frequencies)
                if symmetrise: 
                     uncert = np.maximum(np.abs(self.nominal_hist - shape[0]), 
                                         np.abs(self.nominal_hist - shape[1]))

@@ -31,6 +31,7 @@ def main():
     parser.add_argument("-ns" , "--nostatuncert", action="store_false")
     parser.add_argument("--binrange" ,nargs='+', type=int, default=0)
     parser.add_argument("--rebin" ,type=int, default=1)
+    parser.add_argument("--rebin_piecewise",'--list', nargs='*', help='<Required> Set flag', required=False,default=[])
     parser.add_argument("-xs" , "--xsection", type=str, default="config/xsections_ERA.yaml")
     parser.add_argument("--onexsec", action="store_true")
 
@@ -81,6 +82,7 @@ def main():
             xsections  = xsections,
             channel    = options.channel,
             rebin      = options.rebin,
+            rebin_piecewise = options.rebin_piecewise,
             binrange   = options.binrange,
             luminosity = lumis[options.era]
         )
@@ -90,8 +92,16 @@ def main():
             signal = p.name
 
     card_name = "ch"+options.era
+    print ("print is still working")
+    print (options.channel)
     if isinstance(options.channel, str):
         card_name = options.channel+options.era
+    #if "-0jet" in options.channel:
+    #    card_name = "chBSM0"+options.era
+    #if "-1jet" in options.channel:
+        
+    #    card_name = "chBSM1"+options.era
+    #    print ("the fucking thing is here show me the beans!!!!",card_name)
     elif isinstance(options.channel, list):
         if np.all(["signal" in c.lower() for c in options.channel]):
             card_name = "chBSM"+options.era
@@ -162,12 +172,34 @@ def main():
                 #card.add_nuisance(name, "{:<21}  lnN".format("EMNorm"+name),  1.2)
         elif name in ["ZZ", "WZ"]:
             if ("cat3L" in card_name) or ("cat4L" in card_name):
-                card.add_rate_param("VVnorm_" + options.era, "cat3L*", name)
-                card.add_rate_param("VVnorm_" + options.era, "cat4L*", name)
+                ##card.add_rate_param("VVnorm_" + options.era, "cat3L*", name)
+                ##card.add_rate_param("VVnorm_" + options.era, "cat4L*", name)
+                
+                card.add_custom_shape_nuisance(name, "VVnorm_0_", range=[80,200], vmin=0.9, vmax=1.1)
+                card.add_custom_shape_nuisance(name, "VVnorm_1_", range=[200,400], vmin=0.8, vmax=1.2)
+                card.add_custom_shape_nuisance(name, "VVnorm_2_", range=[400,2000], vmin=0.7, vmax=1.3)
+                #for 2HDM
+                #card.add_custom_shape_nuisance(name, "VVnorm_0_", range=[50,400], vmin=0.9, vmax=1.1)
+                #card.add_custom_shape_nuisance(name, "VVnorm_1_", range=[400,800], vmin=0.8, vmax=1.2)
+                #card.add_custom_shape_nuisance(name, "VVnorm_2_", range=[800,2000], vmin=0.7, vmax=1.3)
             elif "BSM" in card_name:
-                card.add_rate_param("VVnorm_" + options.era, "chBSM*", name)
-                card.add_rate_param("VVnorm_" + options.era, "chBSM*", name)
-                #card.add_nuisance(name, "{:<21}  lnN".format("VVNorm"+card_name),  1.2)
+                ##card.add_rate_param("VVnorm_" + options.era, "chBSM*", name)
+                ##card.add_rate_param("VVnorm_" + options.era, "chBSM*", name)
+                ##card.add_nuisance(name, "{:<21}  lnN".format("VVNorm"+card_name),  1.2)
+                
+                card.add_custom_shape_nuisance(name, "VVnorm_0_", range=[50,200], vmin=0.9, vmax=1.1)
+                card.add_custom_shape_nuisance(name, "VVnorm_1_", range=[200,400], vmin=0.8, vmax=1.2)
+                card.add_custom_shape_nuisance(name, "VVnorm_2_", range=[400,1000], vmin=0.7, vmax=1.3)
+                card.add_custom_shape_nuisance(name, "VVnorm_0_", range=[1060,1260], vmin=0.9, vmax=1.1)
+                card.add_custom_shape_nuisance(name, "VVnorm_1_", range=[1260,1460], vmin=0.8, vmax=1.2)
+                card.add_custom_shape_nuisance(name, "VVnorm_2_", range=[1460,2010], vmin=0.7, vmax=1.3)
+                #for 2HDM
+                #card.add_custom_shape_nuisance(name, "VVnorm_0_", range=[50,400], vmin=0.9, vmax=1.1)
+                #card.add_custom_shape_nuisance(name, "VVnorm_1_", range=[400,800], vmin=0.8, vmax=1.2)
+                #card.add_custom_shape_nuisance(name, "VVnorm_2_", range=[800,2000], vmin=0.7, vmax=1.3)
+                #card.add_custom_shape_nuisance(name, "VVnorm_0_", range=[2060,2520], vmin=0.9, vmax=1.1)
+                #card.add_custom_shape_nuisance(name, "VVnorm_1_", range=[2520,2920], vmin=0.8, vmax=1.2)
+                #card.add_custom_shape_nuisance(name, "VVnorm_2_", range=[2920,4020], vmin=0.7, vmax=1.3)
         elif name in ["DY"]:
             if  "BSM" in card_name:
                 card.add_rate_param("DYnorm_" + options.era, "chBSM*", name)

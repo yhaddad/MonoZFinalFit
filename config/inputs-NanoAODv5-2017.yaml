@@ -95,8 +95,8 @@ data:
 
 ZH:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/ggZH_ZToLL_HToInvisible_M125_13TeV_powheg_pythia8.root
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/ZH_ZToLL_HToInvisible_M125_13TeV_TuneCP5_powheg_pythia8.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/ggZH_ZToLL_HToInvisible_M125_13TeV_powheg_pythia8.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/ZH_ZToLL_HToInvisible_M125_13TeV_TuneCP5_powheg_pythia8.root
   type: signal
   color: 2
 
@@ -187,534 +187,533 @@ ADD_MD_3_d_7:
 #  type: signal
 Unpart_SU_0_dU_1p90_LU_15:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Unpart_ZToEEAndMuMu_SU_0_dU_1p90_LU_15_TuneCP5_13TeV_pythia8.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Unpart_ZToEEAndMuMu_SU_0_dU_1p90_LU_15_TuneCP5_13TeV_pythia8.root
   type: 
     signal
 Unpart_SU_0_dU_1p02_LU_15:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Unpart_ZToEEAndMuMu_SU_0_dU_1p02_LU_15_TuneCP5_13TeV_pythia8.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Unpart_ZToEEAndMuMu_SU_0_dU_1p02_LU_15_TuneCP5_13TeV_pythia8.root
   type: 
     signal
 Unpart_SU_0_dU_1p06_LU_15:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Unpart_ZToEEAndMuMu_SU_0_dU_1p06_LU_15_TuneCP5_13TeV_pythia8.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Unpart_ZToEEAndMuMu_SU_0_dU_1p06_LU_15_TuneCP5_13TeV_pythia8.root
   type: 
     signal
 Unpart_SU_0_dU_1p40_LU_15:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Unpart_ZToEEAndMuMu_SU_0_dU_1p40_LU_15_TuneCP5_13TeV_pythia8.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Unpart_ZToEEAndMuMu_SU_0_dU_1p40_LU_15_TuneCP5_13TeV_pythia8.root
   type: 
     signal
 Unpart_SU_0_dU_1p60_LU_15:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Unpart_ZToEEAndMuMu_SU_0_dU_1p60_LU_15_TuneCP5_13TeV_pythia8.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Unpart_ZToEEAndMuMu_SU_0_dU_1p60_LU_15_TuneCP5_13TeV_pythia8.root
   type: 
     signal
 Unpart_SU_0_dU_1p80_LU_15:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Unpart_ZToEEAndMuMu_SU_0_dU_1p80_LU_15_TuneCP5_13TeV_pythia8.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Unpart_ZToEEAndMuMu_SU_0_dU_1p80_LU_15_TuneCP5_13TeV_pythia8.root
   type: 
     signal
 Unpart_SU_0_dU_1p09_LU_15:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Unpart_ZToEEAndMuMu_SU_0_dU_1p09_LU_15_TuneCP5_13TeV_pythia8.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Unpart_ZToEEAndMuMu_SU_0_dU_1p09_LU_15_TuneCP5_13TeV_pythia8.root
   type: 
     signal
 Unpart_SU_0_dU_1p50_LU_15:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Unpart_ZToEEAndMuMu_SU_0_dU_1p50_LU_15_TuneCP5_13TeV_pythia8.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Unpart_ZToEEAndMuMu_SU_0_dU_1p50_LU_15_TuneCP5_13TeV_pythia8.root
   type: 
     signal
 Unpart_SU_0_dU_1p70_LU_15:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Unpart_ZToEEAndMuMu_SU_0_dU_1p70_LU_15_TuneCP5_13TeV_pythia8.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Unpart_ZToEEAndMuMu_SU_0_dU_1p70_LU_15_TuneCP5_13TeV_pythia8.root
   type: 
     signal
 Unpart_SU_0_dU_1p01_LU_15:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Unpart_ZToEEAndMuMu_SU_0_dU_1p01_LU_15_TuneCP5_13TeV_pythia8.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Unpart_ZToEEAndMuMu_SU_0_dU_1p01_LU_15_TuneCP5_13TeV_pythia8.root
   type: 
     signal
 Unpart_SU_0_dU_1p10_LU_15:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Unpart_ZToEEAndMuMu_SU_0_dU_1p10_LU_15_TuneCP5_13TeV_pythia8.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Unpart_ZToEEAndMuMu_SU_0_dU_1p10_LU_15_TuneCP5_13TeV_pythia8.root
   type: 
     signal
 Unpart_SU_0_dU_1p30_LU_15:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Unpart_ZToEEAndMuMu_SU_0_dU_1p30_LU_15_TuneCP5_13TeV_pythia8.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Unpart_ZToEEAndMuMu_SU_0_dU_1p30_LU_15_TuneCP5_13TeV_pythia8.root
   type: 
     signal
 Unpart_SU_0_dU_1p04_LU_15:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Unpart_ZToEEAndMuMu_SU_0_dU_1p04_LU_15_TuneCP5_13TeV_pythia8.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Unpart_ZToEEAndMuMu_SU_0_dU_1p04_LU_15_TuneCP5_13TeV_pythia8.root
   type: 
     signal
 Unpart_SU_0_dU_2p20_LU_15:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Unpart_ZToEEAndMuMu_SU_0_dU_2p20_LU_15_TuneCP5_13TeV_pythia8.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Unpart_ZToEEAndMuMu_SU_0_dU_2p20_LU_15_TuneCP5_13TeV_pythia8.root
   type: 
     signal
 Unpart_SU_0_dU_1p20_LU_15:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Unpart_ZToEEAndMuMu_SU_0_dU_1p20_LU_15_TuneCP5_13TeV_pythia8.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Unpart_ZToEEAndMuMu_SU_0_dU_1p20_LU_15_TuneCP5_13TeV_pythia8.root
   type: 
     signal
 Unpart_SU_0_dU_2p00_LU_15:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Unpart_ZToEEAndMuMu_SU_0_dU_2p00_LU_15_TuneCP5_13TeV_pythia8.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Unpart_ZToEEAndMuMu_SU_0_dU_2p00_LU_15_TuneCP5_13TeV_pythia8.root
   type: 
     signal
 Pseudoscalar2HDM_mH-700_ma-400:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-700_ma-400.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-700_ma-400.root
   type: signal
 Pseudoscalar2HDM_mH-1000_ma-100:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-1000_ma-100.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-1000_ma-100.root
   type: signal
 Pseudoscalar2HDM_mH-800_ma-500:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-800_ma-500.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-800_ma-500.root
   type: signal
 Pseudoscalar2HDM_mH-1400_ma-100:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-1400_ma-100.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-1400_ma-100.root
   type: signal
 Pseudoscalar2HDM_mH-200_ma-100:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-200_ma-100.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-200_ma-100.root
   type: signal
 Pseudoscalar2HDM_mH-600_ma-100:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-600_ma-100.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-600_ma-100.root
   type: signal
 Pseudoscalar2HDM_mH-500_ma-300:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-500_ma-300.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-500_ma-300.root
   type: signal
 Pseudoscalar2HDM_mH-500_ma-100:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-500_ma-100.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-500_ma-100.root
   type: signal
 Pseudoscalar2HDM_mH-1200_ma-400:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-1200_ma-400.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-1200_ma-400.root
   type: signal
 Pseudoscalar2HDM_mH-900_ma-200:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-900_ma-200.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-900_ma-200.root
   type: signal
 Pseudoscalar2HDM_mH-600_ma-300:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-600_ma-300.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-600_ma-300.root
   type: signal
 Pseudoscalar2HDM_mH-1000_ma-300:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-1000_ma-300.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-1000_ma-300.root
   type: signal
 Pseudoscalar2HDM_mH-1400_ma-300:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-1400_ma-300.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-1400_ma-300.root
   type: signal
 Pseudoscalar2HDM_mH-300_ma-200:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-300_ma-200.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-300_ma-200.root
   type: signal
 Pseudoscalar2HDM_mH-700_ma-200:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-700_ma-200.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-700_ma-200.root
   type: signal
 Pseudoscalar2HDM_mH-800_ma-300:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-800_ma-300.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-800_ma-300.root
   type: signal
 Pseudoscalar2HDM_mH-1400_ma-500:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-1400_ma-500.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-1400_ma-500.root
   type: signal
 Pseudoscalar2HDM_mH-400_ma-200:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-400_ma-200.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-400_ma-200.root
   type: signal
 Pseudoscalar2HDM_mH-800_ma-100:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-800_ma-100.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-800_ma-100.root
   type: signal
 Pseudoscalar2HDM_mH-1000_ma-500:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-1000_ma-500.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-1000_ma-500.root
   type: signal
 Pseudoscalar2HDM_mH-1200_ma-200:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-1200_ma-200.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-1200_ma-200.root
   type: signal
 Pseudoscalar2HDM_mH-900_ma-400:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-900_ma-400.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-900_ma-400.root
   type: signal
 Pseudoscalar2HDM_mH-600_ma-500:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-600_ma-500.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-600_ma-500.root
   type: signal
 Pseudoscalar2HDM_mH-900_ma-100:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-900_ma-100.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-900_ma-100.root
   type: signal
 Pseudoscalar2HDM_mH-500_ma-200:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-500_ma-200.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-500_ma-200.root
   type: signal
 Pseudoscalar2HDM_mH-700_ma-500:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-700_ma-500.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-700_ma-500.root
   type: signal
 Pseudoscalar2HDM_mH-800_ma-400:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-800_ma-400.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-800_ma-400.root
   type: signal
 Pseudoscalar2HDM_mH-1400_ma-200:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-1400_ma-200.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-1400_ma-200.root
   type: signal
 Pseudoscalar2HDM_mH-1000_ma-200:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-1000_ma-200.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-1000_ma-200.root
   type: signal
 Pseudoscalar2HDM_mH-1200_ma-500:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-1200_ma-500.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-1200_ma-500.root
   type: signal
 Pseudoscalar2HDM_mH-900_ma-300:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-900_ma-300.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-900_ma-300.root
   type: signal
 Pseudoscalar2HDM_mH-600_ma-200:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-600_ma-200.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-600_ma-200.root
   type: signal
 Pseudoscalar2HDM_mH-700_ma-300:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-700_ma-300.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-700_ma-300.root
   type: signal
 Pseudoscalar2HDM_mH-800_ma-200:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-800_ma-200.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-800_ma-200.root
   type: signal
 Pseudoscalar2HDM_mH-400_ma-100:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-400_ma-100.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-400_ma-100.root
   type: signal
 Pseudoscalar2HDM_mH-500_ma-400:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-500_ma-400.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-500_ma-400.root
   type: signal
 Pseudoscalar2HDM_mH-1200_ma-100:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-1200_ma-100.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-1200_ma-100.root
   type: signal
 Pseudoscalar2HDM_mH-1200_ma-300:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-1200_ma-300.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-1200_ma-300.root
   type: signal
 Pseudoscalar2HDM_mH-900_ma-500:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-900_ma-500.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-900_ma-500.root
   type: signal
 Pseudoscalar2HDM_mH-600_ma-400:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-600_ma-400.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-600_ma-400.root
   type: signal
 Pseudoscalar2HDM_mH-400_ma-300:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-400_ma-300.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-400_ma-300.root
   type: signal
 Pseudoscalar2HDM_mH-700_ma-100:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-700_ma-100.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-700_ma-100.root
   type: signal
 Pseudoscalar2HDM_mH-1000_ma-400:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-1000_ma-400.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-1000_ma-400.root
   type: signal
 Pseudoscalar2HDM_mH-1400_ma-400:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-1400_ma-400.root
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-1400_ma-400.root
   type: signal
 Pseudoscalar2HDM_mH-300_ma-100:
   files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-300_ma-100.root
-  type: signal
-DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-400:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-400.root
-  type: signal
-DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-490:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-490.root
-  type: signal
-DMSimp_MonoZLL_Pseudo_TuneCP5_GQ1p0_GDM1p0_MY0-400_mxd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_Pseudo_TuneCP5_GQ1p0_GDM1p0_MY0-400_mxd-1.root
-  type: signal
-DMSimp_MonoZLL_Pseudo_TuneCP5_GQ1p0_GDM1p0_MY0-300_mxd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_Pseudo_TuneCP5_GQ1p0_GDM1p0_MY0-300_mxd-1.root
-  type: signal
-DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-10_MXd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-10_MXd-1.root
-  type: signal
-DMSimp_MonoZLL_Pseudo_TuneCP5_GQ1p0_GDM1p0_MY0-250_mxd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_Pseudo_TuneCP5_GQ1p0_GDM1p0_MY0-250_mxd-1.root
-  type: signal
-DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-1.root
-  type: signal
-DMSimp_MonoZLL_Pseudo_TuneCP5_GQ1p0_GDM1p0_MY0-200_mxd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_Pseudo_TuneCP5_GQ1p0_GDM1p0_MY0-200_mxd-1.root
-  type: signal
-DMSimp_MonoZLL_Scalar_TuneCP5_GQ1p0_GDM1p0_MY0-1000_mxd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_Scalar_TuneCP5_GQ1p0_GDM1p0_MY0-1000_mxd-1.root
-  type: signal
-DMSimp_MonoZLL_Pseudo_TuneCP5_GQ1p0_GDM1p0_MY0-500_mxd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_Pseudo_TuneCP5_GQ1p0_GDM1p0_MY0-500_mxd-1.root
-  type: signal
-DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1750_MXd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1750_MXd-1.root
-  type: signal
-DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-750_MXd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-750_MXd-1.root
-  type: signal
-DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-2000_MXd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-2000_MXd-1.root
-  type: signal
-DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-250_MXd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-250_MXd-1.root
-  type: signal
-DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-600:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-600.root
-  type: signal
-DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-100_MXd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-100_MXd-1.root
-  type: signal
-DMSimp_MonoZLL_Pseudo_TuneCP5_GQ1p0_GDM1p0_MY0-350_mxd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_Pseudo_TuneCP5_GQ1p0_GDM1p0_MY0-350_mxd-1.root
-  type: signal
-DMSimp_MonoZLL_Pseudo_TuneCP5_GQ1p0_GDM1p0_MY0-450_mxd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_Pseudo_TuneCP5_GQ1p0_GDM1p0_MY0-450_mxd-1.root
-  type: signal
-DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-350:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-350.root
-  type: signal
-DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-50:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-50.root
-  type: signal
-DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1250_MXd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1250_MXd-1.root
-  type: signal
-DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-300:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-300.root
-  type: signal
-DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-200:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-200.root
-  type: signal
-DMSimp_MonoZLL_Scalar_TuneCP5_GQ1p0_GDM1p0_MY0-150_mxd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_Scalar_TuneCP5_GQ1p0_GDM1p0_MY0-150_mxd-1.root
-  type: signal
-DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-510:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-510.root
-  type: signal
-DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-100:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-100.root
-  type: signal
-DMSimp_MonoZLL_Scalar_TuneCP5_GQ1p0_GDM1p0_MY0-50_mxd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_Scalar_TuneCP5_GQ1p0_GDM1p0_MY0-50_mxd-1.root
-  type: signal
-DMSimp_MonoZLL_Scalar_TuneCP5_GQ1p0_GDM1p0_MY0-100_mxd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_Scalar_TuneCP5_GQ1p0_GDM1p0_MY0-100_mxd-1.root
-  type: signal
-DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-450:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-450.root
-  type: signal
-DMSimp_MonoZLL_Scalar_TuneCP5_GQ1p0_GDM1p0_MY0-750_mxd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_Scalar_TuneCP5_GQ1p0_GDM1p0_MY0-750_mxd-1.root
-  type: signal
-DMSimp_MonoZLL_Pseudo_TuneCP5_GQ1p0_GDM1p0_MY0-50_mxd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_Pseudo_TuneCP5_GQ1p0_GDM1p0_MY0-50_mxd-1.root
-  type: signal
-DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1500_MXd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1500_MXd-1.root
-  type: signal
-DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-10:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-10.root
-  type: signal
-DMSimp_MonoZLL_Scalar_TuneCP5_GQ1p0_GDM1p0_MY0-300_mxd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_Scalar_TuneCP5_GQ1p0_GDM1p0_MY0-300_mxd-1.root
-  type: signal
-DMSimp_MonoZLL_Scalar_TuneCP5_GQ1p0_GDM1p0_MY0-400_mxd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_Scalar_TuneCP5_GQ1p0_GDM1p0_MY0-400_mxd-1.root
-  type: signal
-DMSimp_MonoZLL_Scalar_TuneCP5_GQ1p0_GDM1p0_MY0-250_mxd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_Scalar_TuneCP5_GQ1p0_GDM1p0_MY0-250_mxd-1.root
-  type: signal
-DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-400:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-400.root
-  type: signal
-DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-490:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-490.root
-  type: signal
-DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-50:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-50.root
-  type: signal
-DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-1.root
-  type: signal
-DMSimp_MonoZLL_Pseudo_TuneCP5_GQ1p0_GDM1p0_MY0-1000_mxd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_Pseudo_TuneCP5_GQ1p0_GDM1p0_MY0-1000_mxd-1.root
-  type: signal
-DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-600:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-600.root
-  type: signal
-DMSimp_MonoZLL_Scalar_TuneCP5_GQ1p0_GDM1p0_MY0-500_mxd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_Scalar_TuneCP5_GQ1p0_GDM1p0_MY0-500_mxd-1.root
-  type: signal
-DMSimp_MonoZLL_Scalar_TuneCP5_GQ1p0_GDM1p0_MY0-200_mxd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_Scalar_TuneCP5_GQ1p0_GDM1p0_MY0-200_mxd-1.root
-  type: signal
-DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1750_MXd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1750_MXd-1.root
-  type: signal
-DMSimp_MonoZLL_NLO_Axial_TuneCP6_GQ0p25_GDM1p0_MY1-500_MXd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP6_GQ0p25_GDM1p0_MY1-500_MXd-1.root
-  type: signal
-DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-2000_MXd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-2000_MXd-1.root
-  type: signal
-DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-10:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-10.root
-  type: signal
-DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-350:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-350.root
-  type: signal
-DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-10_MXd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-10_MXd-1.root
-  type: signal
-DMSimp_MonoZLL_Scalar_TuneCP5_GQ1p0_GDM1p0_MY0-450_mxd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_Scalar_TuneCP5_GQ1p0_GDM1p0_MY0-450_mxd-1.root
-  type: signal
-DMSimp_MonoZLL_Scalar_TuneCP5_GQ1p0_GDM1p0_MY0-350_mxd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_Scalar_TuneCP5_GQ1p0_GDM1p0_MY0-350_mxd-1.root
-  type: signal
-DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-300:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-300.root
-  type: signal
-DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-200:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-200.root
-  type: signal
-DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-100_MXd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-100_MXd-1.root
-  type: signal
-DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1250_MXd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1250_MXd-1.root
-  type: signal
-DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-250_MXd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-250_MXd-1.root
-  type: signal
-DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-510:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-510.root
-  type: signal
-DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-750_MXd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-750_MXd-1.root
-  type: signal
-DMSimp_MonoZLL_Pseudo_TuneCP5_GQ1p0_GDM1p0_MY0-150_mxd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_Pseudo_TuneCP5_GQ1p0_GDM1p0_MY0-150_mxd-1.root
-  type: signal
-DMSimp_MonoZLL_Scalar_TuneCP5_GQ1p0_GDM1p0_MY0-10_mxd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_Scalar_TuneCP5_GQ1p0_GDM1p0_MY0-10_mxd-1.root
-  type: signal
-DMSimp_MonoZLL_Pseudo_TuneCP5_GQ1p0_GDM1p0_MY0-100_mxd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_Pseudo_TuneCP5_GQ1p0_GDM1p0_MY0-100_mxd-1.root
-  type: signal
-DMSimp_MonoZLL_Pseudo_TuneCP5_GQ1p0_GDM1p0_MY0-750_mxd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_Pseudo_TuneCP5_GQ1p0_GDM1p0_MY0-750_mxd-1.root
-  type: signal
-DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-100:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-100.root
-  type: signal
-DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1500_MXd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1500_MXd-1.root
-  type: signal
-DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-500_MXd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-500_MXd-1.root
-  type: signal
-DMSimp_MonoZLL_Pseudo_TuneCP5_GQ1p0_GDM1p0_MY0-10_mxd-1:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_Pseudo_TuneCP5_GQ1p0_GDM1p0_MY0-10_mxd-1.root
-  type: signal
-DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-450:
-  files:
-    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-450.root
-  type: signal
-#
+    - /eos/cms/store/group/phys_exotica/monoZ/Exorcism2017_WS_phi_bal_Fixv2/merged/Pseudoscalar2HDM_MonoZLL_mScan_mH-300_ma-100.root
+  type: signal
+DMSimp_MonoZLL_NLO_Axial_1000_MXd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-1.root
+   type: signal
+DMSimp_MonoZLL_NLO_Axial_1000_MXd-10:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-10.root
+   type: signal
+DMSimp_MonoZLL_NLO_Axial_1000_MXd-100:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-100.root
+   type: signal
+DMSimp_MonoZLL_NLO_Axial_1000_MXd-200:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-200.root
+   type: signal
+DMSimp_MonoZLL_NLO_Axial_1000_MXd-300:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-300.root
+   type: signal
+DMSimp_MonoZLL_NLO_Axial_1000_MXd-350:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-350.root
+   type: signal
+DMSimp_MonoZLL_NLO_Axial_1000_MXd-400:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-400.root
+   type: signal
+DMSimp_MonoZLL_NLO_Axial_1000_MXd-450:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-450.root
+   type: signal
+DMSimp_MonoZLL_NLO_Axial_1000_MXd-490:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-490.root
+   type: signal
+DMSimp_MonoZLL_NLO_Axial_1000_MXd-50:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-50.root
+   type: signal
+DMSimp_MonoZLL_NLO_Axial_1000_MXd-510:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-510.root
+   type: signal
+DMSimp_MonoZLL_NLO_Axial_1000_MXd-600:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-600.root
+   type: signal
+DMSimp_MonoZLL_NLO_Axial_100_MXd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-100_MXd-1.root
+   type: signal
+DMSimp_MonoZLL_NLO_Axial_10_MXd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-10_MXd-1.root
+   type: signal
+DMSimp_MonoZLL_NLO_Axial_1250_MXd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1250_MXd-1.root
+   type: signal
+DMSimp_MonoZLL_NLO_Axial_1500_MXd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1500_MXd-1.root
+   type: signal
+DMSimp_MonoZLL_NLO_Axial_1750_MXd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-1750_MXd-1.root
+   type: signal
+DMSimp_MonoZLL_NLO_Axial_2000_MXd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-2000_MXd-1.root
+   type: signal
+DMSimp_MonoZLL_NLO_Axial_250_MXd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-250_MXd-1.root
+   type: signal
+DMSimp_MonoZLL_NLO_Axial_750_MXd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP3_GQ0p25_GDM1p0_MY1-750_MXd-1.root
+   type: signal
+DMSimp_MonoZLL_NLO_Axial_500_MXd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Axial_TuneCP6_GQ0p25_GDM1p0_MY1-500_MXd-1.root
+   type: signal
+DMSimp_MonoZLL_NLO_Vector_1000_MXd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-1.root
+   type: signal
+DMSimp_MonoZLL_NLO_Vector_1000_MXd-10:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-10.root
+   type: signal
+DMSimp_MonoZLL_NLO_Vector_1000_MXd-100:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-100.root
+   type: signal
+DMSimp_MonoZLL_NLO_Vector_1000_MXd-200:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-200.root
+   type: signal
+DMSimp_MonoZLL_NLO_Vector_1000_MXd-300:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-300.root
+   type: signal
+DMSimp_MonoZLL_NLO_Vector_1000_MXd-350:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-350.root
+   type: signal
+DMSimp_MonoZLL_NLO_Vector_1000_MXd-400:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-400.root
+   type: signal
+DMSimp_MonoZLL_NLO_Vector_1000_MXd-450:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-450.root
+   type: signal
+DMSimp_MonoZLL_NLO_Vector_1000_MXd-490:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-490.root
+   type: signal
+DMSimp_MonoZLL_NLO_Vector_1000_MXd-50:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-50.root
+   type: signal
+DMSimp_MonoZLL_NLO_Vector_1000_MXd-510:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-510.root
+   type: signal
+DMSimp_MonoZLL_NLO_Vector_1000_MXd-600:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1000_MXd-600.root
+   type: signal
+DMSimp_MonoZLL_NLO_Vector_100_MXd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-100_MXd-1.root
+   type: signal
+DMSimp_MonoZLL_NLO_Vector_10_MXd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-10_MXd-1.root
+   type: signal
+DMSimp_MonoZLL_NLO_Vector_1250_MXd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1250_MXd-1.root
+   type: signal
+DMSimp_MonoZLL_NLO_Vector_1500_MXd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1500_MXd-1.root
+   type: signal
+DMSimp_MonoZLL_NLO_Vector_1750_MXd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-1750_MXd-1.root
+   type: signal
+DMSimp_MonoZLL_NLO_Vector_2000_MXd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-2000_MXd-1.root
+   type: signal
+DMSimp_MonoZLL_NLO_Vector_250_MXd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-250_MXd-1.root
+   type: signal
+DMSimp_MonoZLL_NLO_Vector_500_MXd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-500_MXd-1.root
+   type: signal
+DMSimp_MonoZLL_NLO_Vector_750_MXd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_NLO_Vector_TuneCP3_GQ0p25_GDM1p0_MY1-750_MXd-1.root
+   type: signal
+DMSimp_MonoZLL_Pseudo_1000_mxd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_Pseudo_TuneCP3_madgraph_pythia8_GQ1p0_GDM1p0_MY0-1000_mxd-1.root
+   type: signal
+DMSimp_MonoZLL_Pseudo_100_mxd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_Pseudo_TuneCP3_madgraph_pythia8_GQ1p0_GDM1p0_MY0-100_mxd-1.root
+   type: signal
+DMSimp_MonoZLL_Pseudo_10_mxd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_Pseudo_TuneCP3_madgraph_pythia8_GQ1p0_GDM1p0_MY0-10_mxd-1.root
+   type: signal
+DMSimp_MonoZLL_Pseudo_150_mxd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_Pseudo_TuneCP3_madgraph_pythia8_GQ1p0_GDM1p0_MY0-150_mxd-1.root
+   type: signal
+DMSimp_MonoZLL_Pseudo_200_mxd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_Pseudo_TuneCP3_madgraph_pythia8_GQ1p0_GDM1p0_MY0-200_mxd-1.root
+   type: signal
+DMSimp_MonoZLL_Pseudo_250_mxd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_Pseudo_TuneCP3_madgraph_pythia8_GQ1p0_GDM1p0_MY0-250_mxd-1.root
+   type: signal
+DMSimp_MonoZLL_Pseudo_300_mxd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_Pseudo_TuneCP3_madgraph_pythia8_GQ1p0_GDM1p0_MY0-300_mxd-1.root
+   type: signal
+DMSimp_MonoZLL_Pseudo_350_mxd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_Pseudo_TuneCP3_madgraph_pythia8_GQ1p0_GDM1p0_MY0-350_mxd-1.root
+   type: signal
+DMSimp_MonoZLL_Pseudo_400_mxd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_Pseudo_TuneCP3_madgraph_pythia8_GQ1p0_GDM1p0_MY0-400_mxd-1.root
+   type: signal
+DMSimp_MonoZLL_Pseudo_450_mxd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_Pseudo_TuneCP3_madgraph_pythia8_GQ1p0_GDM1p0_MY0-450_mxd-1.root
+   type: signal
+DMSimp_MonoZLL_Pseudo_500_mxd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_Pseudo_TuneCP3_madgraph_pythia8_GQ1p0_GDM1p0_MY0-500_mxd-1.root
+   type: signal
+DMSimp_MonoZLL_Pseudo_50_mxd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_Pseudo_TuneCP3_madgraph_pythia8_GQ1p0_GDM1p0_MY0-50_mxd-1.root
+   type: signal
+DMSimp_MonoZLL_Pseudo_750_mxd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_Pseudo_TuneCP3_madgraph_pythia8_GQ1p0_GDM1p0_MY0-750_mxd-1.root
+   type: signal
+DMSimp_MonoZLL_Scalar_1000_mxd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_Scalar_TuneCP3_madgraph_pythia8_GQ1p0_GDM1p0_MY0-1000_mxd-1.root
+   type: signal
+DMSimp_MonoZLL_Scalar_100_mxd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_Scalar_TuneCP3_madgraph_pythia8_GQ1p0_GDM1p0_MY0-100_mxd-1.root
+   type: signal
+DMSimp_MonoZLL_Scalar_10_mxd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_Scalar_TuneCP3_madgraph_pythia8_GQ1p0_GDM1p0_MY0-10_mxd-1.root
+   type: signal
+DMSimp_MonoZLL_Scalar_150_mxd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_Scalar_TuneCP3_madgraph_pythia8_GQ1p0_GDM1p0_MY0-150_mxd-1.root
+   type: signal
+DMSimp_MonoZLL_Scalar_200_mxd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_Scalar_TuneCP3_madgraph_pythia8_GQ1p0_GDM1p0_MY0-200_mxd-1.root
+   type: signal
+DMSimp_MonoZLL_Scalar_250_mxd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_Scalar_TuneCP3_madgraph_pythia8_GQ1p0_GDM1p0_MY0-250_mxd-1.root
+   type: signal
+DMSimp_MonoZLL_Scalar_300_mxd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_Scalar_TuneCP3_madgraph_pythia8_GQ1p0_GDM1p0_MY0-300_mxd-1.root
+   type: signal
+DMSimp_MonoZLL_Scalar_350_mxd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_Scalar_TuneCP3_madgraph_pythia8_GQ1p0_GDM1p0_MY0-350_mxd-1.root
+   type: signal
+DMSimp_MonoZLL_Scalar_400_mxd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_Scalar_TuneCP3_madgraph_pythia8_GQ1p0_GDM1p0_MY0-400_mxd-1.root
+   type: signal
+DMSimp_MonoZLL_Scalar_450_mxd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_Scalar_TuneCP3_madgraph_pythia8_GQ1p0_GDM1p0_MY0-450_mxd-1.root
+   type: signal
+DMSimp_MonoZLL_Scalar_500_mxd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_Scalar_TuneCP3_madgraph_pythia8_GQ1p0_GDM1p0_MY0-500_mxd-1.root
+   type: signal
+DMSimp_MonoZLL_Scalar_50_mxd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_Scalar_TuneCP3_madgraph_pythia8_GQ1p0_GDM1p0_MY0-50_mxd-1.root
+   type: signal
+DMSimp_MonoZLL_Scalar_750_mxd-1:
+   files:
+     - /eos/cms/store/group/phys_exotica/monoZ/DarkPhoenix_2017/merged/DMSimp_MonoZLL_Scalar_TuneCP3_madgraph_pythia8_GQ1p0_GDM1p0_MY0-750_mxd-1.root
+   type: signal

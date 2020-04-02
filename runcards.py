@@ -4,6 +4,7 @@ import os
 import multiprocessing
 import subprocess
 import shlex
+import numpy as np
 
 
 options_input = "config/inputs-NanoAODv5-{}.yaml"
@@ -20,7 +21,9 @@ def call_makeDataCard(cmd):
 
 pool = ThreadPool(multiprocessing.cpu_count())
 results = []
-for year in [2018]:
+new_bins = '0 100 200 250 300 350 400 500 600 700 1000 2000 '
+#for year in [2018]:
+for year in [2016,2017]:
     with open(options_input.format(year)) as f:
         try:
             inputs = yaml.safe_load(f.read())
@@ -28,25 +31,32 @@ for year in [2018]:
             print ("failed to open the YAML ....")
             print (exc)
     for n, sam in inputs.items():
-        if "ZH" not in n: continue
+        if "DMSimp_MonoZLL_Scalar" not in n: continue
         print(" ===== processing : ", n, sam, year)
         cmd_sr = "python3 makeDataCard.py --channel catSignal-0jet catSignal-1jet "
+        #cmd_sr = "python3 makeDataCard.py --channel catSignal-1jet "
         cmd_sr += "--variable MT " if "2HDM" in n else "" 
         cmd_sr += "--stack {signal} ZZ WZ WW VVV TOP DY data "
+        cmd_sr += "--rebin_piecewise " + new_bins if "2HDM" in n else "" 
         cmd_sr += "--input=config/inputs-NanoAODv5-{era}.yaml --era={era}"
         cmd_sr = cmd_sr.format(signal=n, era=year)
         
         cmd_3l = "python3 makeDataCard.py --channel cat3L "
+        cmd_3l += "--variable MT " if "2HDM" in n else "" 
         cmd_3l += "--stack {signal} ZZ WZ WW VVV TOP DY data --binrange 1 20 "
+        cmd_3l += "--rebin_piecewise " + new_bins if "2HDM" in n else "" 
         cmd_3l += "--input=config/inputs-NanoAODv5-{era}.yaml --era={era}"
         cmd_3l = cmd_3l.format(signal=n, era=year)
         
         cmd_4l = "python3 makeDataCard.py --channel cat4L "
+        cmd_4l += "--variable MT " if "2HDM" in n else "" 
         cmd_4l += "--stack {signal} ZZ WZ WW VVV TOP DY data --binrange 1 20 "
+        cmd_4l += "--rebin_piecewise " + new_bins  if "2HDM" in n else "" 
         cmd_4l += "--input=config/inputs-NanoAODv5-{era}.yaml --era={era}"
         cmd_4l = cmd_4l.format(signal=n, era=year)
         
         cmd_em = "python3 makeDataCard.py --channel catEM "
+        cmd_em += "--variable MT " if "2HDM" in n else "" 
         cmd_em += "--stack {signal} ZZ WZ WW VVV TOP DY data --binrange 1 20 --rebin=4 "
         cmd_em += "--input=config/inputs-NanoAODv5-{era}.yaml --era={era}"
         cmd_em = cmd_em.format(signal=n, era=year)
