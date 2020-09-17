@@ -16,8 +16,8 @@ ROOT.gROOT.ProcessLine(".x rootlogon.C")
 ROOT.gErrorIgnoreLevel=ROOT.kError
 
 parser = argparse.ArgumentParser("")
-parser.add_argument('-era', '--era', type=str, default="2018", help="")
-parser.add_argument('-cfg', '--cfg', type=str, default="./config/inputs-NanoAODv5-2018.yaml", help="")
+parser.add_argument('-era', '--era', type=str, default="2016", help="")
+parser.add_argument('-cfg', '--cfg', type=str, default="./config/inputs-NanoAODv5-2016.yaml", help="")
 parser.add_argument('-debug', '--debug', action='store_true')
 options  = parser.parse_args()
 
@@ -60,9 +60,9 @@ text_size                  = 18
 #     # "jer"
 # ]
 systematics_sources = [
-    # "puWeight", "PDF", "MuonSF", "ElecronSF", "EWK",
-    # "nvtxWeight","TriggerSFWeight","btagEventWeight",
-    # "QCDScale0w", "QCDScale1w", "QCDScale2w"
+     "puWeight", "PDF", "MuonSF", "ElecronSF", "EWK",
+     "nvtxWeight","TriggerSFWeight","btagEventWeight",
+     "QCDScale0w", "QCDScale1w", "QCDScale2w"
 ]
 
 observable = {
@@ -643,10 +643,10 @@ def main():
     }
     drawing("catSignal-0jet" , lumi=lumi[options.era],blind=True)
     drawing("catSignal-1jet" , lumi=lumi[options.era],blind=True)
-    # drawing("cat3L"          , lumi=lumi[options.era])
-    # drawing("cat4L"          , lumi=lumi[options.era])
-    # drawing("catEM"          , lumi=lumi[options.era])
-    # drawing("catDY"          , lumi=lumi[options.era])
+    drawing("cat3L"          , lumi=lumi[options.era])
+    drawing("cat4L"          , lumi=lumi[options.era])
+    drawing("catEM"          , lumi=lumi[options.era])
+    drawing("catDY"          , lumi=lumi[options.era])
     #
     # drawing("njet"          , lumi=lumi[options.era])
     # drawing("balance"       , lumi=lumi[options.era])

@@ -7,8 +7,8 @@ from termcolor import colored
 ROOT.gErrorIgnoreLevel = ROOT.kInfo + 1
 
 
-indir = "/eos/cms/store/group/phys_exotica/monoZ/LionKing2017"
-outdir = "/eos/cms/store/group/phys_exotica/monoZ/LionKing2017/merged2017"
+indir = "/eos/user/c/cmsdas/long-exercises/MonoZ/CMSDAS_NTuples_WS2"
+outdir = "/eos/user/c/cmsdas/long-exercises/MonoZ/CMSDAS_NTuples_WS2/merged"
 
 keep_branches = [
     "weight", "xsecscale"
@@ -98,8 +98,8 @@ def main():
         print colored(" -- " + sample, "blue")
         if "merged" in sample:
             continue
-        if pattern not in sample:
-            continue
+        #if pattern not in sample:
+        #    continue
         in_files = glob.glob("{indir}/{sample}/*.root".format(sample=sample, indir=indir))
         out_file = "{outdir}/{sample}.root".format(sample=sample, outdir=outdir)
         if len(in_files) == 0:
