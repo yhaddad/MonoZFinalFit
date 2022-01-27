@@ -1,4 +1,4 @@
-# 🚧 Final Fit code for the CMS MonoZ analysis (DEPRICATED) 🚧
+# 🚧 (DEPRECATED) CMS MonoZ analysis final fit 🚧
 Code used to extract limits of the CMS MonoZ analysis[^1].
 
 Although this code is deprecated, some analyses still use it for signal extraction, such as [SUEPLimits](https://github.com/SUEPPhysics/SUEPLimits).
